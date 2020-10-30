@@ -1,5 +1,4 @@
 #include "Object.h"
-#include "TextureHandler.h"
 
 Object::Object(Vector3D pos, Vector3D scale, Vector3D rotation){
     position = pos;
