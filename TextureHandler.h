@@ -6,6 +6,8 @@
 #include <stdarg.h>
 #include <string.h>
 #include <math.h>
+#include <map>
+#include <string>
 
 
 #define GL_GLEXT_PROTOTYPES
@@ -13,6 +15,7 @@
 
 
 namespace TextureHandler{
+    unsigned int LoadTexture(std::string file, bool hasAlpha);
     unsigned int LoadBMPTexture(const char* file);
     unsigned int LoadBMPTexture32(const char* file);
 }

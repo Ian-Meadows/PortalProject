@@ -1,10 +1,4 @@
 #include "Window.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <math.h>
-
-#include "Time.h"
 
 #define LEN 8192  //  Maximum length of text string
 void Window::Print(const char* format, ...)

@@ -1,6 +1,4 @@
 #include "Time.h"
-#include <iostream>
-#include <GL/glut.h>
 
 
 namespace Time{

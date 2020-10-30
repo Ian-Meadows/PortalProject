@@ -1,14 +1,4 @@
 #include "Scene.h"
-#include <string>
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdarg.h>
-#include <math.h>
-
-#include "SimpleObject.h"
-#include "ComplexObject.h"
-#include "Floor.h"
-#include "Light.h"
 
 
 //taken from ex7.c

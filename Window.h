@@ -5,6 +5,13 @@
 #include <string>
 #include <GL/glut.h>
 
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <math.h>
+
+#include "Time.h"
 #include "Scene.h"
 #include "Camera.h"
 

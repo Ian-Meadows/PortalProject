@@ -5,7 +5,16 @@
 #include <GL/glut.h>
 #include <vector>
 
-#include "Object.h"
+#include <string>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <math.h>
+
+#include "SimpleObject.h"
+#include "ComplexObject.h"
+#include "Floor.h"
+#include "Light.h"
 
 class Scene{
 
