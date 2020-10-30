@@ -39,12 +39,9 @@ void Object::LoadTextures(std::vector<std::string> textureFiles, std::vector<boo
     textures = new unsigned int[textureFiles.size()];
 
     for(unsigned int i = 0; i < textureFiles.size(); ++i){
-        if(hasAlpha[i]){
-            textures[i] = TextureHandler::LoadBMPTexture32(textureFiles[i].c_str());
-        }
-        else{
-            textures[i] = TextureHandler::LoadBMPTexture(textureFiles[i].c_str());
-        }
+        textures[i] = TextureHandler::LoadTexture(textureFiles[i], hasAlpha[i]);
+        /*
         
+        */
     }
 }
