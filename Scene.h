@@ -13,6 +13,7 @@
 
 #include "SimpleObject.h"
 #include "ComplexObject.h"
+#include "companion.h"
 #include "Floor.h"
 #include "Light.h"
 

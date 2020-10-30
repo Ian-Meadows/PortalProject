@@ -75,7 +75,10 @@ void Scene::InitScene(){
     objects.push_back(new ComplexObject(Vector3D(),
          Vector3D(1), Vector3D(0, 0, 0)));
 
-    
+
+    //cube :)
+    objects.push_back(new Companion(Vector3D(2,0,0),
+         Vector3D(1), Vector3D(0, 0, 0)));
 
     //floor
     
