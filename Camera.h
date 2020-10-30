@@ -1,0 +1,68 @@
+#ifndef CAMERA_H
+#define CAMERA_H
+
+#include <GL/glut.h>
+#include "Object.h"
+#include <string>
+#include <math.h>
+
+#define Cos(th) cos(3.1415926/180*(th))
+#define Sin(th) sin(3.1415926/180*(th))
+
+class Camera{
+public:
+    Camera(Vector3D position, Vector3D rotation);
+    Camera();
+    ~Camera();
+
+    void Draw();
+    void UpdateProjection(double worldDimension, double aspectRatio);
+
+
+    void KeyPressed(unsigned char k, int x, int y);
+    void SpecialKeyPressed(int k, int x, int y);
+
+
+
+    Vector3D GetPosition();
+    Vector3D GetRotation();
+
+    std::string GetProjectionType();
+
+
+    Vector3D GetForward();
+    Vector3D GetRight();
+    Vector3D GetUp();
+
+
+private:
+
+    void IncreaseProjectionType();
+    void DecreaseProjectionType();
+
+    void ResetView();
+
+    int projectionType = 1;
+
+    Vector3D position;
+    Vector3D rotation;
+    Vector3D viewDirection;
+
+    int fov = 55;
+
+    //current
+    double worldDimension;
+    double aspectRatio;
+
+    //perspective and orthographic
+    const Vector3D OVERHEAD_POS = Vector3D(0, 0, 0);
+    const Vector3D OVERHEAD_ROT = Vector3D(300, 45, 0);
+
+
+    //First Person
+    const Vector3D FIRST_PERSON_POS = Vector3D(30, 10, 30);
+    const Vector3D FIRST_PERSON_ROT = Vector3D(225, 0, 0);
+
+};
+
+#endif
