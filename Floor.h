@@ -2,18 +2,13 @@
 #define FLOOR_H
 
 
-#include "Object.h"
+#include "Surface.h"
 
 
-class Floor : public Object{
+class Floor : public Surface{
 public:
     Floor(Vector3D pos, Vector3D scale, Vector3D rotation);
     ~Floor();
-
-
-private:
-    void DrawShape();
-
 
 };
 
