@@ -45,7 +45,7 @@ static void idle(){
 int main(int argc, char *argv[])
 {
 
-    WindowInfo windowInfo(0, 0, 500, 500, "Portal: Andrew Hack, Ian Meadows");
+    WindowInfo windowInfo(0, 0, 1280, 720, "Portal: Andrew Hack, Ian Meadows");
 
     window = new Window(argc, argv, windowInfo);
 

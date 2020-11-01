@@ -82,7 +82,7 @@ void Scene::InitScene(){
 
     //floor
     
-    objects.push_back(new Floor(Vector3D(0, -2.5, 0),
+    objects.push_back(new WhiteFloor(Vector3D(0, -2.5, 0),
          Vector3D(8, 1, 8), Vector3D(0, 0, 0)));
     
 

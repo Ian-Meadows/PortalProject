@@ -14,8 +14,11 @@
 #include "SimpleObject.h"
 #include "ComplexObject.h"
 #include "companion.h"
-#include "Floor.h"
 #include "Light.h"
+#include "WhiteFloor.h"
+#include "BlackFloor.h"
+#include "WhiteWall.h"
+#include "BlackWall.h"
 
 class Scene{
 
