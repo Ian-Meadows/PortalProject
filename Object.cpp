@@ -10,6 +10,7 @@ Object::~Object(){
         delete[] textures;
     }
 }
+
 void Object::Draw(){
     //  Save transformation
     glPushMatrix();
