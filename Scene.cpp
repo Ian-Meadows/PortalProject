@@ -59,7 +59,18 @@ namespace Scene{
             //light
             objects.push_back(new Light(Vector3D(0, 0, 0), 0.65));
 
+            //portals
+            Portal* p1 = new Portal(Vector3D(2, 2, 2),
+                Vector3D(2), Vector3D(0, 0, 90));
 
+            Portal* p2 = new Portal(Vector3D(-2, 2, -2),
+                Vector3D(2), Vector3D(0, 0, -90));
+
+            objects.push_back(p1);
+            objects.push_back(p2);
+
+            p1->setOtherPortal(p2);
+            p2->setOtherPortal(p1);
             
             //simple
             objects.push_back(new SimpleObject(Vector3D(-1, -1, -3),
@@ -87,7 +98,7 @@ namespace Scene{
 
             //floor
             
-            objects.push_back(new WhiteFloor(Vector3D(0, -2.5, 0),
+            objects.push_back(new WhiteFloor(Vector3D(0, -1, 0),
                 Vector3D(8, 1, 8), Vector3D(0, 0, 0)));
         }
 

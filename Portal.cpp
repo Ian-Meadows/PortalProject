@@ -1,18 +1,16 @@
-#include "Surface.h"
+#include "Portal.h"
 
-Surface::Surface(Vector3D pos, Vector3D scale, Vector3D rotation) : Object(pos, scale, rotation)
+Portal::Portal(Vector3D pos, Vector3D scale, Vector3D rotation) : Object(pos, scale, rotation)
 {
-    std::vector<std::string> texture = {"Images/crate.bmp"};
-    std::vector<bool> hasAlpha = {false};
-    LoadTextures(texture, hasAlpha);
+    //implement texture for portal
 }
 
-bool Surface::portalable()
+void Portal::setOtherPortal(Portal *other)
 {
-    return false;
+    otherPortal = other;
 }
 
-void Surface::DrawShape()
+void Portal::DrawShape()
 {
 
     int rep = 5;
@@ -26,7 +24,7 @@ void Surface::DrawShape()
 
     glEnable(GL_TEXTURE_2D);
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-    glBindTexture(GL_TEXTURE_2D, textures[0]);
+    //glBindTexture(GL_TEXTURE_2D, textures[0]);
 
     glBegin(GL_QUADS);
     glColor3f(1, 1, 1);

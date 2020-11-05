@@ -20,6 +20,7 @@
 #include "WhiteWall.h"
 #include "BlackWall.h"
 #include "Shader.h"
+#include "Portal.h"
 
 namespace Scene{
     void Init();
