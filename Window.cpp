@@ -1,5 +1,6 @@
 #include "Window.h"
 
+
 #define LEN 8192  //  Maximum length of text string
 void Window::Print(const char* format, ...)
 {
@@ -31,15 +32,13 @@ Window::Window(int argc, char *argv[], WindowInfo& info){
     win = glutCreateWindow(info.name.c_str());
 
     Time::Init(false);
-
     
+    Scene::Init(Vector3D(3, 3, 3));
 
-    scene = new Scene(Vector3D(3, 3, 3));
-    
 }
 
 Window::~Window(){
-    delete scene;
+    Scene::CleanUp();
     glutDestroyWindow(win);
     delete camera;
 }
@@ -72,7 +71,7 @@ void Window::Draw(){
     camera->Draw();
     
 
-    scene->Draw();
+    Scene::Draw();
     
     //draw text to screen
     glDisable(GL_LIGHTING);

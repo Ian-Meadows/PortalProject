@@ -79,9 +79,6 @@ private:
 
     int pitch = 0;
     int yaw = 300;
-
-
-    Scene* scene;
     Camera* camera = nullptr;
     
 
