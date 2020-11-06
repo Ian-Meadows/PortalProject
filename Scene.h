@@ -11,6 +11,10 @@
 #include <stdarg.h>
 #include <math.h>
 
+#include <fstream>
+#include <sstream>
+#include <iostream>
+
 #include "SimpleObject.h"
 #include "ComplexObject.h"
 #include "companion.h"

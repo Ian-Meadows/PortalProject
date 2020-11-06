@@ -23,7 +23,7 @@ void main()
 
    //  Sum color types
    vec4 color = gl_FrontMaterial.emission
-              + gl_FrontLightProduct[0].ambient
+              + gl_FrontLightProduct[0].ambient + 0.3
               + Id*gl_FrontLightProduct[0].diffuse
               + Is*gl_FrontLightProduct[0].specular;
 

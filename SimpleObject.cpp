@@ -5,6 +5,9 @@ SimpleObject::SimpleObject(Vector3D pos,  Vector3D scale, Vector3D rotation) :
      std::vector<std::string> texture = {"Images/BinImage.bmp"};
      std::vector<bool> hasAlpha = {false};
         LoadTextures(texture, hasAlpha);
+    pos.Print("pos");
+    scale.Print("scale");
+    rotation.Print("rot");
 }
 SimpleObject::~SimpleObject(){
 
