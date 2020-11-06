@@ -9,7 +9,7 @@ Portal::Portal(Vector3D pos, Vector3D scale, Vector3D rotation) : Object(pos, sc
     textures = new unsigned int[1];
     glGenTextures(1, &textures[0]);
     glBindTexture(GL_TEXTURE_2D, textures[0]);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 600, 600, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1440, 1440, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, 0);
@@ -18,7 +18,7 @@ Portal::Portal(Vector3D pos, Vector3D scale, Vector3D rotation) : Object(pos, sc
 
     glGenRenderbuffers(1, &rbo);
     glBindRenderbuffer(GL_RENDERBUFFER, rbo);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, 600, 600);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, 1440, 1440);
     glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
@@ -35,12 +35,14 @@ void Portal::setOtherPortal(Portal *other)
     otherPortal = other;
 }
 
-void Portal::enablePortalDrawing()
+void Portal::enablePortalDrawing(Vector3D &pos, Vector3D &rot)
 {
     glBindFramebuffer(GL_FRAMEBUFFER,fbo);
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
+    pos = otherPortal->getPosition();
+    rot = otherPortal->getRotation();
 }
 
 Portal::~Portal()

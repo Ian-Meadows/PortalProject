@@ -33,6 +33,20 @@ void Object::DrawShape(){
 }
 
 
+    Vector3D Object::getPosition()
+    {
+        return position;
+    }
+    Vector3D Object::getScale()
+    {
+        return scale;
+    }
+    Vector3D Object::getRotation()
+    {
+        return rotation;
+    }
+
+
 void Object::LoadTextures(std::vector<std::string> textureFiles, std::vector<bool> hasAlpha){
     if(textureFiles.size() != hasAlpha.size()){
         std::cout << "ERROR: texture files does not equal hasAlpha list" << std::endl;

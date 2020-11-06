@@ -62,10 +62,10 @@ namespace Scene
             objects.push_back(new Light(Vector3D(0, 0, 0), 0.65));
 
             //portals
-            Portal *p1 = new Portal(Vector3D(2, 2, 2),
+            Portal *p1 = new Portal(Vector3D(-2, 3, -5),
                                     Vector3D(2), Vector3D(90, 0, 0));
 
-            Portal *p2 = new Portal(Vector3D(-2, 2, -2),
+            Portal *p2 = new Portal(Vector3D(2, 3, -5),
                                     Vector3D(2), Vector3D(90, 0, 0));
 
             objects.push_back(p1);
@@ -127,33 +127,64 @@ namespace Scene
         }
     }
 
-    void Draw()
+    void Draw(Camera *camera)
     {
         shader->use();
-        glScaled(size.x, size.y, size.z);
-
         glPushMatrix();
         {
-
             for (unsigned int i = 0; i < portals.size(); ++i)
             {
-                portals[i]->enablePortalDrawing(); //use the portal's framebuffer
+                //TODO:: rotation is broken on the portals - FIX THIS
+                glScaled(size.x, size.y, size.z);
+                Vector3D pos, rot;
+                portals[i]->enablePortalDrawing(pos, rot); //use the portal's framebuffer
+
+                glPushMatrix();
+                {
+                Camera portalview(pos, rot); //Vector3D(0,1,0), spinny);
+                                             //portalview.Draw();
+                Vector3D viewDirection;
+                // used information from : https : //learnopengl.com/Getting-started/Camera
+                viewDirection.x = Cos(rot.x) * Cos(rot.y);
+                viewDirection.y = Sin(rot.y);
+                viewDirection.z = Sin(rot.x) * Cos(rot.y);
+
+                //get the up vector
+                Vector3D up = viewDirection.Normalize().Cross(viewDirection.Normalize().Cross(Vector3D(0, -1, 0)));
+                //add the position vector to the front vector
+                Vector3D added = pos.Add(viewDirection.Normalize());
+
+                //change view matrix
+                 gluLookAt(pos.x, pos.y, pos.z, //camera position
+                          added.x, added.y, added.z,          //position + direction
+                          up.x, up.y, up.z); 
+                //up
+
                 for (unsigned int i = 0; i < objects.size(); ++i)
                 {
                     glColor3f(1, 1, 1);
                     objects[i]->Draw();
                 }
                 glBindFramebuffer(GL_FRAMEBUFFER, 0); //reset to the default framebuffer
+                }
+                glPopMatrix();
             }
             //Draw3DGraph(3.5);
         }
         glPopMatrix();
 
-        for (unsigned int i = 0; i < objects.size(); ++i)
+        glPushMatrix();
         {
-            glColor3f(1, 1, 1);
-            objects[i]->Draw();
+            glLoadIdentity();
+            camera->Draw();
+            glScaled(size.x, size.y, size.z);
+            for (unsigned int i = 0; i < objects.size(); ++i)
+            {
+                glColor3f(1, 1, 1);
+                objects[i]->Draw();
+            }
         }
+        glPopMatrix();
     }
 
     void SetSceneSize(Vector3D size)

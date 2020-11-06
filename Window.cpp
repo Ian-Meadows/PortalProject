@@ -68,10 +68,10 @@ void Window::Draw(){
 
     glShadeModel(smoothShading ? GL_SMOOTH : GL_FLAT);
 
-    camera->Draw();
+    //camera->Draw();
     
 
-    Scene::Draw();
+    Scene::Draw(camera);
     
     //draw text to screen
     glDisable(GL_LIGHTING);

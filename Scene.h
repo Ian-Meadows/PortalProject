@@ -21,6 +21,7 @@
 #include "BlackWall.h"
 #include "Shader.h"
 #include "Portal.h"
+#include "Camera.h"
 
 namespace Scene{
     void Init();
@@ -28,7 +29,7 @@ namespace Scene{
     void CleanUp();
 
 
-    void Draw();
+    void Draw(Camera* camera);
 
     void SetSceneSize(Vector3D size);
     Vector3D GetSceneSize();
