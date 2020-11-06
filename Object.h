@@ -35,6 +35,10 @@ struct Vector3D{
         this->z = z;
     }
 
+    Vector3D Clone(){
+        return Vector3D(x, y, z);
+    }
+
     void Update(double x, double y, double z){
         this->x = x;
         this->y = y;

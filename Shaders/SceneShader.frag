@@ -23,9 +23,11 @@ void main()
 
    //  Sum color types
    vec4 color = gl_FrontMaterial.emission
-              + gl_FrontLightProduct[0].ambient
-              + Id*(gl_FrontLightProduct[0].diffuse + 0.3)
-              + Is*gl_FrontLightProduct[0].specular;
+
+  + gl_FrontLightProduct[0].ambient + 0.3
+  + Id*gl_FrontLightProduct[0].diffuse
+
+  + Is*gl_FrontLightProduct[0].specular;
 
    //  Apply texture
    gl_FragColor = color * texture2D(tex,gl_TexCoord[0].xy);
