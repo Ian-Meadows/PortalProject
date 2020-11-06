@@ -63,10 +63,10 @@ namespace Scene
 
             //portals
             Portal *p1 = new Portal(Vector3D(2, 2, 2),
-                                    Vector3D(2), Vector3D(0, 0, 90));
+                                    Vector3D(2), Vector3D(90, 0, 0));
 
             Portal *p2 = new Portal(Vector3D(-2, 2, -2),
-                                    Vector3D(2), Vector3D(0, 0, -90));
+                                    Vector3D(2), Vector3D(90, 0, 0));
 
             objects.push_back(p1);
             objects.push_back(p2);
