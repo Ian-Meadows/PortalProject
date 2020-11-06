@@ -62,8 +62,8 @@ namespace Scene
             objects.push_back(new Light(Vector3D(0, 0, 0), 0.65));
 
             //portals
-            Portal *p1 = new Portal(Vector3D(-2, 3, -5),
-                                    Vector3D(2), Vector3D(90, 0, 0));
+            Portal *p1 = new Portal(Vector3D(-2, 3, 5),
+                                    Vector3D(2), Vector3D(90, 0, 180));
 
             Portal *p2 = new Portal(Vector3D(2, 3, -5),
                                     Vector3D(2), Vector3D(90, 0, 0));
@@ -134,20 +134,23 @@ namespace Scene
         {
             for (unsigned int i = 0; i < portals.size(); ++i)
             {
+                glPushMatrix();
+                {
+                
                 //TODO:: rotation is broken on the portals - FIX THIS
                 glScaled(size.x, size.y, size.z);
                 Vector3D pos, rot;
                 portals[i]->enablePortalDrawing(pos, rot); //use the portal's framebuffer
 
-                glPushMatrix();
-                {
+                
+                    
                 Camera portalview(pos, rot); //Vector3D(0,1,0), spinny);
                                              //portalview.Draw();
                 Vector3D viewDirection;
                 // used information from : https : //learnopengl.com/Getting-started/Camera
-                viewDirection.x = Cos(rot.x) * Cos(rot.y);
-                viewDirection.y = Sin(rot.y);
-                viewDirection.z = Sin(rot.x) * Cos(rot.y);
+                viewDirection.x = Cos(rot.x) * Cos(rot.z);
+                viewDirection.y = Sin(rot.z);
+                viewDirection.z = Sin(rot.x) * Cos(rot.z);
 
                 //get the up vector
                 Vector3D up = viewDirection.Normalize().Cross(viewDirection.Normalize().Cross(Vector3D(0, -1, 0)));
