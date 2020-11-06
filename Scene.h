@@ -11,6 +11,10 @@
 #include <stdarg.h>
 #include <math.h>
 
+#include <fstream>
+#include <sstream>
+#include <iostream>
+
 #include "SimpleObject.h"
 #include "ComplexObject.h"
 #include "companion.h"
@@ -19,29 +23,18 @@
 #include "BlackFloor.h"
 #include "WhiteWall.h"
 #include "BlackWall.h"
+#include "Shader.h"
 
-class Scene{
-
-public:
-    Scene();
-    Scene(Vector3D size);
-    ~Scene();
+namespace Scene{
+    void Init();
+    void Init(Vector3D size);
+    void CleanUp();
 
 
     void Draw();
 
     void SetSceneSize(Vector3D size);
     Vector3D GetSceneSize();
-
-private:
-    void Draw3DGraph(double len);
-
-    void InitScene();
-
-    std::vector<Object*> objects;
-
-
-    Vector3D size;
-};
+}
 
 #endif

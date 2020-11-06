@@ -5,18 +5,21 @@ SimpleObject::SimpleObject(Vector3D pos,  Vector3D scale, Vector3D rotation) :
      std::vector<std::string> texture = {"Images/BinImage.bmp"};
      std::vector<bool> hasAlpha = {false};
         LoadTextures(texture, hasAlpha);
+    pos.Print("pos");
+    scale.Print("scale");
+    rotation.Print("rot");
 }
 SimpleObject::~SimpleObject(){
 
 }
 void SimpleObject::DrawShape(){
     
-    float white[] = {1,1,1,1};
-    float black[] = {0,0,0,1};
-    float shiny   =   1;  // Shininess (value)
-    glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,shiny);
-    glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
-    glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,black);
+    //float white[] = {1,1,1,1};
+    //float black[] = {0,0,0,1};
+    //float shiny   =   1;  // Shininess (value)
+    //glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,shiny);
+    //glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
+    //glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,black);
 
     glEnable(GL_TEXTURE_2D);
     glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE, GL_MODULATE);    
