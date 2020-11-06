@@ -105,6 +105,9 @@ protected:
     Vector3D scale;
     Vector3D rotation;
 
+    Vector3D getPosition();
+    Vector3D getScale();
+    Vector3D getRotation();
 
     virtual void DrawShape();
 

@@ -10,6 +10,7 @@ Object::~Object(){
         delete[] textures;
     }
 }
+
 void Object::Draw(){
     //  Save transformation
     glPushMatrix();
@@ -30,6 +31,20 @@ void Object::Draw(){
 void Object::DrawShape(){
 
 }
+
+
+    Vector3D Object::getPosition()
+    {
+        return position;
+    }
+    Vector3D Object::getScale()
+    {
+        return scale;
+    }
+    Vector3D Object::getRotation()
+    {
+        return rotation;
+    }
 
 
 void Object::LoadTextures(std::vector<std::string> textureFiles, std::vector<bool> hasAlpha){
