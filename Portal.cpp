@@ -35,6 +35,14 @@ void Portal::setOtherPortal(Portal *other)
     otherPortal = other;
 }
 
+void Portal::enablePortalDrawing()
+{
+    glBindFramebuffer(GL_FRAMEBUFFER,fbo);
+    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glEnable(GL_DEPTH_TEST);
+}
+
 Portal::~Portal()
 {
     glDeleteFramebuffers(1,&fbo);
@@ -53,80 +61,6 @@ void Portal::DrawShape()
     glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shiny);
     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, white);
     glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, black);
-
-    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glEnable(GL_DEPTH_TEST);
-
-    //  Cube
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glColor3f(1, 1, 1);
-    glBegin(GL_QUADS);
-    //  Front
-    glNormal3f(0, 0, 1);
-    glTexCoord2f(0, 0);
-    glVertex3f(-1, -1, 1);
-    glTexCoord2f(0, 1);
-    glVertex3f(+1, -1, 1);
-    glTexCoord2f(1, 1);
-    glVertex3f(+1, +1, 1);
-    glTexCoord2f(1, 0);
-    glVertex3f(-1, +1, 1);
-    //  Back
-    glNormal3f(0, 0, -1);
-    glTexCoord2f(0, 0);
-    glVertex3f(+1, -1, -1);
-    glTexCoord2f(0, 1);
-    glVertex3f(-1, -1, -1);
-    glTexCoord2f(1, 1);
-    glVertex3f(-1, +1, -1);
-    glTexCoord2f(1, 0);
-    glVertex3f(+1, +1, -1);
-    //  Right
-    glNormal3f(1, 0, 0);
-    glTexCoord2f(0, 0);
-    glVertex3f(+1, -1, +1);
-    glTexCoord2f(0, 1);
-    glVertex3f(+1, -1, -1);
-    glTexCoord2f(1, 1);
-    glVertex3f(+1, +1, -1);
-    glTexCoord2f(1, 0);
-    glVertex3f(+1, +1, +1);
-    //  Left
-    glNormal3f(-1, 0, 0);
-    glTexCoord2f(0, 0);
-    glVertex3f(-1, -1, -1);
-    glTexCoord2f(0, 1);
-    glVertex3f(-1, -1, +1);
-    glTexCoord2f(1, 1);
-    glVertex3f(-1, +1, +1);
-    glTexCoord2f(1, 0);
-    glVertex3f(-1, +1, -1);
-    //  Top
-    glNormal3f(0, 1, 0);
-    glTexCoord2f(0, 0);
-    glVertex3f(-1, +1, +1);
-    glTexCoord2f(0, 1);
-    glVertex3f(+1, +1, +1);
-    glTexCoord2f(1, 1);
-    glVertex3f(+1, +1, -1);
-    glTexCoord2f(1, 0);
-    glVertex3f(-1, +1, -1);
-    //  Bottom
-    glNormal3f(0, -1, 0);
-    glTexCoord2f(0, 0);
-    glVertex3f(-1, -1, -1);
-    glTexCoord2f(0, 1);
-    glVertex3f(+1, -1, -1);
-    glTexCoord2f(1, 1);
-    glVertex3f(+1, -1, +1);
-    glTexCoord2f(1, 0);
-    glVertex3f(-1, -1, +1);
-    //  End
-    glEnd();
-
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     glEnable(GL_TEXTURE_2D);
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
