@@ -37,12 +37,15 @@ void Portal::setOtherPortal(Portal *other)
 
 Portal::~Portal()
 {
+    glDeleteFramebuffers(1,&fbo);
+    glDeleteRenderbuffers(1,&rbo);
+    //glDeleteTextures(1,&textures[0]);
 }
 
 void Portal::DrawShape()
 {
 
-    int rep = 5;
+    int rep = 1;
 
     float white[] = {1, 1, 1, 1};
     float black[] = {0, 0, 0, 1};
