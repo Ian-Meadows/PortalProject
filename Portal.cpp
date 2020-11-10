@@ -9,16 +9,25 @@ Portal::Portal(Vector3D pos, Vector3D scale, Vector3D rotation) : Object(pos, sc
     textures = new unsigned int[1];
     glGenTextures(1, &textures[0]);
     glBindTexture(GL_TEXTURE_2D, textures[0]);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1440, 1440, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 1024, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, 0);
+
+    glGenTextures(1, &finalTex);
+    glBindTexture(GL_TEXTURE_2D, finalTex);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 1024, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+   temptex = new unsigned int[1024*1024*3];
 
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textures[0], 0);
 
     glGenRenderbuffers(1, &rbo);
     glBindRenderbuffer(GL_RENDERBUFFER, rbo);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, 1440, 1440);
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, 1024, 1024);
     glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, rbo);
@@ -37,7 +46,7 @@ void Portal::setOtherPortal(Portal *other)
 
 void Portal::enablePortalDrawing(Vector3D &pos, Vector3D &rot)
 {
-    glBindFramebuffer(GL_FRAMEBUFFER,fbo);
+    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
@@ -45,10 +54,19 @@ void Portal::enablePortalDrawing(Vector3D &pos, Vector3D &rot)
     rot = otherPortal->getRotation();
 }
 
+void Portal::endPortalDrawing()
+{
+    glReadPixels(0, 0, 1024, 1024, GL_RGB, GL_UNSIGNED_BYTE, temptex);
+    glBindTexture(GL_TEXTURE_2D, finalTex);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1024, 1024, 0, GL_RGB, GL_UNSIGNED_BYTE, temptex); //assign texture now so that it doesnt load current working texture while rendering
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
 Portal::~Portal()
 {
-    glDeleteFramebuffers(1,&fbo);
-    glDeleteRenderbuffers(1,&rbo);
+    glDeleteFramebuffers(1, &fbo);
+    glDeleteRenderbuffers(1, &rbo);
     //glDeleteTextures(1,&textures[0]);
 }
 
@@ -66,7 +84,7 @@ void Portal::DrawShape()
 
     glEnable(GL_TEXTURE_2D);
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-    glBindTexture(GL_TEXTURE_2D, textures[0]);
+    glBindTexture(GL_TEXTURE_2D, finalTex);
 
     glBegin(GL_QUADS);
     glColor3f(1, 1, 1);

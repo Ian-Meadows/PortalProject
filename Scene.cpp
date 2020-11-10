@@ -297,7 +297,7 @@ namespace Scene
                     glColor3f(1, 1, 1);
                     objects[i]->Draw();
                 }
-                glBindFramebuffer(GL_FRAMEBUFFER, 0); //reset to the default framebuffer
+                portals[i]->endPortalDrawing(); //reset to the default framebuffer
                 }
                 glPopMatrix();
             }
