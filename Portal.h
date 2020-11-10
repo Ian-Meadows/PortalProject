@@ -1,6 +1,9 @@
 #pragma once
 #include "Object.h"
 
+#define PORTAL_WIDTH 1024
+#define PORTAL_HEIGHT 1024
+
 class Portal : public Object
 {
 public:

@@ -53,9 +53,9 @@ namespace Scene
             glPopMatrix();
         }
 
-
         //takes: 0,0,0
-        Vector3D GetVectorFromString(std::string str){
+        Vector3D GetVectorFromString(std::string str)
+        {
             std::string numbers[3] = {"", "", ""};
             std::string delim = ",";
             auto start = 0U;
@@ -75,19 +75,20 @@ namespace Scene
             }
             numbers[index] = str.substr(start, end);
             Vector3D vec;
-            if(index == 1){
+            if (index == 1)
+            {
                 vec = Vector3D(stod(numbers[0]));
             }
-            else{
+            else
+            {
                 vec = Vector3D(stod(numbers[0]), stod(numbers[1]), stod(numbers[2]));
             }
-
-            
 
             return vec;
         }
 
-        void LoadObject(std::string objLine){
+        void LoadObject(std::string objLine)
+        {
             std::string settings[4] = {"", "", "", ""};
             std::string delim = " ";
             auto start = 0U;
@@ -110,74 +111,84 @@ namespace Scene
             std::cout << settings[index] << std::endl;
 
             std::string objName = settings[0];
-            if(objName == ""){
+            if (objName == "")
+            {
                 return;
             }
 
             Vector3D pos;
             Vector3D rot;
             Vector3D scale(1, 1, 1);
-            if(index >= 1){
+            if (index >= 1)
+            {
                 pos = GetVectorFromString(settings[1]);
             }
-            if(index >= 2){
+            if (index >= 2)
+            {
                 rot = GetVectorFromString(settings[2]);
             }
-            if(index >= 3){
+            if (index >= 3)
+            {
                 scale = GetVectorFromString(settings[3]);
             }
 
             //spawn objects
-            if(objName == "WhiteFloor"){
+            if (objName == "WhiteFloor")
+            {
                 objects.push_back(new WhiteFloor(pos, scale, rot));
             }
-            else if(objName == "WhiteWall"){
+            else if (objName == "WhiteWall")
+            {
                 objects.push_back(new WhiteWall(pos, scale, rot));
             }
-            else if(objName == "SimpleObject"){
+            else if (objName == "SimpleObject")
+            {
                 objects.push_back(new SimpleObject(pos, scale, rot));
             }
-            else if(objName == "ComplexObject"){
+            else if (objName == "ComplexObject")
+            {
                 objects.push_back(new ComplexObject(pos, scale, rot));
             }
-            else if(objName == "Companion"){
+            else if (objName == "Companion")
+            {
                 objects.push_back(new Companion(pos, scale, rot));
             }
-            else if(objName == "BlackFloor"){
+            else if (objName == "BlackFloor")
+            {
                 objects.push_back(new BlackFloor(pos, scale, rot));
             }
-            else if(objName == "BlackWall"){
+            else if (objName == "BlackWall")
+            {
                 objects.push_back(new BlackWall(pos, scale, rot));
             }
-            else{
-                std::cout << "ERROR:[" << objName << "] does not exist" <<std::endl;
+            else
+            {
+                std::cout << "ERROR:[" << objName << "] does not exist" << std::endl;
             }
-
         }
 
-
-
-        void SceneFileReader(std::string filePath){
+        void SceneFileReader(std::string filePath)
+        {
             std::ifstream file(filePath);
             // open files
-            if(file.is_open()){
+            if (file.is_open())
+            {
                 std::string line;
-                while(getline(file, line)){
+                while (getline(file, line))
+                {
                     LoadObject(line);
                 }
                 file.close();
             }
         }
 
-        void InitScene(){
+        void InitScene()
+        {
 
             shader = new Shader("Shaders/SceneShader.vert", "Shaders/SceneShader.frag");
 
-            
-
             //light
             objects.push_back(new Light(Vector3D(0, 0, 0), 0.65));
-
 
             //portals
             Portal *p1 = new Portal(Vector3D(-2, 3, 5),
@@ -193,7 +204,6 @@ namespace Scene
 
             p1->setOtherPortal(p2);
             p2->setOtherPortal(p1);
-
 
             SceneFileReader("SceneInfo.txt");
 
@@ -227,11 +237,7 @@ namespace Scene
             objects.push_back(new WhiteFloor(Vector3D(0, -2.5, 0),
                 Vector3D(8, 1, 8), Vector3D(0, 0, 0)));
             */
-            
         }
-
-        
-
 
     } // namespace
 
@@ -256,54 +262,57 @@ namespace Scene
         }
     }
 
-    void Draw(Camera *camera)
+    void renderPortals(Camera *camera)
     {
         shader->use();
+        glViewport(0,0,1024,1024);
         glPushMatrix();
         {
             for (unsigned int i = 0; i < portals.size(); ++i)
             {
                 glPushMatrix();
                 {
-                
-                //TODO:: rotation is broken on the portals - FIX THIS
-                glScaled(size.x, size.y, size.z);
-                Vector3D pos, rot;
-                portals[i]->enablePortalDrawing(pos, rot); //use the portal's framebuffer
 
-                
-                    
-                Camera portalview(pos, rot); //Vector3D(0,1,0), spinny);
-                                             //portalview.Draw();
-                Vector3D viewDirection;
-                // used information from : https : //learnopengl.com/Getting-started/Camera
-                viewDirection.x = Cos(rot.x) * Cos(rot.z);
-                viewDirection.y = Sin(rot.z);
-                viewDirection.z = Sin(rot.x) * Cos(rot.z);
+                    //TODO:: rotation is broken on the portals - FIX THIS
+                    glScaled(size.x, size.y, size.z);
+                    Vector3D pos, rot;
+                    portals[i]->enablePortalDrawing(pos, rot); //use the portal's framebuffer
 
-                //get the up vector
-                Vector3D up = viewDirection.Normalize().Cross(viewDirection.Normalize().Cross(Vector3D(0, -1, 0)));
-                //add the position vector to the front vector
-                Vector3D added = pos.Add(viewDirection.Normalize());
+                    Camera portalview(pos, rot); //Vector3D(0,1,0), spinny);
+                                                 //portalview.Draw();
+                    Vector3D viewDirection;
+                    // used information from : https : //learnopengl.com/Getting-started/Camera
+                    viewDirection.x = Cos(rot.x) * Cos(rot.z);
+                    viewDirection.y = Sin(rot.z);
+                    viewDirection.z = Sin(rot.x) * Cos(rot.z);
 
-                //change view matrix
-                 gluLookAt(pos.x, pos.y, pos.z, //camera position
-                          added.x, added.y, added.z,          //position + direction
-                          up.x, up.y, up.z); 
-                //up
+                    //get the up vector
+                    Vector3D up = viewDirection.Normalize().Cross(viewDirection.Normalize().Cross(Vector3D(0, -1, 0)));
+                    //add the position vector to the front vector
+                    Vector3D added = pos.Add(viewDirection.Normalize());
 
-                for (unsigned int i = 0; i < objects.size(); ++i)
-                {
-                    glColor3f(1, 1, 1);
-                    objects[i]->Draw();
-                }
-                portals[i]->endPortalDrawing(); //reset to the default framebuffer
+                    //change view matrix
+                    gluLookAt(pos.x, pos.y, pos.z,       //camera position
+                              added.x, added.y, added.z, //position + direction
+                              up.x, up.y, up.z);
+                    //up
+
+                    for (unsigned int i = 0; i < objects.size(); ++i)
+                    {
+                        glColor3f(1, 1, 1);
+                        objects[i]->Draw();
+                    }
+                    portals[i]->endPortalDrawing(); //reset to the default framebuffer
                 }
                 glPopMatrix();
             }
             //Draw3DGraph(3.5);
         }
         glPopMatrix();
+    }
+
+    void Draw(Camera *camera)
+    {
 
         glPushMatrix();
         {

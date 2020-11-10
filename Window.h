@@ -92,6 +92,8 @@ private:
     double worldDimension = 20.0;
 
     bool smoothShading = true;
+
+    int width, height;
     
 
 };

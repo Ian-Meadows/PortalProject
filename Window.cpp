@@ -70,7 +70,9 @@ void Window::Draw(){
 
     //camera->Draw();
     
+    Scene::renderPortals(camera);
 
+    glViewport(0, 0, (GLint) width, (GLint) height);
     Scene::Draw(camera);
     
     //draw text to screen
@@ -86,9 +88,10 @@ void Window::Draw(){
     glutSwapBuffers();
 }
 
-void Window::Reshape(int width, int height){
+void Window::Reshape(int w, int h){
 
-    
+    width = w;
+    height = h;
     if(height > 0){
         aspectRatio = (double)width / (double)height;
     }
