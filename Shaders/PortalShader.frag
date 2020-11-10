@@ -11,11 +11,6 @@ void main()
    vec3 N = normalize(Normal);
    //  V is the view vector (eye vector)
    vec3 V = normalize(View);
-
-   
-
    //  Apply texture
    gl_FragColor = texture2D(tex,gl_TexCoord[0].xy);
-   float average = (gl_FragColor.r + gl_FragColor.g + gl_FragColor.b) / 3.0;
-   gl_FragColor = vec4(average, average, average, 1.0);
 }
