@@ -9,19 +9,19 @@ Portal::Portal(Vector3D pos, Vector3D scale, Vector3D rotation) : Object(pos, sc
     textures = new unsigned int[1];
     glGenTextures(1, &textures[0]);
     glBindTexture(GL_TEXTURE_2D, textures[0]);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, PORTAL_WIDTH, PORTAL_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, PORTAL_WIDTH, PORTAL_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, 0);
 
     glGenTextures(1, &finalTex);
     glBindTexture(GL_TEXTURE_2D, finalTex);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, PORTAL_WIDTH, PORTAL_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, PORTAL_WIDTH, PORTAL_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glBindTexture(GL_TEXTURE_2D, 0);
 
-   temptex = new unsigned int[PORTAL_WIDTH*PORTAL_HEIGHT*3];
+   temptex = new unsigned long int[PORTAL_WIDTH*PORTAL_HEIGHT];
 
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textures[0], 0);
 
@@ -56,9 +56,20 @@ void Portal::enablePortalDrawing(Vector3D &pos, Vector3D &rot)
 
 void Portal::endPortalDrawing()
 {
-    glReadPixels(0, 0, 1024, 1024, GL_RGB, GL_UNSIGNED_BYTE, temptex);
+    glReadPixels(0, 0, PORTAL_WIDTH, PORTAL_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, temptex);
+    for(int x = 3; x < PORTAL_WIDTH; ++x)
+    {
+        for(int y = 0; y < PORTAL_HEIGHT; ++y)
+        {
+            if(x == 0)
+            {
+                //std::cout << temptex[(x*1024)+ y] << std::endl;
+                //temptex[(x*1024)+ y] = 256;
+            }
+        }
+    }
     glBindTexture(GL_TEXTURE_2D, finalTex);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, PORTAL_WIDTH, PORTAL_HEIGHT, 0, GL_RGB, GL_UNSIGNED_BYTE, temptex); //assign texture now so that it doesnt load current working texture while rendering
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, PORTAL_WIDTH, PORTAL_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, temptex); //assign texture now so that it doesnt load current working texture while rendering
     glBindTexture(GL_TEXTURE_2D, 0);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

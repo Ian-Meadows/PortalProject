@@ -19,5 +19,5 @@ private:
 
     Portal* otherPortal;
     unsigned int fbo, rbo, finalTex;
-    unsigned int* temptex;
+    unsigned long int* temptex;
 };

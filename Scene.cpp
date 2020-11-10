@@ -24,6 +24,7 @@ namespace Scene
         std::vector<Portal *> portals;
 
         Shader *shader;
+        Shader *portalShader;
 
         Vector3D size;
         void Draw3DGraph(double len)
@@ -186,6 +187,7 @@ namespace Scene
         {
 
             shader = new Shader("Shaders/SceneShader.vert", "Shaders/SceneShader.frag");
+            portalShader = new Shader("Shaders/PortalShader.vert", "Shaders/PortalShader.frag");
 
             //light
             objects.push_back(new Light(Vector3D(0, 0, 0), 0.65));
@@ -197,46 +199,14 @@ namespace Scene
             Portal *p2 = new Portal(Vector3D(2, 3, -5),
                                     Vector3D(2), Vector3D(90, 0, 0));
 
-            objects.push_back(p1);
-            objects.push_back(p2);
             portals.push_back(p1);
             portals.push_back(p2);
 
             p1->setOtherPortal(p2);
             p2->setOtherPortal(p1);
 
+            //read in the rest of the scene from file
             SceneFileReader("SceneInfo.txt");
-
-            /*
-
-            //simple
-            objects.push_back(new SimpleObject(Vector3D(-1, -1, -3),
-                                               Vector3D(0.2), Vector3D(45, 0, 0)));
-
-            objects.push_back(new SimpleObject(Vector3D(1, 0, -3),
-                                               Vector3D(0.4), Vector3D(0, 0, 45)));
-
-            objects.push_back(new SimpleObject(Vector3D(0, 1, -3),
-                                               Vector3D(0.3), Vector3D(0, 45, 0)));
-
-            //complex
-
-            objects.push_back(new ComplexObject(Vector3D(-3, 0, 0),
-                                                Vector3D(1), Vector3D(35, 180, 25)));
-
-            objects.push_back(new ComplexObject(Vector3D(),
-                                                Vector3D(1), Vector3D(0, 0, 0)));
-
-            //cube :)
-            objects.push_back(new Companion(Vector3D(2, 0, 0),
-                                            Vector3D(1), Vector3D(0, 0, 0)));
-
-            //floor
-
-            
-            objects.push_back(new WhiteFloor(Vector3D(0, -2.5, 0),
-                Vector3D(8, 1, 8), Vector3D(0, 0, 0)));
-            */
         }
 
     } // namespace
@@ -264,8 +234,7 @@ namespace Scene
 
     void renderPortals(Camera *camera)
     {
-        shader->use();
-        glViewport(0,0,1024,1024);
+        glViewport(0, 0, 1024, 1024);
         glPushMatrix();
         {
             for (unsigned int i = 0; i < portals.size(); ++i)
@@ -296,11 +265,17 @@ namespace Scene
                               added.x, added.y, added.z, //position + direction
                               up.x, up.y, up.z);
                     //up
-
+                    shader->use();
                     for (unsigned int i = 0; i < objects.size(); ++i)
                     {
                         glColor3f(1, 1, 1);
                         objects[i]->Draw();
+                    }
+                    portalShader->use();
+                    for (unsigned int i = 0; i < portals.size(); ++i)
+                    {
+                        glColor3f(1, 1, 1);
+                        portals[i]->Draw();
                     }
                     portals[i]->endPortalDrawing(); //reset to the default framebuffer
                 }
@@ -316,13 +291,19 @@ namespace Scene
 
         glPushMatrix();
         {
-            glLoadIdentity();
+            shader->use();
             camera->Draw();
             glScaled(size.x, size.y, size.z);
             for (unsigned int i = 0; i < objects.size(); ++i)
             {
                 glColor3f(1, 1, 1);
                 objects[i]->Draw();
+            }
+            portalShader->use();
+            for (unsigned int i = 0; i < portals.size(); ++i)
+            {
+                glColor3f(1, 1, 1);
+                portals[i]->Draw();
             }
         }
         glPopMatrix();
