@@ -288,7 +288,7 @@ namespace Scene
                     //viewDirection.Print("viewDirection1: ");
                     // apply rotation difference to vector to map it to other portal
                     Vector3D rotdiff = rot.Subtract(thisrot);
-                    viewDirection.Rotate(rotdiff);
+                    viewDirection = viewDirection.Rotate(rotdiff);
                     //viewDirection.Print("viewDirection2: ");
                     //add vector to position of the other portal
                     Vector3D added = pos.Add(viewDirection.Normalize());
