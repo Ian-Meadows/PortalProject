@@ -99,7 +99,7 @@ struct Vector3D
         return vec;
     }
 
-    Vector3D operator*(int const &other)
+    Vector3D operator*(double const &other)
     {
         Vector3D vec(x * other, y * other, z * other);
         return vec;

@@ -265,7 +265,8 @@ namespace Scene
 
                     std::cout << "dot:" << campos.Dot(portalNormal) << std::endl;
 
-                    Vector3D viewDirection = ((portalNormal + campos) * -2 * (campos.Dot(portalNormal))).Normalize(); //reflection of camera view vector off of current portal
+                    Vector3D tempviewDirection = ((portalNormal + campos) * -2 * (campos.Dot(portalNormal))).Normalize(); //reflection of camera view vector off of current portal
+                    Vector3D viewDirection = tempviewDirection*Cos(180)+(portalNormal.Cross(tempviewDirection))*Sin(180)+portalNormal*(portalNormal.Dot(tempviewDirection)*(1-Cos(180)));
                     //viewDirection.Rotate(thisrot);
                     //portalNormal.Rotate(Vector3D(0,-90,0));
                     //viewDirection = ((portalNormal + viewDirection) * -2 * (viewDirection.Dot(portalNormal))).Normalize(); //reflection of camera view vector off of current portal
