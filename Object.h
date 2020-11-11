@@ -106,27 +106,32 @@ struct Vector3D
     }
 
     //hopefully this math is right
-    void Rotate(Vector3D rot)
+    Vector3D Rotate(Vector3D rot)
     {
+        Vector3D result;
         //x  y  z
+        result.x = x;
+        result.y = y;
+        result.z = z;
         if (rot.x != 0)
         {
-            x = x;
-            y = y * Cos(rot.x) + z * -Sin(rot.x);
-            z = y * Sin(rot.x) + z * Cos(rot.x);
+            result.x = result.x;
+            result.y = result.y * Cos(rot.x) + result.z * -Sin(rot.x);
+            result.z = result.y * Sin(rot.x) + result.z * Cos(rot.x);
         }
         if (rot.y != 0)
         {
-            x = x * Cos(rot.y) + z * Sin(rot.y);
-            y = y;
-            z = x * -Sin(rot.y) + z * Cos(rot.y);
+            result.x = result.x * Cos(rot.y) + result.z * Sin(rot.y);
+            result.y = result.y;
+            result.z = result.x * -Sin(rot.y) + result.z * Cos(rot.y);
         }
         if (rot.z != 0)
         {
-            x = x * Cos(rot.z) + y * -Sin(rot.z);
-            y = x * Sin(rot.z) + y * Cos(rot.z);
-            z = z;
+            result.x = result.x * Cos(rot.z) + result.y * -Sin(rot.z);
+            result.y = result.x * Sin(rot.z) + result.y * Cos(rot.z);
+            result.z = result.z;
         }
+        return result;
     }
 
     void Print()
