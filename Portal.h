@@ -1,8 +1,8 @@
 #pragma once
 #include "Object.h"
 
-#define PORTAL_WIDTH 2048
-#define PORTAL_HEIGHT 2048
+#define PORTAL_WIDTH 1024
+#define PORTAL_HEIGHT 1024
 
 class Portal : public Object
 {
