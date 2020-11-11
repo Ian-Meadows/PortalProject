@@ -193,11 +193,11 @@ namespace Scene
             objects.push_back(new Light(Vector3D(0, 0, 0), 0.65));
 
             //portals
-            Portal *p1 = new Portal(Vector3D(-2, 3, 5),
-                                    Vector3D(2), Vector3D(90, 0, 180));
+            Portal *p1 = new Portal(Vector3D(-2, 3, 9),
+                                    Vector3D(2), Vector3D(0, 90, 0));
 
-            Portal *p2 = new Portal(Vector3D(2, 3, -5),
-                                    Vector3D(2), Vector3D(90, 0, 0));
+            Portal *p2 = new Portal(Vector3D(2, 3, -9),
+                                    Vector3D(2), Vector3D(0, -90, 0));
 
             portals.push_back(p1);
             portals.push_back(p2);
@@ -232,9 +232,9 @@ namespace Scene
         }
     }
 
-    void renderPortals(Camera *camera)
+    void renderPortals(Vector3D initcampos)
     {
-        glViewport(0, 0, 1024, 1024);
+        glViewport(0, 0, PORTAL_WIDTH, PORTAL_HEIGHT);
         glPushMatrix();
         {
             for (unsigned int i = 0; i < portals.size(); ++i)
@@ -242,23 +242,48 @@ namespace Scene
                 glPushMatrix();
                 {
 
-                    //TODO:: rotation is broken on the portals - FIX THIS
+                    initcampos.Print("campos1: ");
+                    //TODO:: adjust portal view based on user view
                     glScaled(size.x, size.y, size.z);
-                    Vector3D pos, rot;
-                    portals[i]->enablePortalDrawing(pos, rot); //use the portal's framebuffer
+                    Vector3D pos, rot, thisrot, thispos;
+                    portals[i]->enablePortalDrawing(pos, rot, thispos, thisrot);  //use the portal's framebuffer, also get rot of this portal and pos and rot of other portal
+                    thispos.Print("thispos: ");
+                    thisrot.Print("thisrot: ");
+                    //get camera vector to portal and normalize it
+                    Vector3D campos = thispos.Subtract(initcampos);
+                    //campos = campos.Normalize(); // <apparently breaks everything
+                    campos.Print("campos2: ");
 
-                    Camera portalview(pos, rot); //Vector3D(0,1,0), spinny);
-                                                 //portalview.Draw();
-                    Vector3D viewDirection;
+                    //reflect camera vector off of portal plane
+                    Vector3D portalNormal; //get normal of the portal
+                    portalNormal.x = Cos(thisrot.y) * Cos(thisrot.x);
+                    portalNormal.y = Sin(thisrot.x);
+                    portalNormal.z = Sin(thisrot.y) * Cos(thisrot.x);
+
+                    portalNormal = portalNormal.Normalize();
+                    portalNormal.Print("normal: ");
+
+                    std::cout << "dot:" << campos.Dot(portalNormal) << std::endl;
+
+                    Vector3D viewDirection = ((portalNormal + campos) * -2 * (campos.Dot(portalNormal))).Normalize(); //reflection of camera view vector off of current portal
+                    //viewDirection.Rotate(thisrot);
+                    //portalNormal.Rotate(Vector3D(0,-90,0));
+                    //viewDirection = ((portalNormal + viewDirection) * -2 * (viewDirection.Dot(portalNormal))).Normalize(); //reflection of camera view vector off of current portal
+                    viewDirection.Print("viewDirection1: ");
+                    // apply rotation difference to vector to map it to other portal
+                    Vector3D rotdiff = rot.Subtract(thisrot);
+                    viewDirection.Rotate(rotdiff);
+                    viewDirection.Print("viewDirection2: ");
+                    //add vector to position of the other portal
+                    Vector3D added = pos.Add(viewDirection.Normalize());
+                    viewDirection.Print("added: ");
+
                     // used information from : https : //learnopengl.com/Getting-started/Camera
-                    viewDirection.x = Cos(rot.x) * Cos(rot.z);
-                    viewDirection.y = Sin(rot.z);
-                    viewDirection.z = Sin(rot.x) * Cos(rot.z);
+                    
 
                     //get the up vector
                     Vector3D up = viewDirection.Normalize().Cross(viewDirection.Normalize().Cross(Vector3D(0, -1, 0)));
                     //add the position vector to the front vector
-                    Vector3D added = pos.Add(viewDirection.Normalize());
 
                     //change view matrix
                     gluLookAt(pos.x, pos.y, pos.z,       //camera position

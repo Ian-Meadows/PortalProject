@@ -36,10 +36,10 @@ namespace TextureHandler
 
     unsigned int LoadTexture(std::string file, bool hasAlpha)
     {
-        std::cout << file << ": " << hasAlpha << std::endl;
+        //std::cout << file << ": " << hasAlpha << std::endl;
         if (textures.find(file) != textures.end()) //if texture already exists in map
         {
-            std::cout << file << ": " << "found" << std::endl;
+            //std::cout << file << ": " << "found" << std::endl;
             return textures.at(file);
         }
 

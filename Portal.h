@@ -9,7 +9,7 @@ class Portal : public Object
 public:
     Portal(Vector3D pos, Vector3D scale, Vector3D rotation);
     void setOtherPortal(Portal* other);
-    void enablePortalDrawing(Vector3D &pos, Vector3D &rot);
+    void enablePortalDrawing(Vector3D &pos, Vector3D &rot, Vector3D &thispos, Vector3D &thisrot);
     void endPortalDrawing();
 
     ~Portal();

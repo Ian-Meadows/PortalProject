@@ -19,15 +19,15 @@ void Camera::Draw(){
 
     //ortho
     if(projectionType == 0){
-        glRotatef(rotation.y, 1, 0, 0);
-        glRotatef(rotation.x, 0, 1, 0);
+        glRotatef(rotation.x, 1, 0, 0);
+        glRotatef(rotation.y, 0, 1, 0);
     }
     //perspective
     else if(projectionType == 1){
         //used code from ex9.c
-        double Ex = -2*worldDimension*Sin(rotation.x)*Cos(rotation.y);
-        double Ey = +2*worldDimension                *Sin(rotation.y);
-        double Ez = +2*worldDimension*Cos(rotation.x)*Cos(rotation.y);
+        double Ex = -2*worldDimension*Sin(rotation.y)*Cos(rotation.x);
+        double Ey = +2*worldDimension                *Sin(rotation.x);
+        double Ez = +2*worldDimension*Cos(rotation.y)*Cos(rotation.x);
 
         //change view matrix
         gluLookAt(Ex,Ey,Ez , 0,0,0 , 0, Cos(rotation.y),0);
@@ -35,9 +35,9 @@ void Camera::Draw(){
     //first person
     else if(projectionType == 2){
         //used information from: https://learnopengl.com/Getting-started/Camera
-        viewDirection.x = Cos(rotation.x)*Cos(rotation.y);
-        viewDirection.y = Sin(rotation.y);
-        viewDirection.z = Sin(rotation.x)*Cos(rotation.y);
+        viewDirection.x = Cos(rotation.y)*Cos(rotation.x);
+        viewDirection.y = Sin(rotation.x);
+        viewDirection.z = Sin(rotation.y)*Cos(rotation.x);
 
         //get the up vector
         Vector3D up = GetUp();
@@ -89,26 +89,26 @@ void Camera::SpecialKeyPressed(int key, int x, int y){
 
      //  Right arrow key - increase angle by 5 degrees
    if (key == GLUT_KEY_RIGHT)
-      rotation.x += 5;
+      rotation.y += 5;
    //  Left arrow key - decrease angle by 5 degrees
    else if (key == GLUT_KEY_LEFT)
-      rotation.x -= 5;
+      rotation.y -= 5;
    //  Up arrow key - increase elevation by 5 degrees
    else if (key == GLUT_KEY_UP)
-      rotation.y += 5;
+      rotation.x += 5;
    //  Down arrow key - decrease elevation by 5 degrees
    else if (key == GLUT_KEY_DOWN)
-      rotation.y -= 5;
+      rotation.x -= 5;
    //  Keep angles to +/-360 degrees
    rotation.x = (int)rotation.x % 360;
    rotation.y = (int)rotation.y % 360;
 
     //fix for vector swapping when looking up side down
-    if(rotation.y > 90){
-        rotation.y = 90;
+    if(rotation.x > 90){
+        rotation.x = 90;
     }
-    if(rotation.y < -90){
-        rotation.y = -90;
+    if(rotation.x < -90){
+        rotation.x = -90;
     }
 }
 

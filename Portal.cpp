@@ -44,7 +44,7 @@ void Portal::setOtherPortal(Portal *other)
     otherPortal = other;
 }
 
-void Portal::enablePortalDrawing(Vector3D &pos, Vector3D &rot)
+void Portal::enablePortalDrawing(Vector3D &pos, Vector3D &rot, Vector3D &thispos, Vector3D &thisrot)
 {
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
@@ -52,6 +52,8 @@ void Portal::enablePortalDrawing(Vector3D &pos, Vector3D &rot)
     glEnable(GL_DEPTH_TEST);
     pos = otherPortal->getPosition();
     rot = otherPortal->getRotation();
+    thisrot = getRotation();
+    thispos = getPosition();
 }
 
 void Portal::endPortalDrawing()
@@ -103,13 +105,13 @@ void Portal::DrawShape()
     glNormal3f(0, 1, 0);
 
     glTexCoord2f(0, 0);
-    glVertex3f(-1, 0, +1);
+    glVertex3f(0, -1, -1);
     glTexCoord2f(rep, 0);
-    glVertex3f(+1, 0, +1);
+    glVertex3f(0, -1, +1);
     glTexCoord2f(rep, rep);
-    glVertex3f(+1, 0, -1);
+    glVertex3f(0, +1, +1);
     glTexCoord2f(0, rep);
-    glVertex3f(-1, 0, -1);
+    glVertex3f(0, +1, -1);
 
     glEnd();
 

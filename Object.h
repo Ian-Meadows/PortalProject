@@ -1,7 +1,6 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
-
 #include <iostream>
 #define GL_GLEXT_PROTOTYPES
 #include <GL/glut.h>
@@ -11,89 +10,137 @@
 #include "TextureHandler.h"
 
 //taken from CSCIx229.h
-#define Cos(th) cos(3.1415926/180*(th))
-#define Sin(th) sin(3.1415926/180*(th))
+#define Cos(th) cos(3.1415926 / 180 * (th))
+#define Sin(th) sin(3.1415926 / 180 * (th))
 
-struct Vector3D{
+struct Vector3D
+{
     double x, y, z;
 
-    Vector3D(){
+    Vector3D()
+    {
         x = 0.0;
         y = 0.0;
         z = 0.0;
     }
 
-    Vector3D(double n){
+    Vector3D(double n)
+    {
         x = n;
         y = n;
         z = n;
     }
 
-    Vector3D(double x, double y, double z){
+    Vector3D(double x, double y, double z)
+    {
         this->x = x;
         this->y = y;
         this->z = z;
     }
 
-    Vector3D Clone(){
+    Vector3D Clone()
+    {
         return Vector3D(x, y, z);
     }
 
-    void Update(double x, double y, double z){
+    void Update(double x, double y, double z)
+    {
         this->x = x;
         this->y = y;
         this->z = z;
     }
 
-    bool operator==(Vector3D const &other){
-        if(other.x == x && other.y == y && other.z == z){
+    bool operator==(Vector3D const &other)
+    {
+        if (other.x == x && other.y == y && other.z == z)
+        {
             return true;
         }
-        else{
+        else
+        {
             return false;
         }
     }
 
-    Vector3D Add(Vector3D other){
+    Vector3D Add(Vector3D other)
+    {
         return Vector3D(x + other.x, y + other.y, z + other.z);
     }
-    Vector3D Subtract(Vector3D other){
+    Vector3D Subtract(Vector3D other)
+    {
         return Vector3D(x - other.x, y - other.y, z - other.z);
     }
 
-
-    Vector3D Normalize(){
-        double length = sqrt((x*x) + (y*y) + (z*z));
+    Vector3D Normalize()
+    {
+        double length = sqrt((x * x) + (y * y) + (z * z));
         Vector3D normalized(x / length, y / length, z / length);
 
         return normalized;
     }
 
-    Vector3D Cross(Vector3D other){
-        Vector3D cross((y*other.z) - (z*other.y),
-             (z*other.x) - (x*other.z),
-             (x * other.y) - (y * other.x));
+    Vector3D Cross(Vector3D other)
+    {
+        Vector3D cross((y * other.z) - (z * other.y),
+                       (z * other.x) - (x * other.z),
+                       (x * other.y) - (y * other.x));
 
         return cross;
     }
 
-    Vector3D operator+(Vector3D const &other){
+    double Dot(Vector3D other)
+    {
+        return x * other.x + y * other.y + z * other.z;
+    }
+
+    Vector3D operator+(Vector3D const &other)
+    {
         Vector3D vec(x + other.x, y + other.y, z + other.z);
         return vec;
     }
 
-    void Print(){
-        std::cout << "x: " << x << " y: "<< y << " z: " << z << std::endl;
-    }
-    void Print(std::string message){
-        std::cout << message << ": " << x << ", "<< y << ", " << z << std::endl;
+    Vector3D operator*(int const &other)
+    {
+        Vector3D vec(x * other, y * other, z * other);
+        return vec;
     }
 
+    //hopefully this math is right
+    void Rotate(Vector3D rot)
+    {
+        //x  y  z
+        if (rot.x != 0)
+        {
+            x = x;
+            y = y * Cos(rot.x) + z * -Sin(rot.x);
+            z = y * Sin(rot.x) + z * Cos(rot.x);
+        }
+        if (rot.y != 0)
+        {
+            x = x * Cos(rot.y) + z * Sin(rot.y);
+            y = y;
+            z = x * -Sin(rot.y) + z * Cos(rot.y);
+        }
+        if (rot.z != 0)
+        {
+            x = x * Cos(rot.z) + y * -Sin(rot.z);
+            y = x * Sin(rot.z) + y * Cos(rot.z);
+            z = z;
+        }
+    }
 
+    void Print()
+    {
+        std::cout << "x: " << x << " y: " << y << " z: " << z << std::endl;
+    }
+    void Print(std::string message)
+    {
+        std::cout << message << ": " << x << ", " << y << ", " << z << std::endl;
+    }
 };
 
-
-class Object{
+class Object
+{
 
 public:
     Object(Vector3D pos, Vector3D scale, Vector3D rotation);
@@ -113,11 +160,9 @@ protected:
 
     virtual void LoadTextures(std::vector<std::string> textureFiles, std::vector<bool> hasAlpha) final;
 
-    unsigned int* textures = nullptr;
+    unsigned int *textures = nullptr;
 
 private:
-
-
 };
 
 #endif
