@@ -68,7 +68,6 @@ void Window::Draw(){
 
     glShadeModel(smoothShading ? GL_SMOOTH : GL_FLAT);
     
-    camera->GetRotation().Print("FUckin hell ian");
     Vector3D campos = camera->GetPosition();
     //campos.Print("reassigning might work???? maybe????");
     Scene::renderPortals(campos);
