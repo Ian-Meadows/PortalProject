@@ -27,16 +27,17 @@
 #include "Portal.h"
 #include "Camera.h"
 
-namespace Scene{
+namespace Scene
+{
     void Init();
     void Init(Vector3D size);
     void CleanUp();
 
-
-    void Draw(Camera* camera);
+    void renderPortals(Vector3D campos); 
+    void Draw(Camera *camera);
 
     void SetSceneSize(Vector3D size);
     Vector3D GetSceneSize();
-}
+} // namespace Scene
 
 #endif

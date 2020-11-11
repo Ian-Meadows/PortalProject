@@ -33,7 +33,7 @@ Window::Window(int argc, char *argv[], WindowInfo& info){
 
     Time::Init(false);
     
-    Scene::Init(Vector3D(3, 3, 3));
+    Scene::Init(Vector3D(1));
 
 }
 
@@ -67,10 +67,13 @@ void Window::Draw(){
     glLoadIdentity();
 
     glShadeModel(smoothShading ? GL_SMOOTH : GL_FLAT);
-
-    //camera->Draw();
     
+    camera->GetRotation().Print("FUckin hell ian");
+    Vector3D campos = camera->GetPosition();
+    //campos.Print("reassigning might work???? maybe????");
+    Scene::renderPortals(campos);
 
+    glViewport(0, 0, (GLint) width, (GLint) height);
     Scene::Draw(camera);
     
     //draw text to screen
@@ -86,9 +89,10 @@ void Window::Draw(){
     glutSwapBuffers();
 }
 
-void Window::Reshape(int width, int height){
+void Window::Reshape(int w, int h){
 
-    
+    width = w;
+    height = h;
     if(height > 0){
         aspectRatio = (double)width / (double)height;
     }
@@ -121,21 +125,7 @@ void Window::KeyInput(unsigned char k, int x, int y){
 
 //taken from ex7.c
 void Window::SpecialKeyInput(int key, int x, int y){
-    //  Right arrow key - increase angle by 5 degrees
-   if (key == GLUT_KEY_RIGHT)
-      yaw -= 5;
-   //  Left arrow key - decrease angle by 5 degrees
-   else if (key == GLUT_KEY_LEFT)
-      yaw += 5;
-   //  Up arrow key - increase elevation by 5 degrees
-   else if (key == GLUT_KEY_UP)
-      pitch += 5;
-   //  Down arrow key - decrease elevation by 5 degrees
-   else if (key == GLUT_KEY_DOWN)
-      pitch -= 5;
-   //  Keep angles to +/-360 degrees
-   yaw %= 360;
-   pitch %= 360;
+
 
     if(camera != nullptr){
         camera->SpecialKeyPressed(key, x, y);

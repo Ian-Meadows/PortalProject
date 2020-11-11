@@ -42,7 +42,7 @@ private:
 
     void ResetView();
 
-    int projectionType = 1;
+    int projectionType = 2;
 
     Vector3D position;
     Vector3D rotation;
@@ -60,8 +60,8 @@ private:
 
 
     //First Person
-    const Vector3D FIRST_PERSON_POS = Vector3D(30, 10, 30);
-    const Vector3D FIRST_PERSON_ROT = Vector3D(225, 0, 0);
+    const Vector3D FIRST_PERSON_POS = Vector3D(20, 10, 20);
+    const Vector3D FIRST_PERSON_ROT = Vector3D(0, 225, 0);
 
 };
 
