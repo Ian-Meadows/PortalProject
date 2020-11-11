@@ -235,6 +235,10 @@ namespace Scene
     void renderPortals(Vector3D initcampos)
     {
         glViewport(0, 0, PORTAL_WIDTH, PORTAL_HEIGHT);
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        gluPerspective(55, 1, 0.1f, 100);
+        glMatrixMode(GL_MODELVIEW);
         glPushMatrix();
         {
             for (unsigned int i = 0; i < portals.size(); ++i)
@@ -246,7 +250,7 @@ namespace Scene
                     //TODO:: adjust portal view based on user view
                     glScaled(size.x, size.y, size.z);
                     Vector3D pos, rot, thisrot, thispos;
-                    portals[i]->enablePortalDrawing(pos, rot, thispos, thisrot);  //use the portal's framebuffer, also get rot of this portal and pos and rot of other portal
+                    portals[i]->enablePortalDrawing(pos, rot, thispos, thisrot); //use the portal's framebuffer, also get rot of this portal and pos and rot of other portal
                     thispos.Print("thispos: ");
                     thisrot.Print("thisrot: ");
                     //get camera vector to portal and normalize it
@@ -270,7 +274,7 @@ namespace Scene
                     //Vector3D newNormal = portalNormal*Cos(-90)+(pivot.Cross(portalNormal))*Sin(-90)+pivot*(pivot.Dot(portalNormal)*(1-Cos(-90)));
                     //Vector3D viewDirection = ((newNormal + tempviewDirection) * 2 * (tempviewDirection.Dot(newNormal))).Normalize();
 
-                    Vector3D viewDirection = (campos*Cos(180)+(pivot.Cross(campos))*Sin(180)+pivot*(pivot.Dot(campos)*(1-Cos(180)))).Normalize();
+                    Vector3D viewDirection = (campos * Cos(180) + (pivot.Cross(campos)) * Sin(180) + pivot * (pivot.Dot(campos) * (1 - Cos(180)))).Normalize();
 
                     //Vector3D viewDirection = tempviewDirection*Cos(180)+(portalNormal.Cross(tempviewDirection))*Sin(180)+portalNormal*(portalNormal.Dot(tempviewDirection)*(1-Cos(180)));
                     //viewDirection.Rotate(thisrot);
@@ -286,7 +290,6 @@ namespace Scene
                     viewDirection.Print("added: ");
 
                     // used information from : https : //learnopengl.com/Getting-started/Camera
-                    
 
                     //get the up vector
                     Vector3D up = viewDirection.Normalize().Cross(viewDirection.Normalize().Cross(Vector3D(0, -1, 0)));

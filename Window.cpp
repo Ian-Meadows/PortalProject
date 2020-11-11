@@ -73,7 +73,7 @@ void Window::Draw(){
     //campos.Print("reassigning might work???? maybe????");
     Scene::renderPortals(campos);
 
-    glViewport(0, 0, (GLint) width, (GLint) height);
+    Reshape(width,height);
     Scene::Draw(camera);
     
     //draw text to screen
