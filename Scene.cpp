@@ -240,6 +240,10 @@ namespace Scene
     void renderPortals(Vector3D initcampos)
     {
         glViewport(0, 0, PORTAL_WIDTH, PORTAL_HEIGHT);
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        gluPerspective(55, 1, 0.1f, 100);
+        glMatrixMode(GL_MODELVIEW);
         glPushMatrix();
         {
             for (unsigned int i = 0; i < portals.size(); ++i)
@@ -268,24 +272,33 @@ namespace Scene
                     portalNormal = portalNormal.Normalize();
                     //portalNormal.Print("normal: ");
 
+
                     //std::cout << "dot:" << campos.Dot(portalNormal) << std::endl;
 
-                    Vector3D tempviewDirection = ((portalNormal + campos) * -2 * (campos.Dot(portalNormal))).Normalize(); //reflection of camera view vector off of current portal
-                    Vector3D viewDirection = tempviewDirection*Cos(180)+(portalNormal.Cross(tempviewDirection))*Sin(180)+portalNormal*(portalNormal.Dot(tempviewDirection)*(1-Cos(180)));
+                    //Vector3D tempviewDirection = ((portalNormal + campos) * -2 * (campos.Dot(portalNormal))).Normalize(); //reflection of camera view vector off of current portal
+                    Vector3D pivot = portalNormal.Normalize().Cross(portalNormal.Normalize().Cross(Vector3D(0, -1, 0)));
+                    //Vector3D newNormal = portalNormal*Cos(-90)+(pivot.Cross(portalNormal))*Sin(-90)+pivot*(pivot.Dot(portalNormal)*(1-Cos(-90)));
+                    //Vector3D viewDirection = ((newNormal + tempviewDirection) * 2 * (tempviewDirection.Dot(newNormal))).Normalize();
+
+
+                    Vector3D viewDirection = (campos * Cos(180) + (pivot.Cross(campos)) * Sin(180) + pivot * (pivot.Dot(campos) * (1 - Cos(180)))).Normalize();
+
+                    //Vector3D viewDirection = tempviewDirection*Cos(180)+(portalNormal.Cross(tempviewDirection))*Sin(180)+portalNormal*(portalNormal.Dot(tempviewDirection)*(1-Cos(180)));
                     //viewDirection.Rotate(thisrot);
                     //portalNormal.Rotate(Vector3D(0,-90,0));
                     //viewDirection = ((portalNormal + viewDirection) * -2 * (viewDirection.Dot(portalNormal))).Normalize(); //reflection of camera view vector off of current portal
                     //viewDirection.Print("viewDirection1: ");
                     // apply rotation difference to vector to map it to other portal
                     Vector3D rotdiff = rot.Subtract(thisrot);
-                    viewDirection.Rotate(rotdiff);
+
+                    viewDirection = viewDirection.Rotate(rotdiff);
+
                     //viewDirection.Print("viewDirection2: ");
                     //add vector to position of the other portal
                     Vector3D added = pos.Add(viewDirection.Normalize());
                     //viewDirection.Print("added: ");
 
                     // used information from : https : //learnopengl.com/Getting-started/Camera
-                    
 
                     //get the up vector
                     Vector3D up = viewDirection.Normalize().Cross(viewDirection.Normalize().Cross(Vector3D(0, -1, 0)));
