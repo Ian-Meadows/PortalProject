@@ -165,6 +165,11 @@ protected:
 
     virtual void LoadTextures(std::vector<std::string> textureFiles, std::vector<bool> hasAlpha) final;
 
+
+    //fixes rotation to be between 0 and 360
+    virtual void FixRotation() final;
+
+
     unsigned int *textures = nullptr;
 
 private:
