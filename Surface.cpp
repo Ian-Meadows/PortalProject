@@ -25,6 +25,7 @@ void Surface::DrawShape()
     glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, black);
 
     glEnable(GL_TEXTURE_2D);
+    glEnable(GL_CULL_FACE);
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
     glBindTexture(GL_TEXTURE_2D, textures[0]);
 
@@ -33,13 +34,13 @@ void Surface::DrawShape()
 
     glNormal3f(0, 1, 0);
 
-    glTexCoord2f(0, 0);
-    glVertex3f(0, -1, -1);
-    glTexCoord2f(rep, 0);
-    glVertex3f(0, -1, +1);
-    glTexCoord2f(rep, rep);
-    glVertex3f(0, +1, +1);
     glTexCoord2f(0, rep);
+    glVertex3f(0, +1, +1);
+    glTexCoord2f(0, 0);
+    glVertex3f(0, -1, +1);
+    glTexCoord2f(rep, 0);
+    glVertex3f(0, -1, -1);
+    glTexCoord2f(rep, rep);
     glVertex3f(0, +1, -1);
 
     glEnd();
