@@ -293,7 +293,7 @@ namespace Scene
                     //add vector to position of the other portal
                     Vector3D added = pos.Add(viewDirection.Normalize());
                     //viewDirection.Print("added: ");
-
+                    pos = pos.Add(campos.Negate());
                     // used information from : https : //learnopengl.com/Getting-started/Camera
 
                     //get the up vector

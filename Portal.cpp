@@ -94,13 +94,13 @@ void Portal::DrawShape()
 
     glNormal3f(0, 1, 0);
 
-    glTexCoord2f(0, rep);
+    glTexCoord2f(1.0/3,2.0/3 );
     glVertex3f(0, +1, +1);
-    glTexCoord2f(0, 0);
+    glTexCoord2f(1.0/3, 1.0/3);
     glVertex3f(0, -1, +1);
-    glTexCoord2f(rep, 0);
+    glTexCoord2f(2.0/3, 1.0/3);
     glVertex3f(0, -1, -1);
-    glTexCoord2f(rep, rep);
+    glTexCoord2f(2.0/3, 2.0/3);
     glVertex3f(0, +1, -1);
 
     glEnd();

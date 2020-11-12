@@ -71,6 +71,12 @@ struct Vector3D
         return Vector3D(x - other.x, y - other.y, z - other.z);
     }
 
+
+    Vector3D Negate()
+    {
+        return Vector3D(-x,-y,-z);
+    }
+    
     Vector3D Normalize()
     {
         double length = sqrt((x * x) + (y * y) + (z * z));
