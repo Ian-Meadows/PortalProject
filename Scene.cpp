@@ -198,10 +198,10 @@ namespace Scene
             objects.push_back(new Light(Vector3D(0, 0, 0), 0.65));
 
             //portals
-            Portal *p1 = new Portal(Vector3D(-2, 3, 9),
+            Portal *p1 = new Portal(Vector3D(-2, 0, 9),
                                     Vector3D(2), Vector3D(0, 90, 0));
 
-            Portal *p2 = new Portal(Vector3D(2, 3, -9),
+            Portal *p2 = new Portal(Vector3D(2, 0, -9),
                                     Vector3D(2), Vector3D(0, -90, 0));
 
             portals.push_back(p1);
