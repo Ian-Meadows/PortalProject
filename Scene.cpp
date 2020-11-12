@@ -272,12 +272,14 @@ namespace Scene
                     portalNormal = portalNormal.Normalize();
                     //portalNormal.Print("normal: ");
 
+
                     //std::cout << "dot:" << campos.Dot(portalNormal) << std::endl;
 
                     //Vector3D tempviewDirection = ((portalNormal + campos) * -2 * (campos.Dot(portalNormal))).Normalize(); //reflection of camera view vector off of current portal
                     Vector3D pivot = portalNormal.Normalize().Cross(portalNormal.Normalize().Cross(Vector3D(0, -1, 0)));
                     //Vector3D newNormal = portalNormal*Cos(-90)+(pivot.Cross(portalNormal))*Sin(-90)+pivot*(pivot.Dot(portalNormal)*(1-Cos(-90)));
                     //Vector3D viewDirection = ((newNormal + tempviewDirection) * 2 * (tempviewDirection.Dot(newNormal))).Normalize();
+
 
                     Vector3D viewDirection = (campos * Cos(180) + (pivot.Cross(campos)) * Sin(180) + pivot * (pivot.Dot(campos) * (1 - Cos(180)))).Normalize();
 
@@ -288,7 +290,9 @@ namespace Scene
                     //viewDirection.Print("viewDirection1: ");
                     // apply rotation difference to vector to map it to other portal
                     Vector3D rotdiff = rot.Subtract(thisrot);
+
                     viewDirection = viewDirection.Rotate(rotdiff);
+
                     //viewDirection.Print("viewDirection2: ");
                     //add vector to position of the other portal
                     Vector3D added = pos.Add(viewDirection.Normalize());
