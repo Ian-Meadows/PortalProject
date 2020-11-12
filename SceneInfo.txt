@@ -2,7 +2,7 @@ WhiteFloor 0,-2,0 0,0,90 1,10,10
 
 WhiteWall 0,8,10 0,90,0 1,10,10
 WhiteWall 0,8,-10 0,-90,0 1,10,10
-WhiteWall 10,8,0 0,0,180 1,10,10
-WhiteWall -10,8,0 0,0,0 1,10,10
+BlackWall 10,8,0 0,0,180 1,10,10
+BlackWall -10,8,0 0,0,0 1,10,10
 
 Companion 0, 0,90,0 1,

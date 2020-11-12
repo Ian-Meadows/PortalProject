@@ -75,8 +75,7 @@ void Window::Draw()
     Scene::Draw(camera);
 
     {
-        Vector3D campos = camera->GetPosition();
-        Scene::renderPortals(campos);
+        Scene::renderPortals(camera);
     }
 
     //draw text to screen
