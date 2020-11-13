@@ -31,17 +31,29 @@ void main()
 // taking: https://www.geeks3d.com/20091013/shader-library-phong-shader-with-multiple-lights-glsl/
 
 varying vec3 normal, eyeVec;
+varying vec4 Ambient;
 #define MAX_LIGHTS 8
-#define NUM_LIGHTS 3
+#define NUM_LIGHTS 1
 varying vec3 lightDir[MAX_LIGHTS];
 void main()
 {	
   gl_Position = ftransform();
+  Ambient = gl_FrontMaterial.emission + gl_FrontLightProduct[0].ambient + gl_LightModel.ambient*gl_FrontMaterial.ambient;
   gl_TexCoord[0] = gl_MultiTexCoord0;		
   normal = gl_NormalMatrix * gl_Normal;
   vec4 vVertex = gl_ModelViewMatrix * gl_Vertex;
   eyeVec = -vVertex.xyz;
   int i;
+
+
+  vec4 X = gl_ModelViewMatrix*gl_Vertex;
+  gl_TexCoord[1].s = dot(gl_EyePlaneS[1],X);
+  gl_TexCoord[1].t = dot(gl_EyePlaneT[1],X);
+  gl_TexCoord[1].p = dot(gl_EyePlaneR[1],X);
+  gl_TexCoord[1].q = dot(gl_EyePlaneQ[1],X);
+  gl_TexCoord[1] /= gl_TexCoord[1].q;
+
+
   for (i=0; i<NUM_LIGHTS; ++i)
     lightDir[i] = vec3(gl_LightSource[i].position.xyz - vVertex.xyz);
 }

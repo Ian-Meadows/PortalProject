@@ -361,6 +361,19 @@ namespace Scene
         glPopMatrix();
     }
 
+
+    void DrawShadowableObjects(){
+        glPushMatrix();
+        shader->use();
+        glScaled(size.x, size.y, size.z);
+        for (unsigned int i = 0; i < objects.size(); ++i)
+        {
+            glColor3f(1, 1, 1);
+            objects[i]->Draw();
+        }
+        glPopMatrix();
+    }
+
     void SetSceneSize(Vector3D size)
     {
         Scene::size = size;

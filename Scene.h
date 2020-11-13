@@ -37,6 +37,8 @@ namespace Scene
     void renderPortals(Vector3D campos); 
     void Draw(Camera *camera);
 
+    void DrawShadowableObjects();
+
     void SetSceneSize(Vector3D size);
     Vector3D GetSceneSize();
 } // namespace Scene

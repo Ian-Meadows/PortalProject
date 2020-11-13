@@ -71,6 +71,8 @@ public:
     void KeyInput(unsigned char k, int x, int y);
     void SpecialKeyInput(int k, int x, int y);
 
+    static void ErrCheck(const char* where);
+
 private:
 
     GLint win;
@@ -84,7 +86,7 @@ private:
 
     void ResetView();
 
-    void ErrCheck(const char* where);
+    
 
     void Print(const char* format, ...);
 
