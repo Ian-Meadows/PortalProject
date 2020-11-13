@@ -198,11 +198,11 @@ namespace Scene
             objects.push_back(new Light(Vector3D(0, 0, 0), 0.65));
 
             //portals
-            Portal *p1 = new Portal(Vector3D(0, 8, 0),
-                                    Vector3D(1,2,1), Vector3D(90, 0, 0));
+            Portal *p1 = new Portal(Vector3D(0, 0, 9),
+                                    Vector3D(1, 2, 1), Vector3D(0, 0, 0));
 
             Portal *p2 = new Portal(Vector3D(0, 0, -9),
-                                    Vector3D(1,2,1), Vector3D(0, 180, 0));
+                                    Vector3D(1, 2, 1), Vector3D(0, 180, 0));
 
             p1->setOtherPortal(p2);
             p2->setOtherPortal(p1);
@@ -394,7 +394,7 @@ namespace Scene
                     {
                         glColor3f(1, 1, 1);
                         //if (objects[j] != portals[i]->getOtherPortal()->getSurface())
-                            objects[j]->Draw();
+                        objects[j]->Draw();
                     }
 
                     glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
@@ -468,7 +468,7 @@ namespace Scene
                     {
                         glColor3f(1, 1, 1);
                         //if (objects[j] != portals[i]->getOtherPortal()->getSurface())
-                            objects[j]->Draw();
+                        objects[j]->Draw();
                     }
 
                     glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);

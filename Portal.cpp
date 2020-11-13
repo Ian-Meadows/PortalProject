@@ -96,7 +96,7 @@ void Portal::DrawShape()
 
     glBegin(GL_QUADS);
 
-    glNormal3f(1, 0, 0);
+    glNormal3f(0, 0, 1);
 
     glTexCoord2f(0,rep );
     glVertex3f(+1, +1, 0);
