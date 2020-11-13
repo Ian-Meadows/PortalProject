@@ -62,6 +62,11 @@ void Object::LoadTextures(std::vector<std::string> textureFiles, std::vector<boo
     }
 }
 
+void Object::UpdateRotation(Vector3D rotation){
+    this->rotation = rotation;
+    FixRotation();
+}
+
 //should I add recursion?
 void Object::FixRotation(){
     //x

@@ -2,9 +2,8 @@
 
 
 
-Light::Light(Vector3D pos,  double size) :
-    Object(pos, Vector3D(size, size, size), Vector3D()){
-
+Light::Light(LightInfo info){
+    li = info;
 }
 
 Light::~Light(){
@@ -16,6 +15,9 @@ void Light::DrawShape(){
 
     UpdatePosition();
 
+    float emission = 0;
+    float shiny = 0;
+
     //taken from ex13
     int th,ph;
     float yellow[] = {1.0,1.0,0.0,1.0};
@@ -23,13 +25,19 @@ void Light::DrawShape(){
     //  Save transformation
     glPushMatrix();
     //  Offset, scale and rotate
-    glTranslated(position.x, position.y, position.z);
-    glScaled(scale.x, scale.y, scale.z);
+    glTranslated(li.position.x, li.position.y, li.position.z);
+    glScaled(1, 1, 1);
     //  White ball
     glColor3f(1,1,1);
     glMaterialf(GL_FRONT, GL_SHININESS, shiny);
     glMaterialfv(GL_FRONT, GL_SPECULAR, yellow);
     glMaterialfv(GL_FRONT, GL_EMISSION, Emission);
+
+
+   
+
+    
+
     //  Bands of latitude
     for (ph=-90;ph<90;ph+=inc)
     {
@@ -42,7 +50,10 @@ void Light::DrawShape(){
         glEnd();
     }
     //  Undo transofrmations
-    glPopMatrix();
+    
+
+    
+   glPopMatrix();
 
     UpdateLighting();
 }
@@ -63,42 +74,27 @@ void Light::UpdatePosition(){
     int zh = fmod(90*t,360.0);
 
 
-    lightPos[0] = distance*Cos(zh);
-    lightPos[1] = position.y;
-    lightPos[2] = distance*Sin(zh);
-    lightPos[3] = 1.0;
+    //li.position.x = distance*Cos(zh);
+    //li.position.y = li.position.y;
+    //li.position.z = distance*Sin(zh);
     // = {distance*Cos(zh), position.y, distance*Sin(zh), 1.0};
-
-
-    position.x = lightPos[0];
-    position.y = lightPos[1];
-    position.z = lightPos[2];
 
 
     
 }
 
 void Light::UpdateLighting(){
-    if(lighting){
-        //  Translate intensity to color vectors
-        float Ambient[]   = {0.01f*ambient ,0.01f*ambient ,0.01f*ambient ,1.0f};
-        float Diffuse[]   = {0.01f*diffuse ,0.01f*diffuse ,0.01f*diffuse ,1.0f};
-        float Specular[]  = {0.01f*specular,0.01f*specular,0.01f*specular,1.0f};
-        //  OpenGL should normalize normal vectors
-        glEnable(GL_NORMALIZE);
-        //  Enable lighting
-        glEnable(GL_LIGHTING);
-        //  Location of viewer for specular calculations
-        glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, local);
-        //  glColor sets ambient and diffuse color materials
-        glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
-        glEnable(GL_COLOR_MATERIAL);
-        //  Enable light 0
-        glEnable(GL_LIGHT0);
-        //  Set ambient, diffuse, specular components and position of light 0
-        glLightfv(GL_LIGHT0,GL_AMBIENT ,Ambient);
-        glLightfv(GL_LIGHT0,GL_DIFFUSE ,Diffuse);
-        glLightfv(GL_LIGHT0,GL_SPECULAR,Specular);
-        glLightfv(GL_LIGHT0,GL_POSITION,lightPos);
-    }
+
+    float lightPos[] = {li.position.x, li.position.y, li.position.z, 1.0f};
+    float Ambient[]   = {li.ambient.x, li.ambient.y, li.ambient.z, 1.0f};
+    float Diffuse[]   = {li.diffuse.x, li.diffuse.y, li.diffuse.z, 1.0f};
+    float Specular[]  = {li.specular.x, li.specular.y, li.specular.z, 1.0f};
+    
+    //  Enable light 0
+    glEnable(li.lightNumber);
+    //  Set ambient, diffuse, specular components and position of light 0
+    glLightfv(li.lightNumber,GL_AMBIENT, Ambient);
+    glLightfv(li.lightNumber,GL_DIFFUSE, Diffuse);
+    glLightfv(li.lightNumber,GL_SPECULAR, Specular);
+    glLightfv(li.lightNumber,GL_POSITION, lightPos);
 }

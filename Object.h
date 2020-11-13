@@ -155,11 +155,13 @@ public:
 protected:
     Vector3D position;
     Vector3D scale;
-    Vector3D rotation;
+    
 
     Vector3D getPosition();
     Vector3D getScale();
     Vector3D getRotation();
+
+    virtual void UpdateRotation(Vector3D rotation) final;
 
     virtual void DrawShape();
 
@@ -173,6 +175,7 @@ protected:
     unsigned int *textures = nullptr;
 
 private:
+    Vector3D rotation;
 };
 
 #endif

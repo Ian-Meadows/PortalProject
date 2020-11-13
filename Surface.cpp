@@ -31,7 +31,7 @@ void Surface::DrawShape()
     glBegin(GL_QUADS);
     glColor3f(1, 1, 1);
 
-    glNormal3f(0, 1, 0);
+    glNormal3f(1, 0, 0);
 
     glTexCoord2f(0, 0);
     glVertex3f(0, -1, -1);

@@ -195,7 +195,8 @@ namespace Scene
             portalShader->setFloat("offset", 0.07f);
 
             //light
-            objects.push_back(new Light(Vector3D(0, 0, 0), 0.65));
+            //objects.push_back(new Light(Vector3D(0, 3, 0), 0.65));
+            LightHandler::Init(shader);
 
             //portals
             Portal *p1 = new Portal(Vector3D(-2, 3, 9),
@@ -341,6 +342,9 @@ namespace Scene
             shader->use();
             camera->Draw();
             glScaled(size.x, size.y, size.z);
+
+            LightHandler::Update(true);
+
             for (unsigned int i = 0; i < objects.size(); ++i)
             {
                 glColor3f(1, 1, 1);
