@@ -199,10 +199,10 @@ namespace Scene
 
             //portals
             Portal *p1 = new Portal(Vector3D(0, 0, 9),
-                                    Vector3D(2), Vector3D(0, 90, 0));
+                                    Vector3D(0,2,1), Vector3D(0, 90, 0));
 
             Portal *p2 = new Portal(Vector3D(0, 0, -9),
-                                    Vector3D(2), Vector3D(0, -90, 0));
+                                    Vector3D(0,2,1), Vector3D(0, -90, 0));
 
             p1->setOtherPortal(p2);
             p2->setOtherPortal(p1);
