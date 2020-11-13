@@ -15,6 +15,12 @@ Camera::~Camera(){
 
 }
 
+void Camera::Update(Vector3D position, Vector3D rotation)
+{
+    this->position = position;
+    this->rotation = rotation;
+}
+
 void Camera::Draw(){
 
     //ortho

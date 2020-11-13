@@ -22,7 +22,7 @@ public:
     void KeyPressed(unsigned char k, int x, int y);
     void SpecialKeyPressed(int k, int x, int y);
 
-
+    void Update(Vector3D position, Vector3D rotation);
 
     Vector3D GetPosition();
     Vector3D GetRotation();

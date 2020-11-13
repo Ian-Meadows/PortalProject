@@ -44,6 +44,11 @@ void Portal::setOtherPortal(Portal *other)
     otherPortal = other;
 }
 
+Portal* Portal::getOtherPortal()
+{
+    return otherPortal;
+}
+
 void Portal::enablePortalDrawing(Vector3D &pos, Vector3D &rot, Vector3D &thispos, Vector3D &thisrot)
 {
     //glBindFramebuffer(GL_FRAMEBUFFER, fbo);
@@ -116,3 +121,15 @@ Camera* Portal::getCam()
 {
     return cam;
 }
+
+void Portal::setSurface(Object* s)
+{
+    surface = s;
+}
+
+Object* Portal::getSurface()
+{
+    return surface;
+}
+
+
