@@ -201,8 +201,8 @@ namespace Scene
             Portal *p1 = new Portal(Vector3D(-2, 0, 9),
                                     Vector3D(2), Vector3D(0, 90, 0));
 
-            Portal *p2 = new Portal(Vector3D(-9, 0, 0),
-                                    Vector3D(2), Vector3D(0, 0, 0));
+            Portal *p2 = new Portal(Vector3D(2, 0, -9),
+                                    Vector3D(2), Vector3D(0, -90, 0));
 
             portals.push_back(p1);
             portals.push_back(p2);
@@ -237,24 +237,95 @@ namespace Scene
         }
     }
 
-    void renderPortals(Camera* camera)
+    void renderPortalsRec(int rec, int maxrec)
     {
-        //glViewport(0, 0, PORTAL_WIDTH, PORTAL_HEIGHT);
-        //glMatrixMode(GL_PROJECTION);
-        //glLoadIdentity();
-        //gluPerspective(55, 1, 0.1f, 100);
-        //glMatrixMode(GL_MODELVIEW);
+        Camera *portalcam;
+        if (rec == maxrec)
+            return;
+
         glPushMatrix();
         {
             for (unsigned int i = 0; i < portals.size(); ++i)
             {
                 glPushMatrix();
                 {
-                    
+                    portalcam = portals[i]->getCam();
+                    glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
                     //stencil stuff
-                    glStencilFunc(GL_EQUAL, i+1, 0xFF);
-                    glStencilMask(0x00); //portal 1 is 1, portal 2 is 2
+                    glStencilFunc(GL_EQUAL, i * 2 + 1 + rec, 0xFF);
+                    glStencilMask(0xFF); //portal 1 is 1, portal 2 is 2
 
+                    glScaled(size.x, size.y, size.z);
+                    Vector3D pos, rot, thisrot, thispos;
+                    portals[i]->enablePortalDrawing(pos, rot, thispos, thisrot); //use the portal's framebuffer, also get rot of this portal and pos and rot of other portal
+
+                    //get camera vector to portal and normalize it
+                    Vector3D camdiff = portalcam->GetPosition().Subtract(thispos);
+
+                    //reflect camera vector off of portal plane
+                    Vector3D portalNormal; //get normal of the portal
+                    portalNormal.x = Cos(thisrot.y) * Cos(thisrot.x);
+                    portalNormal.y = Sin(thisrot.x);
+                    portalNormal.z = Sin(thisrot.y) * Cos(thisrot.x);
+
+                    portalNormal = portalNormal.Normalize();
+
+                    Vector3D pivot = portalNormal.Normalize().Cross(portalNormal.Normalize().Cross(Vector3D(0, -1, 0)));
+
+                    // apply rotation difference to vector to map it to other portal
+                    Vector3D rotdiff = thisrot.Subtract(rot);
+                    Vector3D campos = portalcam->GetPosition();
+                    campos = campos.Subtract(pos);
+                    campos = campos.Rotate(rotdiff);
+                    campos = campos.Add(pos);
+
+                    portalcam = new Camera(campos, portalcam->GetRotation().Add(rotdiff.Negate()));
+                    portalcam->Draw();
+                    portals[i]->setCam(portalcam);
+
+                    //camera setup complete
+
+                    glClear(GL_DEPTH_BUFFER_BIT);
+                    //up
+                    shader->use();
+                    for (unsigned int j = 0; j < objects.size(); ++j)
+                    {
+                        glColor3f(1, 1, 1);
+                        objects[j]->Draw();
+                    }
+
+                    glStencilOp(GL_ZERO, GL_ZERO, GL_INCR);
+                    glStencilFunc(GL_EQUAL, i * 2 + 1 , 0xFF);
+
+                    portalShader->use();
+
+                    portalShader->setInt("portalNumber", i);
+                    glColor3f(1, 1, 1);
+                    portals[i]->Draw();
+                }
+                glPopMatrix();
+            }
+            //Draw3DGraph(3.5);
+        }
+        glPopMatrix();
+        renderPortalsRec(rec+1, maxrec);
+    }
+
+    void renderPortals(Camera *camera, int rec)
+    {
+        Camera *portalcam;
+        //std::cout << "render: " << rec << std::endl;
+
+        glPushMatrix();
+        {
+            for (unsigned int i = 0; i < portals.size(); ++i)
+            {
+                glPushMatrix();
+                {
+                    glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+                    //stencil stuff
+                    glStencilFunc(GL_EQUAL, i * 2 + 1, 0xFF);
+                    glStencilMask(0xFF); //portal 1 is 1, portal 2 is 2
 
                     glScaled(size.x, size.y, size.z);
                     Vector3D pos, rot, thisrot, thispos;
@@ -271,42 +342,16 @@ namespace Scene
 
                     portalNormal = portalNormal.Normalize();
 
-                    //Vector3D tempviewDirection = ((portalNormal + campos) * -2 * (campos.Dot(portalNormal))).Normalize(); //reflection of camera view vector off of current portal
                     Vector3D pivot = portalNormal.Normalize().Cross(portalNormal.Normalize().Cross(Vector3D(0, -1, 0)));
-                    //pivot.Print("pivot");
 
                     // apply rotation difference to vector to map it to other portal
                     Vector3D rotdiff = thisrot.Subtract(rot);
-                    //Vector3D viewDirection = camera->GetRotation() + rotdiff;
-                    //Vector3D campos = camera->GetPosition().RotateAround(pivot,180);
-                    //campos.Rotate(rotdiff);
-                    //pos = pos.Add(campos);
-                    //pos = pos.Add(camdiff);
-                    //add vector to position of the other portal
-                    camdiff.Print("camdiff 1");
-                    camdiff = camdiff.RotateAround(pivot,180);
-                    //camdiff = camdiff.Negate();
+                    camdiff = camdiff.RotateAround(pivot, 180);
                     camdiff = camdiff.Rotate(rotdiff.Negate());
-                    //camdiff = camdiff.RotateAround(Vector3D(0,1,0),-rotdiff.y);
-                    //camdiff = camdiff.RotateAround(Vector3D(1,0,0),-rotdiff.x);
-                    camdiff.Print("camdiff2");
-                    pos.Print("pos1");
                     pos = pos.Add(camdiff);
-                    pos.Print("pos2");
-                    
-                    Camera portalcam(pos,camera->GetRotation().Add(rotdiff).Add(Vector3D(pivot.x*180,pivot.y*180,pivot.z*180)));
-                    portalcam.Draw();
-
-                    
-
-                    /* //get the up vector
-                    Vector3D up = viewDirection.Normalize().Cross(viewDirection.Normalize().Cross(Vector3D(0, -1, 0)));
-                    //add the position vector to the front vector
-
-                    //change view matrix
-                    gluLookAt(pos.x, pos.y, pos.z,       //camera position
-                              added.x, added.y, added.z, //position + direction
-                              up.x, up.y, up.z); */
+                    portalcam = new Camera(pos, camera->GetRotation().Add(rotdiff).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180)));
+                    portals[i]->setCam(portalcam);
+                    portalcam->Draw();
 
                     //camera setup complete
 
@@ -318,16 +363,17 @@ namespace Scene
                         glColor3f(1, 1, 1);
                         objects[j]->Draw();
                     }
-                    portalShader->use();
 
-//temp removed
-                    /* for (unsigned int j = 0; j < portals.size(); ++j)
+                    glStencilOp(GL_ZERO, GL_ZERO, GL_INCR);
+                    glStencilFunc(GL_EQUAL, i * 2 + 1, 0xFF);
+
+                    portalShader->use();
+                    for (unsigned int j = 0; j < portals.size(); ++j)
                     {
                         portalShader->setInt("portalNumber", j);
                         glColor3f(1, 1, 1);
                         portals[j]->Draw();
-                        //portalShader->setInt("portalNumber", 1);
-                    } */
+                    }
                     //portals[i]->endPortalDrawing(); //reset to the default framebuffer
                 }
                 glPopMatrix();
@@ -335,6 +381,8 @@ namespace Scene
             //Draw3DGraph(3.5);
         }
         glPopMatrix();
+        renderPortalsRec(1, rec); //passing one cam, not 2
+        delete portalcam;
     }
 
     void Draw(Camera *camera)
@@ -356,7 +404,7 @@ namespace Scene
             portalShader->use();
             for (unsigned int i = 0; i < portals.size(); ++i)
             {
-                glStencilFunc(GL_ALWAYS, i+1, 0xFF);
+                glStencilFunc(GL_ALWAYS, i * 2 + 1, 0xFF);
                 glStencilMask(0xFF); //portal 1 is 1, portal 2 is 2
                 portalShader->setInt("portalNumber", i);
                 glColor3f(1, 1, 1);

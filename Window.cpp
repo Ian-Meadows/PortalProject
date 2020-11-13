@@ -75,7 +75,7 @@ void Window::Draw()
     Scene::Draw(camera);
 
     {
-        Scene::renderPortals(camera);
+        Scene::renderPortals(camera, 1);
     }
 
     //draw text to screen

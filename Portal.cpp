@@ -106,3 +106,13 @@ void Portal::DrawShape()
 
     glDisable(GL_TEXTURE_2D);
 }
+
+void Portal::setCam(Camera* c)
+{
+    cam = c;
+}
+
+Camera* Portal::getCam()
+{
+    return cam;
+}
