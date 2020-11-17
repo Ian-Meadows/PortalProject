@@ -247,7 +247,7 @@ namespace Scene
     {
         glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
         //stencil stuff
-        glStencilFunc(GL_EQUAL, i * portals.size() + 1 + rec, 0xFF);
+        glStencilFunc(GL_EQUAL, i * 50 + 1 + rec, 0xFF);
         glStencilMask(0xFF); //portal 1 is 1, portal 2 is 2
 
         glScaled(size.x, size.y, size.z);
@@ -268,15 +268,16 @@ namespace Scene
         Vector3D pivot = portalNormal.Normalize().Cross(portalNormal.Normalize().Cross(Vector3D(0, -1, 0)));
 
         // apply rotation difference to vector to map it to other portal
-        Vector3D rotdiff = thisrot.Subtract(rot);
+        Vector3D rotdiff = rot.Subtract(thisrot);
         
         camdiff = camdiff.RotateAround(pivot, 180);
-        camdiff = camdiff.Rotate(rotdiff.Negate());
+        camdiff = camdiff.Rotate(rotdiff);
 
         pos = pos.Add(camdiff);
 
         Camera *portalcam = portals[i]->getCam();
-        portalcam->Update(pos, camera->GetRotation().Add(rotdiff).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180)));
+        camera->GetRotation().Add(rotdiff.Negate()).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180)).Print(std::to_string(rec) + " rot");
+        portalcam->Update(pos, camera->GetRotation().Add(rotdiff.Negate()).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180)));
         //portalcam = new Camera(pos, camera->GetRotation().Add(rotdiff).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180)));
         portalcam->Draw();
 
@@ -293,7 +294,7 @@ namespace Scene
         }
 
         glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
-        glStencilFunc(GL_EQUAL, i * portals.size() + 1 + rec, 0xFF);
+        glStencilFunc(GL_EQUAL, i * 50 + 1 + rec, 0xFF);
 
         portalShader->use();
 
@@ -367,7 +368,7 @@ namespace Scene
             portalShader->use();
             for (unsigned int i = 0; i < portals.size(); ++i)
             {
-                glStencilFunc(GL_ALWAYS, i * portals.size() + 1, 0xFF);
+                glStencilFunc(GL_ALWAYS, i * 50 + 1, 0xFF);
                 glStencilMask(0xFF); //portal 1 is 1, portal 2 is 2
                 portalShader->setInt("portalNumber", i);
                 glColor3f(1, 1, 1);
