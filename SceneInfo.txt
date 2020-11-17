@@ -6,4 +6,4 @@ WhiteWall 0,8,-10 0,180,0 10,10,1
 BlackWall 10,8,0 0,90,0 10,10,1
 BlackWall -10,8,0 0,-90,0 10,10,1
 
-Companion 0, 0,90,0 1,
+Companion 0,3,0 0,90,0 1,

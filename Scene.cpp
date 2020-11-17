@@ -198,11 +198,30 @@ namespace Scene
             objects.push_back(new Light(Vector3D(0, 0, 0), 0.65));
 
             //portals
-            Portal *p1 = new Portal(Vector3D(-9, 0, -7),
+
+            /* Portal *p1 = new Portal(Vector3D(0, 0, 9.9),
+                                    Vector3D(1, 2, 1), Vector3D(0, 0, 0));
+
+            Portal *p2 = new Portal(Vector3D(0, 0, -9.9),
+                                    Vector3D(1, 2, 1), Vector3D(0, 180, 0)); */
+
+            /* Portal *p1 = new Portal(Vector3D(-9.9, 0, -7),
                                     Vector3D(1, 2, 1), Vector3D(0, -90, 0));
 
-            Portal *p2 = new Portal(Vector3D(-7, 0, -9),
+            Portal *p2 = new Portal(Vector3D(-7, 0, -9.9),
+                                    Vector3D(1, 2, 1), Vector3D(0, 180, 0)); */
+
+            Portal *p1 = new Portal(Vector3D(0, 8, 0),
+                                    Vector3D(1, 2, 1), Vector3D(-90, 0, 0));
+
+            Portal *p2 = new Portal(Vector3D(0, 0, -9),
                                     Vector3D(1, 2, 1), Vector3D(0, 180, 0));
+
+            /* Portal *p1 = new Portal(Vector3D(0, 8, 0),
+                                    Vector3D(4, 4, 1), Vector3D(-90, 0, 0));
+
+            Portal *p2 = new Portal(Vector3D(0, 0.01, 0),
+                                    Vector3D(4, 4, 1), Vector3D(90, 0, 0)); */
 
             p1->setOtherPortal(p2);
             p2->setOtherPortal(p1);
@@ -256,7 +275,7 @@ namespace Scene
 
         //get camera vector to portal and normalize it
         Vector3D camdiff = camera->GetPosition().Subtract(thispos);
-
+        Vector3D campos = camera->GetRotation();
         //reflect camera vector off of portal plane
         Vector3D portalNormal; //get normal of the portal
         portalNormal.x = Cos(thisrot.y) * Cos(thisrot.x);
@@ -265,23 +284,32 @@ namespace Scene
 
         portalNormal = portalNormal.Normalize();
 
-        Vector3D pivot = portalNormal.Normalize().Cross(portalNormal.Normalize().Cross(Vector3D(0, -1, 0)));
+        Vector3D pivot = portalNormal.Normalize().Cross(portalNormal.Normalize().Cross(Vector3D(0, -1, 0))).Normalize();
+        pivot.Print("pivot");
 
         // apply rotation difference to vector to map it to other portal
         Vector3D rotdiff = rot.Subtract(thisrot);
-        
-        camdiff = camdiff.RotateAround(pivot, 180);
-        camdiff = camdiff.Rotate(rotdiff);
 
-        pos = pos.Add(camdiff);
+        camdiff = camdiff.RotateAround(pivot, 180); //flip to other side of portal
+        camdiff = camdiff.Rotate(rotdiff);          //rotate to match other portal rotation
+
+        pos = pos.Add(camdiff); //move to other camera
 
         Camera *portalcam = portals[i]->getCam();
-        camera->GetRotation().Add(rotdiff.Negate()).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180)).Print(std::to_string(rec) + " rot");
-        portalcam->Update(pos, camera->GetRotation().Add(rotdiff.Negate()).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180)));
+        
+        portalcam->Update(pos, camera->GetRotation().Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180)));
         //portalcam = new Camera(pos, camera->GetRotation().Add(rotdiff).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180)));
         portalcam->Draw();
-
+        //Vector3D campos = camera->GetRotation(); //thatll make ya feel dumb
+        //glMatrixMode(GL_PROJECTION);
+        glTranslatef(pos.x, pos.y, pos.z); //moves camera back to where it was
+        glRotatef(-rotdiff.x, 1, 0, 0);    //rotates around camera to imitate the change in orientation
+        glRotatef(-rotdiff.y, 0, 1, 0);
+        glRotatef(-rotdiff.z, 0, 0, 1);
+        glTranslatef(-pos.x, -pos.y, -pos.z); //lifo on matrix math, translates camera to center
+        portalcam->Update(pos, camera->GetRotation().Add(rotdiff.Negate()).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180)));
         //camera setup complete
+        //glMatrixMode(GL_MODELVIEW);
 
         glClear(GL_DEPTH_BUFFER_BIT);
         //up
