@@ -194,10 +194,10 @@ namespace Scene
             objects.push_back(new Light(Vector3D(0, 0, 0), 0.65));
 
             //portals
-            Portal *p1 = new Portal(Vector3D(-10, 0, -7),
-                                    Vector3D(1, 2, 1), Vector3D(0, -90, 0));
+            Portal *p1 = new Portal(Vector3D(0, 0, 10),
+                                    Vector3D(1, 2, 1), Vector3D(0, 0, 0));
 
-            Portal *p2 = new Portal(Vector3D(-7, 0, -10),
+            Portal *p2 = new Portal(Vector3D(0, 0, -10),
                                     Vector3D(1, 2, 1), Vector3D(0, 180, 0));
 
             p1->setOtherPortal(p2);
@@ -287,11 +287,11 @@ namespace Scene
             objects[j]->Draw();
         }
 
-        glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
-        glStencilFunc(GL_EQUAL, i * 50 + 1 + rec, 0xFF);
-
         portalShader->use();
 
+
+        glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
+        glStencilFunc(GL_EQUAL, i * 50 + 1 + rec, 0xFF);
         portalShader->setInt("portalNumber", i);
         glColor3f(1, 1, 1);
         portals[i]->Draw();
@@ -339,7 +339,7 @@ namespace Scene
     void Draw(Camera *camera)
     {
 
-        glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+        
         glStencilFunc(GL_ALWAYS, 0, 0xFF);
         glStencilMask(0xFF);
         glPushMatrix();
@@ -361,6 +361,7 @@ namespace Scene
             {
                 glStencilFunc(GL_ALWAYS, i * 50 + 1, 0xFF);
                 glStencilMask(0xFF); //portal 1 is 1, portal 2 is 2
+                glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
                 portalShader->setInt("portalNumber", i);
                 glColor3f(1, 1, 1);
                 portals[i]->Draw();

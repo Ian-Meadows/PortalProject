@@ -16,6 +16,7 @@ public:
     Camera* getCam();
     void setSurface(Object* s);
     Object* getSurface();
+    void drawOutline();
 
     ~Portal();
 

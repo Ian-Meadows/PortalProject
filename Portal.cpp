@@ -66,9 +66,7 @@ Portal::~Portal()
 
 void Portal::DrawShape()
 {
-
-    int rep = 1;
-
+    GLdouble portalsize = 0.95, edgesize = 1;
     float white[] = {1, 1, 1, 1};
     float black[] = {0, 0, 0, 1};
     float shiny = 1; // Shininess (value)
@@ -84,7 +82,7 @@ void Portal::DrawShape()
     // oval shape
     glPushMatrix();
     {
-        glPolygonOffset(-1,-1);
+        glPolygonOffset(-1, -1);
         glBegin(GL_TRIANGLE_FAN);
 
         glNormal3f(0, 0, 1);
@@ -95,15 +93,33 @@ void Portal::DrawShape()
         for (int ang = 360; ang >= 0; ang -= angleChange) //draw circle in chunks
         {
             glTexCoord2f(Sin(ang) / 2 + 0.5, Cos(ang) / 2 + 0.5);
-            ovalVertex(ang,1,1);
+            ovalVertex(ang, portalsize, portalsize);
             glTexCoord2f(Sin(ang - angleChange) / 2 + 0.5, Cos(ang - angleChange) / 2 + 0.5);
-            ovalVertex(ang - angleChange, 1,1);
+            ovalVertex(ang - angleChange, portalsize, portalsize);
         }
         glEnd();
     }
     glPopMatrix();
-    glPolygonOffset(0,0);
 
+    
+                glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+
+    glBegin(GL_TRIANGLE_FAN);
+
+    glNormal3f(0, 0, 1);
+    glTexCoord2f(0.5, 0.5);
+    glVertex3f(0, 0, 0); //set center point for top circle
+    int angleChange = 5;
+
+    for (int ang = 360; ang >= 0; ang -= angleChange) //draw circle in chunks
+    {
+        glTexCoord2f(Sin(ang) / 2 + 0.5, Cos(ang) / 2 + 0.5);
+        ovalVertex(ang, edgesize, edgesize);
+        glTexCoord2f(Sin(ang - angleChange) / 2 + 0.5, Cos(ang - angleChange) / 2 + 0.5);
+        ovalVertex(ang - angleChange, edgesize, edgesize);
+    }
+    glEnd();
+    glPolygonOffset(0, 0);
 
     /* // rectangular shape
     glBegin(GL_QUADS);
@@ -121,6 +137,8 @@ void Portal::DrawShape()
     glEnd(); */
 
     glDisable(GL_TEXTURE_2D);
+
+    glDisable(GL_POLYGON_OFFSET_FILL);
 }
 
 void Portal::setCam(Camera *c)
