@@ -191,13 +191,13 @@ namespace Scene
             portalShader->setFloat("offset", 0.07f);
 
             //light
-            objects.push_back(new Light(Vector3D(0, 0, 0), 0.65));
+            objects.push_back(new Light(Vector3D(0, 2, 0), 0.65));
 
             //portals
-            Portal *p1 = new Portal(Vector3D(0, 0, 10),
+            Portal *p1 = new Portal(Vector3D(0, 2, 10),
                                     Vector3D(1, 2, 1), Vector3D(0, 0, 0));
 
-            Portal *p2 = new Portal(Vector3D(0, 0, -10),
+            Portal *p2 = new Portal(Vector3D(0, 2, -10),
                                     Vector3D(1, 2, 1), Vector3D(0, 180, 0));
 
             p1->setOtherPortal(p2);
@@ -272,7 +272,6 @@ namespace Scene
         pos = pos.Add(camdiff);
 
         Camera *portalcam = portals[i]->getCam();
-        camera->GetRotation().Add(rotdiff.Negate()).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180)).Print(std::to_string(rec) + " rot");
         portalcam->Update(pos, camera->GetRotation().Add(rotdiff.Negate()).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180)));
         portalcam->Draw();
 
@@ -288,7 +287,6 @@ namespace Scene
         }
 
         portalShader->use();
-
 
         glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
         glStencilFunc(GL_EQUAL, i * 50 + 1 + rec, 0xFF);
@@ -339,7 +337,6 @@ namespace Scene
     void Draw(Camera *camera)
     {
 
-        
         glStencilFunc(GL_ALWAYS, 0, 0xFF);
         glStencilMask(0xFF);
         glPushMatrix();
