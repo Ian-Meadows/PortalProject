@@ -8,10 +8,9 @@
 #include <vector>
 
 #include "TextureHandler.h"
+#include "Def.h"
 
 //taken from CSCIx229.h
-#define Cos(th) cos(3.1415926 / 180 * (th))
-#define Sin(th) sin(3.1415926 / 180 * (th))
 
 struct Vector3D
 {

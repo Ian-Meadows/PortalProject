@@ -12,7 +12,6 @@ public:
     void setOtherPortal(Portal* other);
     Portal* getOtherPortal();
     void enablePortalDrawing(Vector3D &pos, Vector3D &rot, Vector3D &thispos, Vector3D &thisrot);
-    void endPortalDrawing();
     void setCam(Camera* c);
     Camera* getCam();
     void setSurface(Object* s);

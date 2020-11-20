@@ -51,24 +51,10 @@ Portal* Portal::getOtherPortal()
 
 void Portal::enablePortalDrawing(Vector3D &pos, Vector3D &rot, Vector3D &thispos, Vector3D &thisrot)
 {
-    //glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-    //glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-    //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    //glEnable(GL_DEPTH_TEST);
     pos = otherPortal->getPosition();
     rot = otherPortal->getRotation();
     thisrot = getRotation();
     thispos = getPosition();
-}
-
-void Portal::endPortalDrawing()
-{
-    /* glReadPixels(0, 0, PORTAL_WIDTH, PORTAL_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, temptex);
-
-    glBindTexture(GL_TEXTURE_2D, finalTex);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, PORTAL_WIDTH, PORTAL_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, temptex); //assign texture now so that it doesnt load current working texture while rendering
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0); */
 }
 
 Portal::~Portal()

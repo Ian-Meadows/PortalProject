@@ -66,8 +66,6 @@ namespace Scene
 
             while (end != std::string::npos && index < 2)
             {
-                //std::cout << objLine.substr(start, end - start) << std::endl;
-
                 numbers[index] = str.substr(start, end - start);
 
                 start = end + delim.length();
@@ -99,8 +97,6 @@ namespace Scene
 
             while (end != std::string::npos && index < 3)
             {
-                //std::cout << objLine.substr(start, end - start) << std::endl;
-
                 settings[index] = objLine.substr(start, end - start);
                 std::cout << settings[index] << std::endl;
 
@@ -269,7 +265,7 @@ namespace Scene
 
         // apply rotation difference to vector to map it to other portal
         Vector3D rotdiff = rot.Subtract(thisrot);
-        
+
         camdiff = camdiff.RotateAround(pivot, 180);
         camdiff = camdiff.Rotate(rotdiff);
 
@@ -278,7 +274,6 @@ namespace Scene
         Camera *portalcam = portals[i]->getCam();
         camera->GetRotation().Add(rotdiff.Negate()).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180)).Print(std::to_string(rec) + " rot");
         portalcam->Update(pos, camera->GetRotation().Add(rotdiff.Negate()).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180)));
-        //portalcam = new Camera(pos, camera->GetRotation().Add(rotdiff).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180)));
         portalcam->Draw();
 
         //camera setup complete
@@ -289,7 +284,6 @@ namespace Scene
         for (unsigned int j = 0; j < objects.size(); ++j)
         {
             glColor3f(1, 1, 1);
-            //if (objects[j] != portals[i]->getOtherPortal()->getSurface())
             objects[j]->Draw();
         }
 
@@ -301,14 +295,12 @@ namespace Scene
         portalShader->setInt("portalNumber", i);
         glColor3f(1, 1, 1);
         portals[i]->Draw();
-        //portals[i]->endPortalDrawing(); //reset to the default framebuffer*/
     }
 
     void renderPortalsRec(int rec, int maxrec)
     {
         if (rec == maxrec)
             return;
-        //std::cout << "render: " << rec << std::endl;
 
         glPushMatrix();
         {
@@ -321,7 +313,6 @@ namespace Scene
                 }
                 glPopMatrix();
             }
-            //Draw3DGraph(3.5);
         }
         glPopMatrix();
         renderPortalsRec(rec + 1, maxrec);
@@ -329,7 +320,6 @@ namespace Scene
 
     void renderPortals(Camera *camera, int rec)
     {
-        //std::cout << "render: " << rec << std::endl;
 
         glPushMatrix();
         {
@@ -337,13 +327,10 @@ namespace Scene
             {
                 glPushMatrix();
                 {
-                    Camera *portalcam;
-                    portalcam = nullptr;
                     doportalrender(camera, 0, i);
                 }
                 glPopMatrix();
             }
-            //Draw3DGraph(3.5);
         }
         glPopMatrix();
         renderPortalsRec(1, rec);
@@ -360,6 +347,10 @@ namespace Scene
             shader->use();
             camera->Draw();
             glScaled(size.x, size.y, size.z);
+            if (false)
+            {
+                Draw3DGraph(10);
+            }
             for (unsigned int i = 0; i < objects.size(); ++i)
             {
                 glColor3f(1, 1, 1);
