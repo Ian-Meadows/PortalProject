@@ -6,8 +6,7 @@
 #include <string>
 #include <math.h>
 
-#define Cos(th) cos(3.1415926/180*(th))
-#define Sin(th) sin(3.1415926/180*(th))
+#include "Def.h"
 
 class Camera{
 public:
@@ -22,7 +21,7 @@ public:
     void KeyPressed(unsigned char k, int x, int y);
     void SpecialKeyPressed(int k, int x, int y);
 
-
+    void Update(Vector3D position, Vector3D rotation);
 
     Vector3D GetPosition();
     Vector3D GetRotation();
@@ -60,7 +59,7 @@ private:
 
 
     //First Person
-    const Vector3D FIRST_PERSON_POS = Vector3D(20, 10, 20);
+    const Vector3D FIRST_PERSON_POS = Vector3D(0, 5, 0);
     const Vector3D FIRST_PERSON_ROT = Vector3D(0, 225, 0);
 
 };

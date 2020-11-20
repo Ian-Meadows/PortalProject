@@ -33,7 +33,7 @@ namespace Scene
     void Init(Vector3D size);
     void CleanUp();
 
-    void renderPortals(Vector3D campos); 
+    void renderPortals(Camera* camera, int rec); 
     void Draw(Camera *camera);
 
     void SetSceneSize(Vector3D size);

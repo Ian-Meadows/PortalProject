@@ -44,26 +44,17 @@ void Portal::setOtherPortal(Portal *other)
     otherPortal = other;
 }
 
+Portal* Portal::getOtherPortal()
+{
+    return otherPortal;
+}
+
 void Portal::enablePortalDrawing(Vector3D &pos, Vector3D &rot, Vector3D &thispos, Vector3D &thisrot)
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glEnable(GL_DEPTH_TEST);
     pos = otherPortal->getPosition();
     rot = otherPortal->getRotation();
     thisrot = getRotation();
     thispos = getPosition();
-}
-
-void Portal::endPortalDrawing()
-{
-    glReadPixels(0, 0, PORTAL_WIDTH, PORTAL_HEIGHT, GL_RGBA, GL_UNSIGNED_BYTE, temptex);
-
-    glBindTexture(GL_TEXTURE_2D, finalTex);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, PORTAL_WIDTH, PORTAL_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, temptex); //assign texture now so that it doesnt load current working texture while rendering
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 Portal::~Portal()
@@ -87,23 +78,44 @@ void Portal::DrawShape()
 
     glEnable(GL_TEXTURE_2D);
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-    glBindTexture(GL_TEXTURE_2D, finalTex);
+    //glBindTexture(GL_TEXTURE_2D, finalTex);
 
     glBegin(GL_QUADS);
-    glColor3f(1, 1, 1);
 
-    glNormal3f(0, 1, 0);
+    glNormal3f(0, 0, 1);
 
-    glTexCoord2f(rep, 0);
-    glVertex3f(0, -1, -1);
+    glTexCoord2f(0,rep );
+    glVertex3f(+1, +1, 0);
     glTexCoord2f(0, 0);
-    glVertex3f(0, -1, +1);
-    glTexCoord2f(0, rep);
-    glVertex3f(0, +1, +1);
+    glVertex3f(+1, -1, 0);
+    glTexCoord2f(rep, 0);
+    glVertex3f(-1, -1, 0);
     glTexCoord2f(rep, rep);
-    glVertex3f(0, +1, -1);
+    glVertex3f(-1, +1, 0);
 
     glEnd();
 
     glDisable(GL_TEXTURE_2D);
 }
+
+void Portal::setCam(Camera* c)
+{
+    cam = c;
+}
+
+Camera* Portal::getCam()
+{
+    return cam;
+}
+
+void Portal::setSurface(Object* s)
+{
+    surface = s;
+}
+
+Object* Portal::getSurface()
+{
+    return surface;
+}
+
+

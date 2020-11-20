@@ -106,42 +106,42 @@ void Companion::sidePanel()
     glVertex3f(-0.2, +1.06, +0.85);
 
     glNormal3f(+0.2, 0, 0);
-    glTexCoord2f(0.9, 0.4);
-    glVertex3f(+0.2, +1.06, +1.01);
-    glTexCoord2f(0.9, 0.1);
-    glVertex3f(+0.2, +1.06, +0.85);
     glTexCoord2f(1, 0.1);
     glVertex3f(+0.2, +1, +0.85);
+    glTexCoord2f(0.9, 0.1);
+    glVertex3f(+0.2, +1.06, +0.85);
+    glTexCoord2f(0.9, 0.4);
+    glVertex3f(+0.2, +1.06, +1.01);
     glTexCoord2f(1, 0.4);
     glVertex3f(+0.2, +1, +1.01);
 
     glNormal3f(-0.2, 0, 0);
-    glTexCoord2f(0.1, 0.4);
-    glVertex3f(-0.2, +1.06, +1.01);
-    glTexCoord2f(0, 0.4);
-    glVertex3f(-0.2, +1, +1.01);
     glTexCoord2f(0, 0.1);
     glVertex3f(-0.2, +1, +0.85);
+    glTexCoord2f(0, 0.4);
+    glVertex3f(-0.2, +1, +1.01);
+    glTexCoord2f(0.1, 0.4);
+    glVertex3f(-0.2, +1.06, +1.01);
     glTexCoord2f(0.1, 0.1);
     glVertex3f(-0.2, +1.06, +0.85);
 
     glNormal3f(0, 0, -0.85);
-    glTexCoord2f(0.9, 0.1);
-    glVertex3f(+0.2, +1.06, +0.85);
-    glTexCoord2f(0.1, 0.1);
-    glVertex3f(-0.2, +1.06, +0.85);
     glTexCoord2f(0.1, 0);
     glVertex3f(-0.2, +1, +0.85);
+    glTexCoord2f(0.1, 0.1);
+    glVertex3f(-0.2, +1.06, +0.85);
+    glTexCoord2f(0.9, 0.1);
+    glVertex3f(+0.2, +1.06, +0.85);
     glTexCoord2f(0.9, 0);
     glVertex3f(+0.2, +1, +0.85);
     //side 2
     glNormal3f(0, 0, +1.06);
-    glTexCoord2f(0.1, 0.6);
-    glVertex3f(-0.2, +1.01, +1.06);
-    glTexCoord2f(0.9, 0.6);
-    glVertex3f(+0.2, +1.01, +1.06);
     glTexCoord2f(0.9, 0.9);
     glVertex3f(+0.2, +0.85, +1.06);
+    glTexCoord2f(0.9, 0.6);
+    glVertex3f(+0.2, +1.01, +1.06);
+    glTexCoord2f(0.1, 0.6);
+    glVertex3f(-0.2, +1.01, +1.06);
     glTexCoord2f(0.1, 0.9);
     glVertex3f(-0.2, +0.85, +1.06);
 
@@ -216,13 +216,14 @@ void Companion::cornerPanel()
 
     glBegin(GL_QUADS);
     //strips
+    
     glNormal3f(0, 1, 1);
-    glTexCoord2f(0.9, 0.9);
-    glVertex3f(+1.01, +1.06, +1.01);
-    glTexCoord2f(0.9, 0.1);
-    glVertex3f(+1.01, +1.01, +1.06);
     glTexCoord2f(0.1, 0.1);
     glVertex3f(+0.3, +1.01, +1.06);
+    glTexCoord2f(0.9, 0.1);
+    glVertex3f(+1.01, +1.01, +1.06);
+    glTexCoord2f(0.9, 0.9);
+    glVertex3f(+1.01, +1.06, +1.01);
     glTexCoord2f(0.1, 0.9);
     glVertex3f(+0.3, +1.06, +1.01);
 
@@ -236,6 +237,7 @@ void Companion::cornerPanel()
     glTexCoord2f(0.1, 0.9);
     glVertex3f(+1.06, +0.3, +1.01);
 
+
     glNormal3f(1, 1, 0);
     glTexCoord2f(0.9, 0.9);
     glVertex3f(+1.01, +1.06, +1.01);
@@ -245,8 +247,9 @@ void Companion::cornerPanel()
     glVertex3f(+1.06, +1.01, +0.3);
     glTexCoord2f(0.1, 0.9);
     glVertex3f(+1.01, +1.06, +0.3);
-    glEnd();
+    glEnd(); 
 
+    
     //strip end-caps
     glBegin(GL_TRIANGLES);
     glNormal3f(-0.3, 0, 0);
@@ -258,18 +261,18 @@ void Companion::cornerPanel()
     glVertex3f(+0.3, +1.00, +1.00);
 
     glNormal3f(0, -0.3, 0);
-    glTexCoord2f(0.3, 0.3);
-    glVertex3f(+1.01, +0.3, +1.06);
     glTexCoord2f(0.3, 0.6);
     glVertex3f(+1.06, +0.3, +1.01);
+    glTexCoord2f(0.3, 0.3);
+    glVertex3f(+1.01, +0.3, +1.06);
     glTexCoord2f(0.6, 0.3);
     glVertex3f(+1.00, +0.3, +1.00);
 
     glNormal3f(0, 0, -0.3);
-    glTexCoord2f(0.3, 0.3);
-    glVertex3f(+1.06, +1.01, +0.3);
     glTexCoord2f(0.3, 0.6);
     glVertex3f(+1.01, +1.06, +0.3);
+    glTexCoord2f(0.3, 0.3);
+    glVertex3f(+1.06, +1.01, +0.3);
     glTexCoord2f(0.6, 0.3);
     glVertex3f(+1.00, +1.00, +0.3);
 
@@ -278,22 +281,22 @@ void Companion::cornerPanel()
     glBegin(GL_QUADS);
     //inner cover pieces
     glNormal3f(-1, -1, 0);
-    glTexCoord2f(0.3, 0.3);
-    glVertex3f(+0.3, +1.01, +1.06);
-    glTexCoord2f(0.3, 0.7);
-    glVertex3f(+1.01, +0.3, +1.06);
     glTexCoord2f(0.7, 0.7);
     glVertex3f(+1.01, +0.3, +1.00);
+    glTexCoord2f(0.3, 0.7);
+    glVertex3f(+1.01, +0.3, +1.06);
+    glTexCoord2f(0.3, 0.3);
+    glVertex3f(+0.3, +1.01, +1.06);
     glTexCoord2f(0.7, 0.3);
     glVertex3f(+0.3, +1.01, +1.00);
 
     glNormal3f(0, -1, -1);
-    glTexCoord2f(0.3, 0.3);
-    glVertex3f(+1.06, +0.3, +1.01);
-    glTexCoord2f(0.3, 0.7);
-    glVertex3f(+1.06, +1.01, +0.3);
     glTexCoord2f(0.7, 0.7);
     glVertex3f(+1.00, +1.01, +0.3);
+    glTexCoord2f(0.3, 0.7);
+    glVertex3f(+1.06, +1.01, +0.3);
+    glTexCoord2f(0.3, 0.3);
+    glVertex3f(+1.06, +0.3, +1.01);
     glTexCoord2f(0.7, 0.3);
     glVertex3f(+1.00, +0.3, +1.01);
 
@@ -330,10 +333,10 @@ void Companion::cornerPanel()
     glVertex3f(+1.06, +1.01, +1.01);
 
     glNormal3f(0, +1.06, 0);
-    glTexCoord2f(0.1, 0.1);
-    glVertex3f(+0.3, +1.06, +1.01);
     glTexCoord2f(0, 0.5);
     glVertex3f(+1.01, +1.06, +0.3);
+    glTexCoord2f(0.1, 0.1);
+    glVertex3f(+0.3, +1.06, +1.01);
     glTexCoord2f(0.5, 0);
     glVertex3f(+1.01, +1.06, +1.01);
 
@@ -369,8 +372,8 @@ void Companion::cylinder(GLint angleChange, GLdouble radius, GLdouble height)
     {
         glTexCoord2f(Sin(ang) / 2 + 0.5, Cos(ang) / 2 + 0.5);
         circleVertex(ang, 1);
-        glTexCoord2f(Sin(ang + angleChange) / 2 + 0.5, Cos(ang + angleChange) / 2 + 0.5);
-        circleVertex(ang + angleChange, 1);
+        glTexCoord2f(Sin(ang - angleChange) / 2 + 0.5, Cos(ang - angleChange) / 2 + 0.5);
+        circleVertex(ang - angleChange, 1);
     }
     glEnd();
 
