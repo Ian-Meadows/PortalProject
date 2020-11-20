@@ -106,7 +106,7 @@ void Portal::DrawShape()
 
     glBegin(GL_TRIANGLE_FAN);
 
-    glNormal3f(0, 0, 1);
+    glNormal3f(0, 0, -1);
     glTexCoord2f(0.5, 0.5);
     glVertex3f(0, 0, 0); //set center point for top circle
     int angleChange = 5;
