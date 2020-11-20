@@ -79,28 +79,30 @@ void Portal::DrawShape()
     glEnable(GL_TEXTURE_2D);
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
     //glBindTexture(GL_TEXTURE_2D, finalTex);
+    glEnable(GL_POLYGON_OFFSET_FILL);
 
     // oval shape
     glPushMatrix();
     {
-        //glRotatef(90,1,0,0);
+        glPolygonOffset(-1,-1);
         glBegin(GL_TRIANGLE_FAN);
 
-        glNormal3f(0, 1, 0);
+        glNormal3f(0, 0, 1);
         glTexCoord2f(0.5, 0.5);
         glVertex3f(0, 0, 0); //set center point for top circle
         int angleChange = 5;
 
-        for (int ang = 0; ang <= 360; ang += angleChange) //draw circle in chunks
+        for (int ang = 360; ang >= 0; ang -= angleChange) //draw circle in chunks
         {
             glTexCoord2f(Sin(ang) / 2 + 0.5, Cos(ang) / 2 + 0.5);
             ovalVertex(ang,1,1);
-            glTexCoord2f(Sin(ang + angleChange) / 2 + 0.5, Cos(ang + angleChange) / 2 + 0.5);
+            glTexCoord2f(Sin(ang - angleChange) / 2 + 0.5, Cos(ang - angleChange) / 2 + 0.5);
             ovalVertex(ang - angleChange, 1,1);
         }
         glEnd();
     }
     glPopMatrix();
+    glPolygonOffset(0,0);
 
 
     /* // rectangular shape
