@@ -44,7 +44,7 @@ void Portal::setOtherPortal(Portal *other)
     otherPortal = other;
 }
 
-Portal* Portal::getOtherPortal()
+Portal *Portal::getOtherPortal()
 {
     return otherPortal;
 }
@@ -80,10 +80,33 @@ void Portal::DrawShape()
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
     //glBindTexture(GL_TEXTURE_2D, finalTex);
 
+    // oval shape
+    glPushMatrix();
+    {
+        //glRotatef(90,1,0,0);
+        glBegin(GL_TRIANGLE_FAN);
+
+        glNormal3f(0, 1, 0);
+        glTexCoord2f(0.5, 0.5);
+        glVertex3f(0, 0, 0); //set center point for top circle
+        int angleChange = 5;
+
+        for (int ang = 0; ang <= 360; ang += angleChange) //draw circle in chunks
+        {
+            glTexCoord2f(Sin(ang) / 2 + 0.5, Cos(ang) / 2 + 0.5);
+            ovalVertex(ang,1,1);
+            glTexCoord2f(Sin(ang + angleChange) / 2 + 0.5, Cos(ang + angleChange) / 2 + 0.5);
+            ovalVertex(ang - angleChange, 1,1);
+        }
+        glEnd();
+    }
+    glPopMatrix();
+
+
+    /* // rectangular shape
     glBegin(GL_QUADS);
 
     glNormal3f(0, 0, 1);
-
     glTexCoord2f(0,rep );
     glVertex3f(+1, +1, 0);
     glTexCoord2f(0, 0);
@@ -93,29 +116,27 @@ void Portal::DrawShape()
     glTexCoord2f(rep, rep);
     glVertex3f(-1, +1, 0);
 
-    glEnd();
+    glEnd(); */
 
     glDisable(GL_TEXTURE_2D);
 }
 
-void Portal::setCam(Camera* c)
+void Portal::setCam(Camera *c)
 {
     cam = c;
 }
 
-Camera* Portal::getCam()
+Camera *Portal::getCam()
 {
     return cam;
 }
 
-void Portal::setSurface(Object* s)
+void Portal::setSurface(Object *s)
 {
     surface = s;
 }
 
-Object* Portal::getSurface()
+Object *Portal::getSurface()
 {
     return surface;
 }
-
-
