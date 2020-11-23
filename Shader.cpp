@@ -1,5 +1,5 @@
 #include "Shader.h"
-
+#include "Object.h"
 
 Shader::Shader(const char* vertexPath, const char* fragmentPath)
 {
@@ -82,6 +82,10 @@ void Shader::setFloat(const std::string &name, float value)
     glUniform1f(glGetUniformLocation(ID, name.c_str()), value);
 }
 
+void Shader::setVec3(const std::string &name, Vector3D value){
+    glUniform3f(glGetUniformLocation(ID, name.c_str()),
+     (float)value.x, (float)value.y, (float)value.z);
+}
 
 
 void Shader::checkCompileErrors(unsigned int shader, std::string type)

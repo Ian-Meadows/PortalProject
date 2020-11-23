@@ -191,7 +191,8 @@ namespace Scene
             portalShader->setFloat("offset", 0.07f);
 
             //light
-            objects.push_back(new Light(Vector3D(0, 0, 0), 0.65));
+            //objects.push_back(new Light(Vector3D(0, 3, 0), 0.65));
+            LightHandler::Init(shader);
 
             //portals
             Portal *p1 = new Portal(Vector3D(0, 0, 10),
@@ -347,10 +348,16 @@ namespace Scene
             shader->use();
             camera->Draw();
             glScaled(size.x, size.y, size.z);
+
             if (false)
             {
                 Draw3DGraph(10);
             }
+
+
+            LightHandler::Update(true);
+
+
             for (unsigned int i = 0; i < objects.size(); ++i)
             {
                 glColor3f(1, 1, 1);
@@ -368,6 +375,19 @@ namespace Scene
             }
             glStencilFunc(GL_ALWAYS, 0, 0xFF);
             glStencilMask(0xFF);
+        }
+        glPopMatrix();
+    }
+
+
+    void DrawShadowableObjects(){
+        glPushMatrix();
+        shader->use();
+        glScaled(size.x, size.y, size.z);
+        for (unsigned int i = 0; i < objects.size(); ++i)
+        {
+            glColor3f(1, 1, 1);
+            objects[i]->Draw();
         }
         glPopMatrix();
     }

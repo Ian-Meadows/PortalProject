@@ -4,6 +4,7 @@ Object::Object(Vector3D pos, Vector3D scale, Vector3D rotation){
     position = pos;
     this->scale = scale;
     this->rotation = rotation;
+    FixRotation();
 }
 Object::~Object(){
     if(textures != nullptr){
@@ -58,5 +59,37 @@ void Object::LoadTextures(std::vector<std::string> textureFiles, std::vector<boo
         /*
         
         */
+    }
+}
+
+void Object::UpdateRotation(Vector3D rotation){
+    this->rotation = rotation;
+    FixRotation();
+}
+
+//should I add recursion?
+void Object::FixRotation(){
+    //x
+    if(rotation.x < 0){
+        rotation.x = 360 + rotation.x;
+    }
+    if(rotation.x > 360){
+        rotation.x = 0 + rotation.x;
+    }
+
+    //y
+    if(rotation.y < 0){
+        rotation.y = 360 + rotation.y;
+    }
+    if(rotation.y > 360){
+        rotation.y = 0 + rotation.y;
+    }
+
+    //z
+    if(rotation.z < 0){
+        rotation.z = 360 + rotation.z;
+    }
+    if(rotation.z > 360){
+        rotation.z = 0 + rotation.z;
     }
 }

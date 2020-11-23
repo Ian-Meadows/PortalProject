@@ -21,6 +21,9 @@
 #include <GL/glut.h>
 #endif
 
+
+struct Vector3D;
+
 class Shader
 {
 public:
@@ -42,6 +45,11 @@ public:
 	void setInt(const std::string &name, int value);
 	// ------------------------------------------------------------------------
 	void setFloat(const std::string &name, float value);
+
+
+	void setVec3(const std::string &name, Vector3D value);
+
+
     /*
 	// ------------------------------------------------------------------------
 	void setVec2(const std::string &name, const glm::vec2 &value) const

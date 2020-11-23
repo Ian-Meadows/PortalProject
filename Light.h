@@ -3,14 +3,67 @@
 
 #include "Object.h"
 
-class Light : public Object{
+struct LightInfo{
+    GLenum lightNumber;
+    bool isSpotLight;
+
+
+    Vector3D ambient;
+    Vector3D diffuse;
+    Vector3D specular;
+
+    Vector3D position;
+
+    LightInfo(){
+        this->lightNumber = GL_LIGHT0;
+        isSpotLight = false;
+        ambient = Vector3D(0.1);
+        diffuse = Vector3D(0.3);
+        specular = Vector3D(0.3);
+
+        position = Vector3D();
+    }
+
+    LightInfo(GLenum lightNumber){
+        this->lightNumber = lightNumber;
+        isSpotLight = false;
+        ambient = Vector3D(0.1);
+        diffuse = Vector3D(0.3);
+        specular = Vector3D(0.3);
+
+        position = Vector3D();
+    }
+
+    LightInfo(GLenum lightNumber, Vector3D position){
+        this->lightNumber = lightNumber;
+        isSpotLight = false;
+        ambient = Vector3D(0.1);
+        diffuse = Vector3D(0.3);
+        specular = Vector3D(0.3);
+
+        this->position = position;
+    }
+
+    LightInfo(GLenum lightNumber, Vector3D position, Vector3D ambient,
+     Vector3D diffuse, Vector3D specular){
+        this->lightNumber = lightNumber;
+        isSpotLight = false;
+        this->ambient = ambient;
+        this->diffuse = diffuse;
+        this->specular = specular;
+
+        this->position = position;
+    }
+};
+
+class Light{
 public:
-    Light(Vector3D pos,  double size);
+    Light(LightInfo info);
     ~Light();
 
-
-private:
     void DrawShape();
+private:
+    //void DrawShape();
 
     void Vertex(double th, double ph);
 
@@ -18,19 +71,11 @@ private:
 
     void UpdateLighting();
 
-    int emission = 0;
-    float shiny   =   1;
-    int inc       =  10;  // Ball increment
-    int ambient   =  10;  // Ambient intensity (%)
-    int diffuse   =  50;  // Diffuse intensity (%)
-    int specular  =   10;  // Specular intensity (%)
-    int local     =   0;  // Local Viewer Model
+    LightInfo li;
 
+    int inc       =  10;  // Ball increment
     int distance = 3;
 
-    float lightPos[4];
-
-    bool lighting = true;
 };
 
 

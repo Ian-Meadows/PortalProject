@@ -26,6 +26,7 @@
 #include "Shader.h"
 #include "Portal.h"
 #include "Camera.h"
+#include "LightHandler.h"
 
 namespace Scene
 {
@@ -35,6 +36,8 @@ namespace Scene
 
     void renderPortals(Camera* camera, int rec); 
     void Draw(Camera *camera);
+
+    void DrawShadowableObjects();
 
     void SetSceneSize(Vector3D size);
     Vector3D GetSceneSize();
