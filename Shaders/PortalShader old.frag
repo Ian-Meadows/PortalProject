@@ -53,11 +53,22 @@ void main()
    //  V is the view vector (eye vector)
    vec3 V = normalize(View);
 
-   if(portalNumber == 0){
-      gl_FragColor = vec4(1, 0.6, 0, 1);
+
+   int value = InCircle(gl_TexCoord[0].xy);
+   if(value == 0){
+      //  Apply texture
+      gl_FragColor = texture2D(tex,gl_TexCoord[0].xy);
    }
-   else{
-      gl_FragColor = vec4(0.3, 0.3, 1, 1);
+   else if(value == 1){//apply outline
+      if(portalNumber == 0){
+         gl_FragColor = vec4(1, 0.6, 0, 1);
+      }
+      else{
+         gl_FragColor = vec4(0.3, 0.3, 1, 1);
+      }
+   }
+   else{ //outside ring
+      gl_FragColor = vec4(0, 0, 0, 0);
    }
 
    

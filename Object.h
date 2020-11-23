@@ -8,10 +8,9 @@
 #include <vector>
 
 #include "TextureHandler.h"
+#include "Def.h"
 
 //taken from CSCIx229.h
-#define Cos(th) cos(3.1415926 / 180 * (th))
-#define Sin(th) sin(3.1415926 / 180 * (th))
 
 struct Vector3D
 {
@@ -71,6 +70,12 @@ struct Vector3D
         return Vector3D(x - other.x, y - other.y, z - other.z);
     }
 
+
+    Vector3D Negate()
+    {
+        return Vector3D(-x,-y,-z);
+    }
+
     Vector3D Normalize()
     {
         double length = sqrt((x * x) + (y * y) + (z * z));
@@ -105,7 +110,13 @@ struct Vector3D
         return vec;
     }
 
+    double getMagnitude()
+    {
+        return sqrt((x*x) + (y*y) + (z*z));
+    }
+
     //hopefully this math is right
+    //apparently it isnt but i cant figure out why
     Vector3D Rotate(Vector3D rot)
     {
         Vector3D result;
@@ -115,23 +126,23 @@ struct Vector3D
         result.z = z;
         if (rot.x != 0)
         {
-            result.x = result.x;
-            result.y = result.y * Cos(rot.x) + result.z * -Sin(rot.x);
-            result.z = result.y * Sin(rot.x) + result.z * Cos(rot.x);
+            result = result.RotateAround(Vector3D(1,0,0),rot.x);
         }
         if (rot.y != 0)
         {
-            result.x = result.x * Cos(rot.y) + result.z * Sin(rot.y);
-            result.y = result.y;
-            result.z = result.x * -Sin(rot.y) + result.z * Cos(rot.y);
+            result = result.RotateAround(Vector3D(0,1,0),rot.y);
         }
         if (rot.z != 0)
         {
-            result.x = result.x * Cos(rot.z) + result.y * -Sin(rot.z);
-            result.y = result.x * Sin(rot.z) + result.y * Cos(rot.z);
-            result.z = result.z;
+            result = result.RotateAround(Vector3D(0,0,1),rot.z);
         }
         return result;
+    }
+
+    Vector3D RotateAround(Vector3D pivot, double deg)
+    {
+        Vector3D dis(x,y,z);
+        return dis * Cos(deg) + (pivot.Cross(dis)) * Sin(deg) + pivot * (pivot.Dot(dis) * (1 - Cos(deg)));
     }
 
     void Print()
