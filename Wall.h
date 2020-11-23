@@ -4,8 +4,7 @@
 
 class Wall : public Surface
 {
-    private:
     public:
-    Wall(Vector3D pos, Vector3D scale, Vector3D rotation);
+    Wall(Vector3D pos, Vector3D scale, Vector3D rotation, std::vector<std::string> texture, std::vector<bool> hasAlpha);
 
 };
