@@ -88,14 +88,19 @@ namespace Scene
 
         void LoadObject(std::string objLine)
         {
-            std::string settings[4] = {"", "", "", ""};
+            //check if it is a comment line
+            if(objLine[0] == '#'){
+                return;
+            }
+
+            std::string settings[6] = {"", "", "", "", "", ""};
             std::string delim = " ";
             auto start = 0U;
             auto end = objLine.find(delim);
 
             int index = 0;
 
-            while (end != std::string::npos && index < 3)
+            while (end != std::string::npos && index < 5)
             {
                 settings[index] = objLine.substr(start, end - start);
                 std::cout << settings[index] << std::endl;
@@ -116,17 +121,36 @@ namespace Scene
             Vector3D pos;
             Vector3D rot;
             Vector3D scale(1, 1, 1);
+            std::string texturePath = settings[4];
+            bool hasAlpha;
+
+            //position
             if (index >= 1)
             {
                 pos = GetVectorFromString(settings[1]);
             }
+            //rotation
             if (index >= 2)
             {
                 rot = GetVectorFromString(settings[2]);
             }
+            //scale
             if (index >= 3)
             {
                 scale = GetVectorFromString(settings[3]);
+            }
+            //texture alpha
+            if(index >= 5){
+                if(settings[5] == "true"){
+                    hasAlpha = true;
+                }
+                else if(settings[5] == "false"){
+                    hasAlpha = false;
+                }
+                else{
+                    std::cout << "ERROR: true or false does not exist setting alpha value to false" << std::endl;
+                    hasAlpha = false;
+                }
             }
 
             //spawn objects
@@ -157,6 +181,14 @@ namespace Scene
             else if (objName == "BlackWall")
             {
                 objects.push_back(new BlackWall(pos, scale, rot));
+            }
+            else if(objName == "Floor")
+            {
+                objects.push_back(new Floor(pos, scale, rot, {texturePath}, {hasAlpha}));
+            }
+            else if(objName == "Wall")
+            {
+                objects.push_back(new Wall(pos, scale, rot, {texturePath}, {hasAlpha}));
             }
             else
             {
