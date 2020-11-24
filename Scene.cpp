@@ -88,14 +88,19 @@ namespace Scene
 
         void LoadObject(std::string objLine)
         {
-            std::string settings[4] = {"", "", "", ""};
+            //check if it is a comment line
+            if(objLine[0] == '#'){
+                return;
+            }
+
+            std::string settings[6] = {"", "", "", "", "", ""};
             std::string delim = " ";
             auto start = 0U;
             auto end = objLine.find(delim);
 
             int index = 0;
 
-            while (end != std::string::npos && index < 3)
+            while (end != std::string::npos && index < 5)
             {
                 settings[index] = objLine.substr(start, end - start);
                 std::cout << settings[index] << std::endl;
@@ -116,17 +121,36 @@ namespace Scene
             Vector3D pos;
             Vector3D rot;
             Vector3D scale(1, 1, 1);
+            std::string texturePath = settings[4];
+            bool hasAlpha;
+
+            //position
             if (index >= 1)
             {
                 pos = GetVectorFromString(settings[1]);
             }
+            //rotation
             if (index >= 2)
             {
                 rot = GetVectorFromString(settings[2]);
             }
+            //scale
             if (index >= 3)
             {
                 scale = GetVectorFromString(settings[3]);
+            }
+            //texture alpha
+            if(index >= 5){
+                if(settings[5] == "true"){
+                    hasAlpha = true;
+                }
+                else if(settings[5] == "false"){
+                    hasAlpha = false;
+                }
+                else{
+                    std::cout << "ERROR: true or false does not exist setting alpha value to false" << std::endl;
+                    hasAlpha = false;
+                }
             }
 
             //spawn objects
@@ -162,6 +186,14 @@ namespace Scene
             {
                 objects.push_back(new BlackWall(pos, scale, rot));
             }
+            else if(objName == "Floor")
+            {
+                objects.push_back(new Floor(pos, scale, rot, {texturePath}, {hasAlpha}));
+            }
+            else if(objName == "Wall")
+            {
+                objects.push_back(new Wall(pos, scale, rot, {texturePath}, {hasAlpha}));
+            }
             else
             {
                 std::cout << "ERROR:[" << objName << "] does not exist" << std::endl;
@@ -195,7 +227,7 @@ namespace Scene
             portalShader->setFloat("offset", 0.07f);
 
             //light
-            objects.push_back(new Light(Vector3D(0, 2, 0), 0.65));
+            LightHandler::Init(shader);
 
             //portals
             Portal *p1 = new Portal(Vector3D(0, 2, 10),
@@ -348,10 +380,16 @@ namespace Scene
             shader->use();
             camera->Draw();
             glScaled(size.x, size.y, size.z);
+
             if (false)
             {
                 Draw3DGraph(10);
             }
+
+
+            LightHandler::Update(true);
+
+
             for (unsigned int i = 0; i < objects.size(); ++i)
             {
                 glColor3f(1, 1, 1);
@@ -369,6 +407,19 @@ namespace Scene
             }
             glStencilFunc(GL_ALWAYS, 0, 0xFF);
             glStencilMask(0xFF);
+        }
+        glPopMatrix();
+    }
+
+
+    void DrawShadowableObjects(){
+        glPushMatrix();
+        shader->use();
+        glScaled(size.x, size.y, size.z);
+        for (unsigned int i = 0; i < objects.size(); ++i)
+        {
+            glColor3f(1, 1, 1);
+            objects[i]->Draw();
         }
         glPopMatrix();
     }

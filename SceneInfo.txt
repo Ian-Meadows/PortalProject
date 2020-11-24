@@ -1,10 +1,17 @@
-WhiteFloor 0,0,0 90,0,0 10,10,1
-WhiteFloor 0,12,0 -90,0,0 10,10,1
+# This is a comment
 
-WhiteWall 0,6,10 0,0,0 10,6,10
-WhiteWall 0,6,-10 0,180,0 10,6,1
-BlackWall 10,6,0 0,90,0 10,6,1
-BlackWall -10,6,0 0,-90,0 10,6,1
+#ceiling and floor
+Floor 0,0,0 90,0,0 10,10,1 Images/concrete_modular_ceiling1.bmp true
+Floor 0,12,0 -90,0,0 10,10,1 Images/concrete_modular_ceiling1.bmp true
 
+#walls
+Wall 0,6,10 0,0,0 10,6,10 Images/concrete_modular_wall1.bmp true
+Wall 0,6,-10 0,180,0 10,6,1 Images/concrete_modular_wall1.bmp true
+Wall 10,6,0 0,90,0 10,6,1 Images/concrete_modular_wall1.bmp true
+Wall -10,6,0 0,-90,0 10,6,1 Images/concrete_modular_wall1.bmp true
+
+#companion cube
 Companion -3,0.7,-3, 0,57,0 0.6,
+
+#dropper
 Dropper 0,7,0 0,0,0 2,

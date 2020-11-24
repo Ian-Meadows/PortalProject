@@ -1,10 +1,12 @@
 #include "Surface.h"
 
-Surface::Surface(Vector3D pos, Vector3D scale, Vector3D rotation) : Object(pos, scale, rotation)
+Surface::Surface(Vector3D pos, Vector3D scale, Vector3D rotation, std::vector<std::string> textures, std::vector<bool> hasAlphas) : Object(pos, scale, rotation)
 {
-    std::vector<std::string> texture = {"Images/crate.bmp"};
-    std::vector<bool> hasAlpha = {false};
-    LoadTextures(texture, hasAlpha);
+    if(textures.size() == 0){
+        textures.push_back("Images/crate.bmp");
+        hasAlphas.push_back(false);
+    }
+    LoadTextures(textures, hasAlphas);
 }
 
 bool Surface::portalable()
@@ -32,7 +34,9 @@ void Surface::DrawShape()
     glBegin(GL_QUADS);
     glColor3f(1, 1, 1);
 
+
     glNormal3f(0, 0, -1);
+
 
     glTexCoord2f(0, rep);
     glVertex3f(+1, +1, 0);
@@ -46,4 +50,13 @@ void Surface::DrawShape()
     glEnd();
 
     glDisable(GL_TEXTURE_2D);
+}
+
+bool Surface::FileExists(std::string path){
+    if (FILE *file = fopen(path.c_str(), "r")) {
+        fclose(file);
+        return true;
+    } else {
+        return false;
+    }
 }

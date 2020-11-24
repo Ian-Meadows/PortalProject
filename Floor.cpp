@@ -2,11 +2,9 @@
 
 
 
-Floor::Floor(Vector3D pos,  Vector3D scale, Vector3D rotation) :
- Surface(pos, scale, rotation){
-     std::vector<std::string> texture = {"Images/crate.bmp"};
-     std::vector<bool> hasAlpha = {false};
-        LoadTextures(texture, hasAlpha);
+Floor::Floor(Vector3D pos,  Vector3D scale, Vector3D rotation, std::vector<std::string> textures, std::vector<bool> hasAlphas) :
+ Surface(pos, scale, rotation, textures, hasAlphas){
+
 }
 
 Floor::~Floor(){

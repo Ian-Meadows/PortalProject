@@ -166,19 +166,27 @@ public:
 protected:
     Vector3D position;
     Vector3D scale;
-    Vector3D rotation;
+    
 
     Vector3D getPosition();
     Vector3D getScale();
     Vector3D getRotation();
 
+    virtual void UpdateRotation(Vector3D rotation) final;
+
     virtual void DrawShape();
 
     virtual void LoadTextures(std::vector<std::string> textureFiles, std::vector<bool> hasAlpha) final;
 
+
+    //fixes rotation to be between 0 and 360
+    virtual void FixRotation() final;
+
+
     unsigned int *textures = nullptr;
 
 private:
+    Vector3D rotation;
 };
 
 #endif
