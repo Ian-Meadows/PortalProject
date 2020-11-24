@@ -17,16 +17,14 @@
 
 namespace LightHandler{
 
-    void Init(Shader* shader);
+    void Init(Shader* shader, Vector3D ambientLight, Camera* camera);
 
 
     void Update(bool isLighting);
 
-    /**
-     * @param number is the light number for openGl to use
-     * 
-     */
     void AddLight(LightInfo info);
+
+    void UpdateShadowMap();
 
 
     void CleanUp();

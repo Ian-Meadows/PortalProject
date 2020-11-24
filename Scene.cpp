@@ -215,7 +215,7 @@ namespace Scene
             }
         }
 
-        void InitScene()
+        void InitScene(Camera* camera)
         {
 
             shader = new Shader("Shaders/SceneShader.vert", "Shaders/SceneShader.frag");
@@ -227,7 +227,9 @@ namespace Scene
             portalShader->setFloat("offset", 0.07f);
 
             //light
-            LightHandler::Init(shader);
+            //objects.push_back(new Light(Vector3D(0, 3, 0), 0.65));
+            LightHandler::Init(shader, Vector3D(0.1), camera);
+
 
             //portals
             Portal *p1 = new Portal(Vector3D(0, 2, 10),
@@ -254,15 +256,15 @@ namespace Scene
 
     } // namespace
 
-    void Init()
+    void Init(Camera* camera)
     {
         size = Vector3D(1, 1, 1);
-        InitScene();
+        InitScene(camera);
     }
-    void Init(Vector3D size)
+    void Init(Vector3D size, Camera* camera)
     {
         Scene::size = size;
-        InitScene();
+        InitScene(camera);
     }
     void CleanUp()
     {
@@ -308,6 +310,7 @@ namespace Scene
         pos = pos.Add(camdiff);
 
         Camera *portalcam = portals[i]->getCam();
+
         portalcam->Update(pos, camera->GetRotation().Add(rotdiff.Negate()).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180))); //update perspective so portal lines up with player
         portalcam->Draw(); //apply changes
         LightHandler::Update(true);//reset light after perspective has been moved
@@ -381,7 +384,7 @@ namespace Scene
             shader->use();
             camera->Draw();
             glScaled(size.x, size.y, size.z);
-
+            glDisable(GL_LIGHTING);
             if (false)
             {
                 Draw3DGraph(10);
@@ -396,6 +399,7 @@ namespace Scene
                 glColor3f(1, 1, 1);
                 objects[i]->Draw();
             }
+            
             portalShader->use();
             for (unsigned int i = 0; i < portals.size(); ++i)
             {
@@ -408,6 +412,9 @@ namespace Scene
             }
             glStencilFunc(GL_ALWAYS, 0, 0xFF);
             glStencilMask(0xFF);
+
+            
+            //LightHandler::DrawShadows();
         }
         glPopMatrix();
     }

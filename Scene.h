@@ -31,8 +31,8 @@
 
 namespace Scene
 {
-    void Init();
-    void Init(Vector3D size);
+    void Init(Camera* camera);
+    void Init(Vector3D size, Camera* camera);
     void CleanUp();
 
     void renderPortals(Camera* camera, int rec); 

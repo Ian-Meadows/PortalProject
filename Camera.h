@@ -15,7 +15,8 @@ public:
     ~Camera();
 
     void Draw();
-    void UpdateProjection(double worldDimension, double aspectRatio);
+    void UpdateProjection(double worldDimension, double aspectRatio, int width, int height);
+    void UpdateProjection();
 
 
     void KeyPressed(unsigned char k, int x, int y);
@@ -32,6 +33,10 @@ public:
     Vector3D GetForward();
     Vector3D GetRight();
     Vector3D GetUp();
+
+    int GetWidth() const { return width; }
+    int GetHeight() const { return height; }
+    double GetAspectRatio() const { return aspectRatio; }
 
 
 private:
@@ -52,6 +57,8 @@ private:
     //current
     double worldDimension;
     double aspectRatio;
+    int width;
+    int height;
 
     //perspective and orthographic
     const Vector3D OVERHEAD_POS = Vector3D(0, 0, 0);

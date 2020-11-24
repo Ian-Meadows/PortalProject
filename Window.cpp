@@ -31,7 +31,10 @@ Window::Window(int argc, char *argv[], WindowInfo &info)
 
     Time::Init(false);
 
-    Scene::Init(Vector3D(1));
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LEQUAL);
+
+    Scene::Init(Vector3D(1), camera);
 }
 
 Window::~Window()
@@ -60,6 +63,7 @@ void Window::Draw()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
     glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LEQUAL);
 
     glEnable(GL_STENCIL_TEST);
     glStencilMask(0x00);
@@ -109,7 +113,7 @@ void Window::Reshape(int w, int h)
     glViewport(0, 0, (GLint)width, (GLint)height);
     if (camera != nullptr)
     {
-        camera->UpdateProjection(worldDimension, aspectRatio);
+        camera->UpdateProjection(worldDimension, aspectRatio, width, height);
     }
 }
 
@@ -124,7 +128,7 @@ void Window::KeyInput(unsigned char k, int x, int y)
     {
         camera->KeyPressed(k, x, y);
 
-        camera->UpdateProjection(worldDimension, aspectRatio);
+        camera->UpdateProjection(worldDimension, aspectRatio, width, height);
     }
 
     glutPostRedisplay();
@@ -138,7 +142,7 @@ void Window::SpecialKeyInput(int key, int x, int y)
     {
         camera->SpecialKeyPressed(key, x, y);
 
-        camera->UpdateProjection(worldDimension, aspectRatio);
+        camera->UpdateProjection(worldDimension, aspectRatio, width, height);
     }
 
     //  Tell GLUT it is necessary to redisplay the scene

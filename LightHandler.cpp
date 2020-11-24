@@ -1,5 +1,23 @@
 #include "LightHandler.h"
 
+//taken from ex36
+void Project(double fov,double asp,double dim)
+{
+   //  Tell OpenGL we want to manipulate the projection matrix
+   glMatrixMode(GL_PROJECTION);
+   //  Undo previous transformations
+   glLoadIdentity();
+   //  Perspective transformation
+   if (fov)
+      gluPerspective(fov,asp,dim/16,16*dim);
+   //  Orthogonal transformation
+   else
+      glOrtho(-asp*dim,asp*dim,-dim,+dim,-dim,+dim);
+   //  Switch to manipulating the model matrix
+   glMatrixMode(GL_MODELVIEW);
+   //  Undo previous transformations
+   glLoadIdentity();
+}
 
 namespace LightHandler{
     namespace{
@@ -14,6 +32,10 @@ namespace LightHandler{
 
         unsigned int framebuf=0;
         int          shadowdim;
+
+        Vector3D ambientLight;
+
+        Camera* camera;
 
         void ShadowMap(){
             double Lmodel[16];  //  Light modelview matrix
@@ -31,8 +53,16 @@ namespace LightHandler{
             // Overcome imprecision
             glEnable(GL_POLYGON_OFFSET_FILL);
 
+
             //  Turn off lighting and set light position
-            Light(0);
+            glDisable(GL_LIGHTING);
+            Vector3D pos = lights[0]->GetPosition();
+            Lpos[0] = pos.x;
+            Lpos[1] = pos.y;
+            Lpos[2] = pos.z;
+            Lpos[3] = 1;
+
+
 
             //  Light distance
             Ldist = sqrt(Lpos[0]*Lpos[0] + Lpos[1]*Lpos[1] + Lpos[2]*Lpos[2]);
@@ -160,8 +190,8 @@ namespace LightHandler{
 
 
 
-    void Init(Shader* shader){
-
+    void Init(Shader* shader, Vector3D ambientLight, Camera* camera){
+        LightHandler::camera = camera;
         LightHandler::shader = shader;
 
         Vector3D pos = Vector3D(7, 5, 0);
@@ -174,6 +204,7 @@ namespace LightHandler{
         Lpos[3] = 1.0;
 
 
+        LightHandler::ambientLight = ambientLight;
 
         //AddLight(LightInfo(GL_LIGHT1, Vector3D(-5, 1, 5)));
         //AddLight(LightInfo(GL_LIGHT2, Vector3D(5, 1, 5)));
@@ -184,15 +215,12 @@ namespace LightHandler{
 
     void Update(bool isLighting){
         if(isLighting){
-            glEnable(GL_NORMALIZE);
-            glEnable(GL_LIGHTING);
-
-            glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 0);
-            //  glColor sets ambient and diffuse color materials
-            glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
-            glEnable(GL_COLOR_MATERIAL);
-
-
+            
+            Vector3D(Svec[0], Svec[1], Svec[2]).Print("Svec");
+            Vector3D(Tvec[0], Tvec[1], Tvec[2]).Print("Tvec");
+            Vector3D(Rvec[0], Rvec[1], Rvec[2]).Print("Rvec");
+            Vector3D(Qvec[0], Qvec[1], Qvec[2]).Print("Qvec");
+            
             glActiveTexture(GL_TEXTURE1);
             glTexGendv(GL_S,GL_EYE_PLANE,Svec);
             glTexGendv(GL_T,GL_EYE_PLANE,Tvec);
@@ -201,12 +229,25 @@ namespace LightHandler{
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_COMPARE_MODE,GL_COMPARE_R_TO_TEXTURE);
             glActiveTexture(GL_TEXTURE0);
 
+            
+            glEnable(GL_LIGHTING);
+            glEnable(GL_NORMALIZE);
+
+            //glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 0);
+            //  glColor sets ambient and diffuse color materials
+            glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
+            glEnable(GL_COLOR_MATERIAL);
+
             for(int i = 0; i < lights.size(); ++i){
-                lights[i]->DrawShape();
+                lights[i]->Draw(ambientLight);
             }
 
         }
         
+    }
+
+    void UpdateShadowMap(){
+        ShadowMap();
     }
 
 
