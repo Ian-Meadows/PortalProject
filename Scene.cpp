@@ -308,8 +308,9 @@ namespace Scene
         pos = pos.Add(camdiff);
 
         Camera *portalcam = portals[i]->getCam();
-        portalcam->Update(pos, camera->GetRotation().Add(rotdiff.Negate()).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180)));
-        portalcam->Draw();
+        portalcam->Update(pos, camera->GetRotation().Add(rotdiff.Negate()).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180))); //update perspective so portal lines up with player
+        portalcam->Draw(); //apply changes
+        LightHandler::Update(true);//reset light after perspective has been moved
 
         //camera setup complete
 
