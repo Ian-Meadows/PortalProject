@@ -26,6 +26,7 @@
 #include "Shader.h"
 #include "Portal.h"
 #include "Camera.h"
+#include "Dropper.h"
 #include "LightHandler.h"
 
 namespace Scene

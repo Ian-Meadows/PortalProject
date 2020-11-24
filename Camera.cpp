@@ -136,7 +136,7 @@ void Camera::UpdateProjection(double worldDimension, double aspectRatio, int wid
     //perspective and first person
     else if(projectionType == 1 || projectionType == 2){
         
-        gluPerspective(fov, aspectRatio, 0.1f, 100);
+        gluPerspective(fov, aspectRatio, 0.1f, 1000);
     }
     else{
         std::cout << "ERROR: invalid projection type" << std::endl;

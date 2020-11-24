@@ -174,6 +174,10 @@ namespace Scene
             {
                 objects.push_back(new Companion(pos, scale, rot));
             }
+            else if (objName == "Dropper")
+            {
+                objects.push_back(new Dropper(pos, scale, rot));
+            }
             else if (objName == "BlackFloor")
             {
                 objects.push_back(new BlackFloor(pos, scale, rot));
@@ -226,11 +230,12 @@ namespace Scene
             //objects.push_back(new Light(Vector3D(0, 3, 0), 0.65));
             LightHandler::Init(shader, Vector3D(0.1), camera);
 
+
             //portals
-            Portal *p1 = new Portal(Vector3D(0, 0, 10),
+            Portal *p1 = new Portal(Vector3D(0, 2, 10),
                                     Vector3D(1, 2, 1), Vector3D(0, 0, 0));
 
-            Portal *p2 = new Portal(Vector3D(0, 0, -10),
+            Portal *p2 = new Portal(Vector3D(0, 2, -10),
                                     Vector3D(1, 2, 1), Vector3D(0, 180, 0));
 
             p1->setOtherPortal(p2);
@@ -305,10 +310,10 @@ namespace Scene
         pos = pos.Add(camdiff);
 
         Camera *portalcam = portals[i]->getCam();
-        //camera->GetRotation().Add(rotdiff.Negate()).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180)).Print(std::to_string(rec) + " rot");
-        //camera->GetRotation().Add(rotdiff.Negate()).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180));
-        portalcam->Update(pos, camera->GetRotation().Add(rotdiff.Negate()).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180)));
-        portalcam->Draw();
+
+        portalcam->Update(pos, camera->GetRotation().Add(rotdiff.Negate()).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180))); //update perspective so portal lines up with player
+        portalcam->Draw(); //apply changes
+        LightHandler::Update(true);//reset light after perspective has been moved
 
         //camera setup complete
 
@@ -322,7 +327,6 @@ namespace Scene
         }
 
         portalShader->use();
-
 
         glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
         glStencilFunc(GL_EQUAL, i * 50 + 1 + rec, 0xFF);
@@ -373,7 +377,6 @@ namespace Scene
     void Draw(Camera *camera)
     {
 
-        
         glStencilFunc(GL_ALWAYS, 0, 0xFF);
         glStencilMask(0xFF);
         glPushMatrix();

@@ -10,4 +10,12 @@
 #define Sin(th) sin(3.1415926 / 180 * (th))
 
 void circleVertex(GLdouble ang);
+void circleVertex(GLdouble ang, GLdouble height);
+void circleVertex(GLdouble ang, GLdouble height, GLdouble rad);
 void ovalVertex(GLdouble ang, GLdouble width, GLdouble height);
+void cyliVertex(GLdouble ang, GLdouble height);
+void cyliVertex(GLdouble ang, GLdouble height, GLdouble rad);
+void cyliVertex(GLdouble ang, GLdouble height, GLdouble rad, bool invert);
+
+void sphereVertex(double th,double ph);
+void sphere(double x,double y,double z,double r);

@@ -82,7 +82,7 @@ void Portal::DrawShape()
     // oval shape
     glPushMatrix();
     {
-        glPolygonOffset(-1, -1);
+        glPolygonOffset(-3, -3);
         glBegin(GL_TRIANGLE_FAN);
 
         glNormal3f(0, 0, 1);
