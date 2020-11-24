@@ -119,9 +119,11 @@ void Camera::SpecialKeyPressed(int key, int x, int y){
 }
 
 //used code from ex9.c
-void Camera::UpdateProjection(double worldDimension, double aspectRatio){
+void Camera::UpdateProjection(double worldDimension, double aspectRatio, int width, int height){
     this->worldDimension = worldDimension;
     this->aspectRatio = aspectRatio;
+    this->width = width;
+    this->height = height;
 
     //select projection matrix to modify
     glMatrixMode(GL_PROJECTION);
@@ -145,6 +147,30 @@ void Camera::UpdateProjection(double worldDimension, double aspectRatio){
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
+}
+
+void Camera::UpdateProjection(){
+    //select projection matrix to modify
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    //ortho
+    if(projectionType == 0){
+        glOrtho(-aspectRatio*worldDimension, +aspectRatio*worldDimension,
+         -worldDimension, +worldDimension, -worldDimension, +worldDimension);
+    }
+    //perspective and first person
+    else if(projectionType == 1 || projectionType == 2){
+        
+        gluPerspective(fov, aspectRatio, 0.1f, 100);
+    }
+    else{
+        std::cout << "ERROR: invalid projection type" << std::endl;
+        return;
+    }
+
+    //change back to model view matrix
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 }
 
 std::string Camera::GetProjectionType(){

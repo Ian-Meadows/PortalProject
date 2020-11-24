@@ -7,8 +7,6 @@ struct LightInfo{
     GLenum lightNumber;
     bool isSpotLight;
 
-
-    Vector3D ambient;
     Vector3D diffuse;
     Vector3D specular;
 
@@ -17,7 +15,6 @@ struct LightInfo{
     LightInfo(){
         this->lightNumber = GL_LIGHT0;
         isSpotLight = false;
-        ambient = Vector3D(0.1);
         diffuse = Vector3D(0.3);
         specular = Vector3D(0.3);
 
@@ -27,7 +24,6 @@ struct LightInfo{
     LightInfo(GLenum lightNumber){
         this->lightNumber = lightNumber;
         isSpotLight = false;
-        ambient = Vector3D(0.1);
         diffuse = Vector3D(0.3);
         specular = Vector3D(0.3);
 
@@ -37,18 +33,16 @@ struct LightInfo{
     LightInfo(GLenum lightNumber, Vector3D position){
         this->lightNumber = lightNumber;
         isSpotLight = false;
-        ambient = Vector3D(0.1);
-        diffuse = Vector3D(0.3);
-        specular = Vector3D(0.3);
+        diffuse = Vector3D(0.7);
+        specular = Vector3D(0.7);
 
         this->position = position;
     }
 
-    LightInfo(GLenum lightNumber, Vector3D position, Vector3D ambient,
+    LightInfo(GLenum lightNumber, Vector3D position,
      Vector3D diffuse, Vector3D specular){
         this->lightNumber = lightNumber;
         isSpotLight = false;
-        this->ambient = ambient;
         this->diffuse = diffuse;
         this->specular = specular;
 
@@ -61,7 +55,16 @@ public:
     Light(LightInfo info);
     ~Light();
 
-    void DrawShape();
+    virtual void DrawShape();
+
+    virtual void Draw(Vector3D ambientLight) final;
+
+
+    Vector3D GetPosition()const {return li.position; }
+
+protected:
+    virtual void ChangePosition();
+
 private:
     //void DrawShape();
 
@@ -69,7 +72,7 @@ private:
 
     void UpdatePosition();
 
-    void UpdateLighting();
+    void UpdateLighting(Vector3D ambientLight);
 
     LightInfo li;
 
