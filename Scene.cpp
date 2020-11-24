@@ -150,6 +150,10 @@ namespace Scene
             {
                 objects.push_back(new Companion(pos, scale, rot));
             }
+            else if (objName == "Dropper")
+            {
+                objects.push_back(new Dropper(pos, scale, rot));
+            }
             else if (objName == "BlackFloor")
             {
                 objects.push_back(new BlackFloor(pos, scale, rot));

@@ -343,18 +343,6 @@ void Companion::cornerPanel()
     glEnd();
 }
 
-void circleVertex(GLdouble ang, GLdouble height)
-{
-   glNormal3f(0, height, 0);
-   glVertex3d(Cos(ang), height, Sin(ang));
-}
-
-void cyliVertex(GLdouble ang, GLdouble height)
-{
-   glNormal3f(Cos(ang), 0, Sin(ang));
-   glVertex3d(Cos(ang), height, Sin(ang));
-}
-
 void Companion::cylinder(GLint angleChange, GLdouble radius, GLdouble height)
 {
     glMateriali(GL_FRONT_AND_BACK, GL_SHININESS, 128);
