@@ -7,7 +7,7 @@ SRC_EXT		:= cpp
 BUILD_DIR	:= ./
 OBJ_DIR		:= $(BUILD_DIR)/objects
 APP_DIR		:= ./
-TARGET		:= portal
+TARGET		:= final
 SOURCES		:= $(wildcard $(SRC_DIR)/*.$(SRC_EXT)) $(wildcard $(SRC_DIR)/**/*.$(SRC_EXT))
 OBJECTS		:= $(SOURCES:%.$(SRC_EXT)=$(OBJ_DIR)/%.o)
 DEPS		:= $(OBJECTS:.o=.d)

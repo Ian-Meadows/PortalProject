@@ -195,7 +195,9 @@ namespace LightHandler{
         LightHandler::shader = shader;
 
         Vector3D pos = Vector3D(7, 5, 0);
-        AddLight(LightInfo(GL_LIGHT0, pos));
+        AddLight(LightInfo(GL_LIGHT0, pos, Vector3D(0.0, 0.0, 0.0), Vector3D(0.0, 0.0, 0.5), Vector3D(0, 0, 1)));
+
+        AddMovingLight(LightInfo(GL_LIGHT1, Vector3D(0, 3, 0)));
 
         //temp 
         Lpos[0] = pos.x;
@@ -204,10 +206,11 @@ namespace LightHandler{
         Lpos[3] = 1.0;
 
 
-        LightHandler::ambientLight = ambientLight;
+        AddLight(LightInfo(GL_LIGHT2, Vector3D(-7, 8, -5),
+         Vector3D(0.0, 0.0, 0.0), Vector3D(0.5, 0.0, 0.0), Vector3D(1, 0, 0)));
 
-        //AddLight(LightInfo(GL_LIGHT1, Vector3D(-5, 1, 5)));
-        //AddLight(LightInfo(GL_LIGHT2, Vector3D(5, 1, 5)));
+
+        LightHandler::ambientLight = ambientLight;
 
         InitShadowMap();
     }
@@ -216,10 +219,6 @@ namespace LightHandler{
     void Update(bool isLighting){
         if(isLighting){
             
-            Vector3D(Svec[0], Svec[1], Svec[2]).Print("Svec");
-            Vector3D(Tvec[0], Tvec[1], Tvec[2]).Print("Tvec");
-            Vector3D(Rvec[0], Rvec[1], Rvec[2]).Print("Rvec");
-            Vector3D(Qvec[0], Qvec[1], Qvec[2]).Print("Qvec");
             
             glActiveTexture(GL_TEXTURE1);
             glTexGendv(GL_S,GL_EYE_PLANE,Svec);
@@ -238,8 +237,8 @@ namespace LightHandler{
             glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
             glEnable(GL_COLOR_MATERIAL);
 
-            for(int i = 0; i < lights.size(); ++i){
-                lights[i]->Draw(ambientLight);
+            for(unsigned int i = 0; i < lights.size(); ++i){
+                lights[i]->Draw(ambientLight, shader);
             }
 
         }
@@ -257,10 +256,15 @@ namespace LightHandler{
         lights.push_back(light);
     }
 
+    void AddMovingLight(LightInfo lightInfo){
+        MovingLight* light = new MovingLight(lightInfo);
+        lights.push_back(light);
+    }
+
 
 
     void CleanUp(){
-        for(int i = 0; i < lights.size(); ++i){
+        for(unsigned int i = 0; i < lights.size(); ++i){
             delete lights[i];
         }
         lights.clear();

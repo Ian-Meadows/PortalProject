@@ -11,9 +11,13 @@ Light::~Light(){
 }
 
 
-void Light::Draw(Vector3D ambientLight){
-    ChangePosition();
+void Light::Draw(Vector3D ambientLight, Shader* shader){
+    UpdatePosition();
+    glUseProgram(0);
+    glDisable(GL_LIGHTING);
     DrawShape();
+    glEnable(GL_LIGHTING);
+    shader->use();
     UpdateLighting(ambientLight);
 }
 
@@ -33,7 +37,7 @@ void Light::DrawShape(){
     glTranslated(li.position.x, li.position.y, li.position.z);
     glScaled(1, 1, 1);
     //  White ball
-    glColor3f(1,1,1);
+    glColor3f((float)li.lightObjectColor.x, (float)li.lightObjectColor.y, (float)li.lightObjectColor.z);
     glMaterialf(GL_FRONT, GL_SHININESS, shiny);
     glMaterialfv(GL_FRONT, GL_SPECULAR, yellow);
     glMaterialfv(GL_FRONT, GL_EMISSION, Emission);
@@ -63,7 +67,7 @@ void Light::DrawShape(){
     
 }
 
-void Light::ChangePosition()
+void Light::ChangePosition(int zh)
 {
 
 }
@@ -89,16 +93,21 @@ void Light::UpdatePosition(){
     //li.position.z = distance*Sin(zh);
     // = {distance*Cos(zh), position.y, distance*Sin(zh), 1.0};
 
-    ChangePosition();
+    ChangePosition(zh);
     
+}
+
+
+void Light::SetPosition(Vector3D position){
+    li.position = position;
 }
 
 void Light::UpdateLighting(Vector3D ambientLight){
 
-    float lightPos[] = {li.position.x, li.position.y, li.position.z, 1.0f};
-    float Ambient[]   = {ambientLight.x, ambientLight.y, ambientLight.z, 1.0f};
-    float Diffuse[]   = {li.diffuse.x, li.diffuse.y, li.diffuse.z, 1.0f};
-    float Specular[]  = {li.specular.x, li.specular.y, li.specular.z, 1.0f};
+    float lightPos[] = {(float)li.position.x, (float)li.position.y, (float)li.position.z, 1.0f};
+    float Ambient[]   = {(float)ambientLight.x, (float)ambientLight.y, (float)ambientLight.z, 1.0f};
+    float Diffuse[]   = {(float)li.diffuse.x, (float)li.diffuse.y, (float)li.diffuse.z, 1.0f};
+    float Specular[]  = {(float)li.specular.x, (float)li.specular.y, (float)li.specular.z, 1.0f};
     
     //  Enable light 0
     glEnable(li.lightNumber);

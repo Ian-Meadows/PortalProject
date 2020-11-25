@@ -228,7 +228,7 @@ namespace Scene
 
             //light
             //objects.push_back(new Light(Vector3D(0, 3, 0), 0.65));
-            LightHandler::Init(shader, Vector3D(0.1), camera);
+            LightHandler::Init(shader, Vector3D(0.001), camera);
 
 
             //portals

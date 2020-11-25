@@ -62,12 +62,6 @@ void Camera::Draw(){
 
 
 void Camera::KeyPressed(unsigned char key, int x, int y){
-    if(key == 'p'){
-        IncreaseProjectionType();
-    }
-    else if(key == 'P'){
-        DecreaseProjectionType();
-    }
     if(projectionType != 2){
         return;
     }
