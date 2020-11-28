@@ -2,7 +2,8 @@
 
 Surface::Surface(Vector3D pos, Vector3D scale, Vector3D rotation, std::vector<std::string> textures, std::vector<bool> hasAlphas) : Object(pos, scale, rotation)
 {
-    if(textures.size() == 0){
+    if (textures.size() == 0)
+    {
         textures.push_back("Images/crate.bmp");
         hasAlphas.push_back(false);
     }
@@ -18,6 +19,8 @@ void Surface::DrawShape()
 {
 
     int rep = 5;
+    Vector3D scale = getScale();
+    int s = 2;
 
     float white[] = {1, 1, 1, 1};
     float black[] = {0, 0, 0, 1};
@@ -34,17 +37,15 @@ void Surface::DrawShape()
     glBegin(GL_QUADS);
     glColor3f(1, 1, 1);
 
-
     glNormal3f(0, 0, -1);
 
-
-    glTexCoord2f(0, rep);
+    glTexCoord2f(0, scale.y/s);
     glVertex3f(+1, +1, 0);
     glTexCoord2f(0, 0);
     glVertex3f(+1, -1, 0);
-    glTexCoord2f(rep, 0);
+    glTexCoord2f(scale.x/s, 0);
     glVertex3f(-1, -1, 0);
-    glTexCoord2f(rep, rep);
+    glTexCoord2f(scale.x/s, scale.y/s);
     glVertex3f(-1, +1, 0);
 
     glEnd();
@@ -52,11 +53,15 @@ void Surface::DrawShape()
     glDisable(GL_TEXTURE_2D);
 }
 
-bool Surface::FileExists(std::string path){
-    if (FILE *file = fopen(path.c_str(), "r")) {
+bool Surface::FileExists(std::string path)
+{
+    if (FILE *file = fopen(path.c_str(), "r"))
+    {
         fclose(file);
         return true;
-    } else {
+    }
+    else
+    {
         return false;
     }
 }
