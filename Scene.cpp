@@ -154,15 +154,7 @@ namespace Scene
             }
 
             //spawn objects
-            if (objName == "WhiteFloor")
-            {
-                objects.push_back(new WhiteFloor(pos, scale, rot));
-            }
-            else if (objName == "WhiteWall")
-            {
-                objects.push_back(new WhiteWall(pos, scale, rot));
-            }
-            else if (objName == "SimpleObject")
+            if (objName == "SimpleObject")
             {
                 objects.push_back(new SimpleObject(pos, scale, rot));
             }
@@ -177,14 +169,6 @@ namespace Scene
             else if (objName == "Dropper")
             {
                 objects.push_back(new Dropper(pos, scale, rot));
-            }
-            else if (objName == "BlackFloor")
-            {
-                objects.push_back(new BlackFloor(pos, scale, rot));
-            }
-            else if (objName == "BlackWall")
-            {
-                objects.push_back(new BlackWall(pos, scale, rot));
             }
             else if(objName == "Floor")
             {

@@ -19,15 +19,13 @@
 #include "ComplexObject.h"
 #include "companion.h"
 #include "Light.h"
-#include "WhiteFloor.h"
-#include "BlackFloor.h"
-#include "WhiteWall.h"
-#include "BlackWall.h"
 #include "Shader.h"
 #include "Portal.h"
 #include "Camera.h"
 #include "Dropper.h"
 #include "LightHandler.h"
+#include "Wall.h"
+#include "Floor.h"
 
 namespace Scene
 {
