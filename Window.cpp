@@ -123,6 +123,14 @@ void Window::KeyInput(unsigned char k, int x, int y)
     {
         ResetView();
     }
+    else if (k == '1')
+    {
+        Scene::setPortalsLocation(1);
+    }
+    else if (k == '2')
+    {
+        Scene::setPortalsLocation(2);
+    }
 
     if (camera != nullptr)
     {
@@ -132,7 +140,7 @@ void Window::KeyInput(unsigned char k, int x, int y)
     }
     if(k == 'r')
     {
-        std::cout << "R" << std::endl;
+        std::cout << "Refreshing the scene according to the file" << std::endl;
         Scene::refreshScene();
     }
 

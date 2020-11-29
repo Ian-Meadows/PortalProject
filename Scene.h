@@ -29,18 +29,19 @@
 
 namespace Scene
 {
-    void Init(Camera* camera);
-    void Init(Vector3D size, Camera* camera);
+    void Init(Camera *camera);
+    void Init(Vector3D size, Camera *camera);
     void CleanUp();
 
-    void renderPortals(Camera* camera, int rec); 
+    void renderPortals(Camera *camera, int rec);
     void Draw(Camera *camera);
 
     void DrawShadowableObjects();
 
     void refreshScene();
+    void setPortalsLocation(int pos);
 
-    void SetSceneSize(Vector3D size);
+        void SetSceneSize(Vector3D size);
     Vector3D GetSceneSize();
 } // namespace Scene
 

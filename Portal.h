@@ -17,6 +17,7 @@ public:
     void setSurface(Object* s);
     Object* getSurface();
     void drawOutline();
+    void updateSpot(Vector3D pos, Vector3D rot);
 
     ~Portal();
 
