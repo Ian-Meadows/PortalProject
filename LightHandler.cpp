@@ -215,11 +215,7 @@ namespace LightHandler{
 
     void Update(bool isLighting){
         if(isLighting){
-            
-            Vector3D(Svec[0], Svec[1], Svec[2]).Print("Svec");
-            Vector3D(Tvec[0], Tvec[1], Tvec[2]).Print("Tvec");
-            Vector3D(Rvec[0], Rvec[1], Rvec[2]).Print("Rvec");
-            Vector3D(Qvec[0], Qvec[1], Qvec[2]).Print("Qvec");
+
             
             glActiveTexture(GL_TEXTURE1);
             glTexGendv(GL_S,GL_EYE_PLANE,Svec);

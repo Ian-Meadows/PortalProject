@@ -70,10 +70,9 @@ struct Vector3D
         return Vector3D(x - other.x, y - other.y, z - other.z);
     }
 
-
     Vector3D Negate()
     {
-        return Vector3D(-x,-y,-z);
+        return Vector3D(-x, -y, -z);
     }
 
     Vector3D Normalize()
@@ -112,7 +111,7 @@ struct Vector3D
 
     double getMagnitude()
     {
-        return sqrt((x*x) + (y*y) + (z*z));
+        return sqrt((x * x) + (y * y) + (z * z));
     }
 
     //hopefully this math is right
@@ -126,22 +125,22 @@ struct Vector3D
         result.z = z;
         if (rot.x != 0)
         {
-            result = result.RotateAround(Vector3D(1,0,0),rot.x);
+            result = result.RotateAround(Vector3D(1, 0, 0), rot.x);
         }
         if (rot.y != 0)
         {
-            result = result.RotateAround(Vector3D(0,1,0),rot.y);
+            result = result.RotateAround(Vector3D(0, 1, 0), rot.y);
         }
         if (rot.z != 0)
         {
-            result = result.RotateAround(Vector3D(0,0,1),rot.z);
+            result = result.RotateAround(Vector3D(0, 0, 1), rot.z);
         }
         return result;
     }
 
     Vector3D RotateAround(Vector3D pivot, double deg)
     {
-        Vector3D dis(x,y,z);
+        Vector3D dis(x, y, z);
         return dis * Cos(deg) + (pivot.Cross(dis)) * Sin(deg) + pivot * (pivot.Dot(dis) * (1 - Cos(deg)));
     }
 
@@ -166,7 +165,7 @@ public:
 protected:
     Vector3D position;
     Vector3D scale;
-    
+    Vector3D rotation;
 
     Vector3D getPosition();
     Vector3D getScale();
@@ -178,15 +177,10 @@ protected:
 
     virtual void LoadTextures(std::vector<std::string> textureFiles, std::vector<bool> hasAlpha) final;
 
-
     //fixes rotation to be between 0 and 360
     virtual void FixRotation() final;
 
-
     unsigned int *textures = nullptr;
-
-private:
-    Vector3D rotation;
 };
 
 #endif

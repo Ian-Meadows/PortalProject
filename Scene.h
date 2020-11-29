@@ -19,28 +19,29 @@
 #include "ComplexObject.h"
 #include "companion.h"
 #include "Light.h"
-#include "WhiteFloor.h"
-#include "BlackFloor.h"
-#include "WhiteWall.h"
-#include "BlackWall.h"
 #include "Shader.h"
 #include "Portal.h"
 #include "Camera.h"
 #include "Dropper.h"
 #include "LightHandler.h"
+#include "Wall.h"
+#include "Floor.h"
 
 namespace Scene
 {
-    void Init(Camera* camera);
-    void Init(Vector3D size, Camera* camera);
+    void Init(Camera *camera);
+    void Init(Vector3D size, Camera *camera);
     void CleanUp();
 
-    void renderPortals(Camera* camera, int rec); 
+    void renderPortals(Camera *camera, int rec);
     void Draw(Camera *camera);
 
     void DrawShadowableObjects();
 
-    void SetSceneSize(Vector3D size);
+    void refreshScene();
+    void setPortalsLocation(int pos);
+
+        void SetSceneSize(Vector3D size);
     Vector3D GetSceneSize();
 } // namespace Scene
 

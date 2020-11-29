@@ -2,6 +2,7 @@
 
 Portal::Portal(Vector3D pos, Vector3D scale, Vector3D rotation) : Object(pos, scale, rotation)
 {
+    std::cout << "portal ^" << std::endl;
     //implement framebuffer and texture for portal
     glGenFramebuffers(1, &fbo);
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
@@ -101,8 +102,7 @@ void Portal::DrawShape()
     }
     glPopMatrix();
 
-    
-                glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 
     glBegin(GL_TRIANGLE_FAN);
 
@@ -159,4 +159,11 @@ void Portal::setSurface(Object *s)
 Object *Portal::getSurface()
 {
     return surface;
+}
+
+void Portal::updateSpot(Vector3D pos, Vector3D rot)
+{
+    position = pos;
+    rotation = rot; 
+    FixRotation();
 }
