@@ -131,6 +131,14 @@ void Window::KeyInput(unsigned char k, int x, int y)
     {
         Scene::setPortalsLocation(2);
     }
+    else if (k == '3')
+    {
+        Scene::setPortalsLocation(3);
+    }
+    else if (k == '4')
+    {
+        Scene::setPortalsLocation(4);
+    }
 
     if (camera != nullptr)
     {

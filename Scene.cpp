@@ -258,6 +258,17 @@ namespace Scene
             portals[0]->updateSpot(Vector3D(0, 2, 10), Vector3D(0, 0, 0));
             portals[1]->updateSpot(Vector3D(18, 2, -6), Vector3D(0, 90, 0));
         }
+        if (pos == 3)
+        {
+            portals[0]->updateSpot(Vector3D(8.585, 8.5, 8.585), Vector3D(0, 45, 0));
+            portals[1]->updateSpot(Vector3D(0, 2, -10), Vector3D(0, 180, 0));
+        }
+
+        if (pos == 4)
+        {
+            portals[0]->updateSpot(Vector3D(-10,2,9), Vector3D(0, -90, 0));
+            portals[1]->updateSpot(Vector3D(-9, 2, 10), Vector3D(0, 0, 0));
+        }
     }
 
     void refreshScene()
