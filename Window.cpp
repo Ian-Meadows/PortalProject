@@ -130,6 +130,11 @@ void Window::KeyInput(unsigned char k, int x, int y)
 
         camera->UpdateProjection(worldDimension, aspectRatio, width, height);
     }
+    if(k == 'r')
+    {
+        std::cout << "R" << std::endl;
+        Scene::refreshScene();
+    }
 
     glutPostRedisplay();
 }

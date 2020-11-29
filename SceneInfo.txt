@@ -1,17 +1,61 @@
 # This is a comment
 
-#ceiling and floor
+#floor
 Floor 0,0,0 90,0,0 10,10,1 Images/concrete_modular_ceiling1.bmp true
-Floor 0,12,0 -90,0,0 10,10,1 Images/concrete_modular_ceiling1.bmp true
+#ceiling
+Floor 0,12,0 -90,0,0 10,10,1 Images/metal_modular_floor1.bmp true
 
-#walls
-Wall 0,6,10 0,0,0 10,6,10 Images/concrete_modular_wall1.bmp true
+#main walls
+Wall 0,6,10 0,0,0 10,6,1 Images/concrete_modular_wall1.bmp true
 Wall 0,6,-10 0,180,0 10,6,1 Images/concrete_modular_wall1.bmp true
-Wall 10,6,0 0,90,0 10,6,1 Images/metalwall1.bmp true
+Wall 10,6,4 0,90,0 6,6,1 Images/metalwall1.bmp true
 Wall -10,6,0 0,-90,0 10,6,1 Images/metalwall1.bmp true
+
+#corner piece
+Wall 8.585,2.5,8.585 0,45,0 2,2.5,1 Images/concrete_modular_wall3.bmp true
+#may need more versatile surface for this next one
+Floor 10,5,10 90,0,45 2,2,1 Images/metal_modular_floor1.bmp true
+
+#side room 1
+Wall 11,2,-10 0,180,0 1,2,1 Images/concrete_modular_wall1.bmp true
+Wall 11,8,-10 0,180,0 1,4,1 Images/metalwall1_med.bmp true
+Wall 15,6,-10 0,180,0 3,6,1 Images/metalwall1_med.bmp true
+
+Wall 18,6,-8 0,90,0 1,6,1 Images/metalwall1_med.bmp true
+Wall 18,6,-4 0,90,0 1,6,1 Images/metalwall1_med.bmp true
+Wall 18,6,-9.5 0,90,0 0.5,6,1 Images/metalwall1.bmp true
+Wall 18,6,-2.5 0,90,0 0.5,6,1 Images/metalwall1.bmp true
+Wall 18,2,-6 0,90,0 1,2,1 Images/concrete_modular_wall1.bmp true
+Wall 18,8,-6 0,90,0 1,4,1 Images/metalwall1_med.bmp true
+
+Wall 14,6,-2 0,0,0 4,6,1 Images/concrete_modular_wall2.bmp true
+
+#underneath the floor
+Wall 10,-6,-6 0,-90,0 4,6,1 Images/underground_wall_metal001a.bmp true
+Wall 14,-6,-2 0,0,0 4,6,1 Images/underground_wall_metal001a.bmp true
+Wall 14,-6,-10 0,180,0 4,6,1 Images/underground_wall_metal001a.bmp true
+Wall 18,-6,-6 0,90,0 4,6,1 Images/underground_wall_metal001a.bmp true
+Floor 14,-12,-6 90,0,0 4,4,1 Images/underground_wall_metal004d.bmp true
+#floor must come after stuff under it
+Floor 14,0,-6 90,0,0 4,4,1 Images/underground_metalgrate001c.bmp true
+
+#above
+Wall 14,12.5,-2 0,0,0 4,0.5,1 Images/metalwall1.bmp true
+Wall 18,12.5,-6 0,90,0 4,0.5,1 Images/metalwall1.bmp true
+Wall 14,12.5,-10 0,180,0 4,0.5,1 Images/metalwall1.bmp true
+Wall 10,12.5,-6 0,-90,0 4,0.5,1 Images/metalwall1.bmp true
+
+#ceiling
+Floor 14,18,-6.5 -60,0,0 4,4,1 Images/underground_metalgrate001c.bmp true
+
+
+
+#portal testing
+#Wall 0,6,-12 0,0,0 10,6,10 Images/metal_modular_floor1.bmp true
+#Wall 0,6,12 0,180,0 10,6,1 Images/metal_modular_floor1.bmp true
 
 #companion cube
 Companion -3,0.7,-3, 0,57,0 0.6,
 
 #dropper
-Dropper 0,7,0 0,0,0 2,
+Dropper -6,10,-6 0,0,0 2,

@@ -38,6 +38,8 @@ namespace Scene
 
     void DrawShadowableObjects();
 
+    void refreshScene();
+
     void SetSceneSize(Vector3D size);
     Vector3D GetSceneSize();
 } // namespace Scene

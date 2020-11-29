@@ -89,7 +89,8 @@ namespace Scene
         void LoadObject(std::string objLine)
         {
             //check if it is a comment line
-            if(objLine[0] == '#'){
+            if (objLine[0] == '#')
+            {
                 return;
             }
 
@@ -140,14 +141,18 @@ namespace Scene
                 scale = GetVectorFromString(settings[3]);
             }
             //texture alpha
-            if(index >= 5){
-                if(settings[5] == "true"){
+            if (index >= 5)
+            {
+                if (settings[5] == "true")
+                {
                     hasAlpha = true;
                 }
-                else if(settings[5] == "false"){
+                else if (settings[5] == "false")
+                {
                     hasAlpha = false;
                 }
-                else{
+                else
+                {
                     std::cout << "ERROR: true or false does not exist setting alpha value to false" << std::endl;
                     hasAlpha = false;
                 }
@@ -170,11 +175,11 @@ namespace Scene
             {
                 objects.push_back(new Dropper(pos, scale, rot));
             }
-            else if(objName == "Floor")
+            else if (objName == "Floor")
             {
                 objects.push_back(new Floor(pos, scale, rot, {texturePath}, {hasAlpha}));
             }
-            else if(objName == "Wall")
+            else if (objName == "Wall")
             {
                 objects.push_back(new Wall(pos, scale, rot, {texturePath}, {hasAlpha}));
             }
@@ -186,6 +191,7 @@ namespace Scene
 
         void SceneFileReader(std::string filePath)
         {
+            objects.clear();
             std::ifstream file(filePath);
             // open files
             if (file.is_open())
@@ -199,7 +205,7 @@ namespace Scene
             }
         }
 
-        void InitScene(Camera* camera)
+        void InitScene(Camera *camera)
         {
 
             shader = new Shader("Shaders/SceneShader.vert", "Shaders/SceneShader.frag");
@@ -213,7 +219,6 @@ namespace Scene
             //light
             //objects.push_back(new Light(Vector3D(0, 3, 0), 0.65));
             LightHandler::Init(shader, Vector3D(0.1), camera);
-
 
             //portals
             Portal *p1 = new Portal(Vector3D(0, 2, 10),
@@ -240,12 +245,17 @@ namespace Scene
 
     } // namespace
 
-    void Init(Camera* camera)
+    void refreshScene()
+    {
+        SceneFileReader("SceneInfo.txt");
+    }
+
+    void Init(Camera *camera)
     {
         size = Vector3D(1, 1, 1);
         InitScene(camera);
     }
-    void Init(Vector3D size, Camera* camera)
+    void Init(Vector3D size, Camera *camera)
     {
         Scene::size = size;
         InitScene(camera);
@@ -296,8 +306,12 @@ namespace Scene
         Camera *portalcam = portals[i]->getCam();
 
         portalcam->Update(pos, camera->GetRotation().Add(rotdiff.Negate()).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180))); //update perspective so portal lines up with player
-        portalcam->Draw(); //apply changes
-        LightHandler::Update(true);//reset light after perspective has been moved
+        //glMatrixMode(GL_PROJECTION);
+        //glLoadIdentity();
+        //gluPerspective(55,portalcam->GetAspectRatio(),camdiff.getMagnitude()-0.1 , 1000); //fov is hard coded here cuz i dont wanna bother tbh
+        //glMatrixMode(GL_MODELVIEW);
+        portalcam->Draw();          //apply changes
+        LightHandler::Update(true); //reset light after perspective has been moved
 
         //camera setup complete
 
@@ -349,6 +363,7 @@ namespace Scene
             {
                 glPushMatrix();
                 {
+                    portals[i]->getCam()->UpdateProjection(20.0, camera->GetAspectRatio(), camera->GetWidth(), camera->GetHeight());
                     doportalrender(camera, 0, i);
                 }
                 glPopMatrix();
@@ -374,16 +389,14 @@ namespace Scene
                 Draw3DGraph(10);
             }
 
-
             LightHandler::Update(true);
-
 
             for (unsigned int i = 0; i < objects.size(); ++i)
             {
                 glColor3f(1, 1, 1);
                 objects[i]->Draw();
             }
-            
+
             portalShader->use();
             for (unsigned int i = 0; i < portals.size(); ++i)
             {
@@ -397,14 +410,13 @@ namespace Scene
             glStencilFunc(GL_ALWAYS, 0, 0xFF);
             glStencilMask(0xFF);
 
-            
             //LightHandler::DrawShadows();
         }
         glPopMatrix();
     }
 
-
-    void DrawShadowableObjects(){
+    void DrawShadowableObjects()
+    {
         glPushMatrix();
         shader->use();
         glScaled(size.x, size.y, size.z);
