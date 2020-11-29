@@ -138,7 +138,7 @@ void Camera::SpecialKeyPressed(int key, int x, int y)
 void Camera::drawSelf()
 {
     //sphere(position.x,position.y,position.z,1);
-    SimpleObject f = SimpleObject(position, Vector3D(0.3), Vector3D(rotation.x, -rotation.y, rotation.z));
+    SimpleObject f = SimpleObject(position, Vector3D(0.3), Vector3D(0, -rotation.y, 0));
     f.Draw();
 }
 
