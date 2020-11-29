@@ -22,6 +22,7 @@ namespace Scene
     {
         std::vector<Object *> objects;
         std::vector<Portal *> portals;
+        Camera * maincam = nullptr;
 
         Shader *shader;
         Shader *portalShader;
@@ -224,8 +225,8 @@ namespace Scene
             Portal *p1 = new Portal(Vector3D(0, 2, 10),
                                     Vector3D(1, 2, 1), Vector3D(0, 0, 0));
 
-            Portal *p2 = new Portal(Vector3D(0, 2, -10),
-                                    Vector3D(1, 2, 1), Vector3D(0, 180, 0));
+            Portal *p2 = new Portal(Vector3D(18, 2, -6),
+                                    Vector3D(1, 2, 1), Vector3D(0, 90, 0));
 
             p1->setOtherPortal(p2);
             p2->setOtherPortal(p1);
@@ -318,11 +319,16 @@ namespace Scene
         glClear(GL_DEPTH_BUFFER_BIT);
         //up
         shader->use();
+
+        
+        maincam->drawSelf();
+
         for (unsigned int j = 0; j < objects.size(); ++j)
         {
             glColor3f(1, 1, 1);
             objects[j]->Draw();
         }
+
 
         portalShader->use();
 
@@ -375,7 +381,7 @@ namespace Scene
 
     void Draw(Camera *camera)
     {
-
+        maincam = camera;
         glStencilFunc(GL_ALWAYS, 0, 0xFF);
         glStencilMask(0xFF);
         glPushMatrix();

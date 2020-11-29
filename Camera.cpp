@@ -134,6 +134,14 @@ void Camera::SpecialKeyPressed(int key, int x, int y)
     }
 }
 
+//allows the player to see themselves in the portals
+void Camera::drawSelf()
+{
+    //sphere(position.x,position.y,position.z,1);
+    SimpleObject f = SimpleObject(position, Vector3D(0.3), Vector3D(rotation.x, -rotation.y, rotation.z));
+    f.Draw();
+}
+
 //used code from ex9.c
 void Camera::UpdateProjection(double worldDimension, double aspectRatio, int width, int height)
 {

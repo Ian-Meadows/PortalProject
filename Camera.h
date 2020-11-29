@@ -7,6 +7,7 @@
 #include <math.h>
 
 #include "Def.h"
+#include "SimpleObject.h"
 
 class Camera{
 public:
@@ -17,6 +18,8 @@ public:
     void Draw();
     void UpdateProjection(double worldDimension, double aspectRatio, int width, int height);
     void UpdateProjection();
+
+    void drawSelf();
 
 
     void KeyPressed(unsigned char k, int x, int y);
