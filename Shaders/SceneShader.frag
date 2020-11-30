@@ -110,8 +110,7 @@ vec4 phong()
    vec4 color = Ambient;
 
    //  Do lighting if not in the shadow
-   if (shadow2DProj(depth,gl_TexCoord[1]).a==1.0)
-   {
+   
       //  N is the object normal
       vec3 N = normalize(Normal);
       //  L is the light vector
@@ -131,7 +130,6 @@ vec4 phong()
          float Is = dot(R,V);
          if (Is>0.0) color += pow(Is,gl_FrontMaterial.shininess)*gl_FrontLightProduct[0].specular;
       }
-   }
    
    //  Return result
    return color;
