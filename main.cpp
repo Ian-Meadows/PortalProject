@@ -39,7 +39,6 @@ static void special(int k, int x, int y){
 
 static void idle(){
     Time::Update();
-    LightHandler::UpdateShadowMap();
     glutPostRedisplay();
 }
 
