@@ -117,12 +117,14 @@ void Window::Reshape(int w, int h)
     }
 }
 
+
 void Window::KeyInput(unsigned char k, int x, int y)
 {
     if (k == '0')
     {
         ResetView();
     }
+    //portal move keys
     else if (k == '1')
     {
         Scene::setPortalsLocation(1);
@@ -138,6 +140,10 @@ void Window::KeyInput(unsigned char k, int x, int y)
     else if (k == '4')
     {
         Scene::setPortalsLocation(4);
+    }
+    else if (k == '5')
+    {
+        Scene::setPortalsLocation(5);
     }
 
     if (camera != nullptr)
