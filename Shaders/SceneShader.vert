@@ -2,11 +2,12 @@
 
 
 // taking: https://www.geeks3d.com/20091013/shader-library-phong-shader-with-multiple-lights-glsl/
+// Multiple lights information taken from: https://www.geeks3d.com/20091013/shader-library-phong-shader-with-multiple-lights-glsl/
 
 varying vec3 normal, eyeVec;
 varying vec4 Ambient;
 #define MAX_LIGHTS 8
-#define NUM_LIGHTS 1
+#define NUM_LIGHTS 4
 varying vec3 lightDir[MAX_LIGHTS];
 
 varying vec3 fragPos;
@@ -32,7 +33,6 @@ void main()
       lightDir[i] = vec3(gl_LightSource[i].position.xyz - vVertex.xyz);
    }
       
-   //probably wrong
    fragPos = (model * gl_Vertex).xyz;
    inModal = model;
 }

@@ -1,11 +1,11 @@
 #version 130
 
-// taken from: https://www.geeks3d.com/20091013/shader-library-phong-shader-with-multiple-lights-glsl/
+
 
 varying vec3 normal, eyeVec;
 varying vec4 Ambient;
 #define MAX_LIGHTS 8
-#define NUM_LIGHTS 1
+#define NUM_LIGHTS 4
 varying vec3 lightDir[MAX_LIGHTS];
 uniform sampler2D tex;
 uniform sampler2D normalMap;
@@ -16,8 +16,8 @@ varying vec3 fragPos;
 uniform vec3 viewPos;
 in mat4 inModal;
 
-// normal map info taken from http://ogldev.atspace.co.uk/www/tutorial26/tutorial26.html, https://learnopengl.com/Advanced-Lighting/Normal-Mapping, and https://stackoverflow.com/questions/5255806/how-to-calculate-tangent-and-binormal
-
+// normal map information taken from http://ogldev.atspace.co.uk/www/tutorial26/tutorial26.html, https://learnopengl.com/Advanced-Lighting/Normal-Mapping, and https://stackoverflow.com/questions/5255806/how-to-calculate-tangent-and-binormal
+// Multiple lights information taken from: https://www.geeks3d.com/20091013/shader-library-phong-shader-with-multiple-lights-glsl/
 
 
 vec4 GetTangent(){
@@ -62,24 +62,22 @@ vec4 PhoneLighting()
   else{
     N = normalize(normal);
   }
-  //vec3 N = normalize(normal);
-  //vec3 N = texture(normalMap, gl_TexCoord[0].st).rgb;
+
   for(int i=0; i<NUM_LIGHTS; ++i)
   {  
 
     vec3 L = normalize(lightDir[i]);
     float lambertTerm = dot(N,L);
     if (lambertTerm > 0.0)
-    {
-      //final_color += gl_LightSource[i].diffuse * gl_FrontMaterial.diffuse * lambertTerm;	
-      final_color += gl_FrontLightProduct[0].diffuse * lambertTerm;
+    {	
+      final_color += gl_FrontLightProduct[i].diffuse * lambertTerm;
 
       //specular
       vec3 E = normalize(eyeVec);
       vec3 R = reflect(-L, N);
       float specular = pow(max(dot(R, E), 0.0), gl_FrontMaterial.shininess);
-      //final_color += gl_LightSource[i].specular * gl_FrontMaterial.specular * specular;	
-      final_color += gl_FrontLightProduct[0].specular * specular;	
+
+      final_color += gl_FrontLightProduct[i].specular * specular;	
     }
   }
   return final_color;
