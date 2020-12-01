@@ -86,11 +86,19 @@ Floor 14,11.35,-6.5 -245,0,0 4,4,1 Images/metalgrate_bts_001a.bmp true
 #Wall 0,6,-12 0,0,0 10,6,10 Images/metal_modular_floor1.bmp true
 #Wall 0,6,12 0,180,0 10,6,1 Images/metal_modular_floor1.bmp true
 
-#companion cube
-Companion -3,0.7,-3, 0,57,0 0.6,
+#center companion cube
+Companion -1,0.7,-1, 0,57,0 0.6,
 
+#companion cube pile
+Companion -6,0.7,-6, 0,209,0 0.6,
+Companion -6,1.96,-6, 90,0,217 0.6,
+Companion -4.4,0.7,-6.3, 90,0,30 0.6,
+Companion -8,0.7,-6.3, -90,0,49 0.6,
+Companion -6.2,0.8,-7.7, 60,0,0 0.6,
+
+#cameras
 Observe 14,9.05,-3 0, 1,
 Observe -5,9,8 0,-90,0 1,
 
 #dropper
-Dropper -6,10,-6 0,0,0 2,
+Dropper -6,9,-6 0,0,0 2,3,2
