@@ -11,9 +11,7 @@ static Window* window;
 
 
 static void CleanUp(){
-    //std::cout << "clean up----------------------------------------------" << std::endl;
     delete window;
-    //std::cout << "clean up----------------------------------------------" << std::endl;
 }
 
 

@@ -105,14 +105,12 @@ namespace Scene
             while (end != std::string::npos && index < 6)
             {
                 settings[index] = objLine.substr(start, end - start);
-                //std::cout << settings[index] << std::endl;
 
                 start = end + delim.length();
                 end = objLine.find(delim, start);
                 index++;
             }
             settings[index] = objLine.substr(start, end);
-            //std::cout << settings[index] << std::endl;
 
             std::string objName = settings[0];
             if (objName == "")
@@ -221,10 +219,6 @@ namespace Scene
             portalShader->setFloat("sizeY", 0.85);
             portalShader->setFloat("sizeX", 0.5f);
             portalShader->setFloat("offset", 0.07f);
-
-            //light
-            //objects.push_back(new Light(Vector3D(0, 3, 0), 0.65));
-            
 
             //portals
             Portal *p1 = new Portal(Vector3D(0, 2, 10),
@@ -344,10 +338,6 @@ namespace Scene
         Camera *portalcam = portals[i]->getCam();
 
         portalcam->Update(pos, camera->GetRotation().Add(rotdiff.Negate()).Add(Vector3D(pivot.x * 180, pivot.y * 180, pivot.z * 180))); //update perspective so portal lines up with player
-        //glMatrixMode(GL_PROJECTION);
-        //glLoadIdentity();
-        //gluPerspective(55,portalcam->GetAspectRatio(),camdiff.getMagnitude()-0.1 , 1000); //fov is hard coded here cuz i dont wanna bother tbh
-        //glMatrixMode(GL_MODELVIEW);
         portalcam->Draw();          //apply changes
         LightHandler::Update(true); //reset light after perspective has been moved
 
@@ -453,8 +443,6 @@ namespace Scene
             }
             glStencilFunc(GL_ALWAYS, 0, 0xFF);
             glStencilMask(0xFF);
-
-            //LightHandler::DrawShadows();
         }
         glPopMatrix();
     }

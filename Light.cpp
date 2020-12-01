@@ -80,12 +80,6 @@ void Light::UpdatePosition(){
     double t = glutGet(GLUT_ELAPSED_TIME)/1000.0;
     int zh = fmod(90*t,360.0);
 
-
-    //li.position.x = distance*Cos(zh);
-    //li.position.y = li.position.y;
-    //li.position.z = distance*Sin(zh);
-    // = {distance*Cos(zh), position.y, distance*Sin(zh), 1.0};
-
     ChangePosition(zh);
     
 }

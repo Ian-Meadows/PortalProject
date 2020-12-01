@@ -38,7 +38,6 @@ void Dropper::bottomring(GLint angleChange, GLdouble innerradius, GLdouble outer
     glMateriali(GL_FRONT_AND_BACK, GL_SHININESS, 128);
     glBindTexture(GL_TEXTURE_2D, textures[1]);
     glPushMatrix();
-    //glScaled(radius, height, radius);
 
     glBegin(GL_QUAD_STRIP);
 
@@ -106,7 +105,6 @@ void Dropper::topring(GLint angleChange, GLdouble innerradius, GLdouble outerrad
     glMateriali(GL_FRONT_AND_BACK, GL_SHININESS, 128);
     glBindTexture(GL_TEXTURE_2D, textures[1]);
     glPushMatrix();
-    //glScaled(radius, height, radius);
     glTranslatef(0, 0.65, 0);
 
     glBegin(GL_QUAD_STRIP);
