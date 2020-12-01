@@ -84,7 +84,7 @@ void Window::Draw()
     Reshape(width, height);
     Scene::Draw(camera);
 
-    Scene::renderPortals(camera, 6);
+    Scene::renderPortals(camera, 5);
 
     ErrCheck("display");
     glFlush();
