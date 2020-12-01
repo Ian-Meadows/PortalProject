@@ -26,6 +26,7 @@
 #include "LightHandler.h"
 #include "Wall.h"
 #include "Floor.h"
+#include "Observe.h"
 
 namespace Scene
 {

@@ -176,6 +176,10 @@ namespace Scene
             {
                 objects.push_back(new Dropper(pos, scale, rot));
             }
+            else if (objName == "Observe")
+            {
+                objects.push_back(new Observe(pos, scale, rot));
+            }
             else if (objName == "Floor")
             {
                 objects.push_back(new Floor(pos, scale, rot, {texturePath}, {hasAlpha}));

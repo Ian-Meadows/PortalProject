@@ -24,8 +24,6 @@ namespace LightHandler{
 
     void AddLight(LightInfo info);
 
-    void UpdateShadowMap();
-
 
     void CleanUp();
 
