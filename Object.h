@@ -119,8 +119,6 @@ struct Vector3D
         return sqrt((x * x) + (y * y) + (z * z));
     }
 
-    //hopefully this math is right
-    //apparently it isnt but i cant figure out why
     Vector3D Rotate(Vector3D rot)
     {
         Vector3D result;

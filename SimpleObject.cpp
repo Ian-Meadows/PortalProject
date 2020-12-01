@@ -10,20 +10,12 @@ SimpleObject::~SimpleObject(){
 
 }
 void SimpleObject::DrawShape(){
-    
-    //float white[] = {1,1,1,1};
-    //float black[] = {0,0,0,1};
-    //float shiny   =   1;  // Shininess (value)
-    //glMaterialf(GL_FRONT_AND_BACK,GL_SHININESS,shiny);
-    //glMaterialfv(GL_FRONT_AND_BACK,GL_SPECULAR,white);
-    //glMaterialfv(GL_FRONT_AND_BACK,GL_EMISSION,black);
 
     glEnable(GL_TEXTURE_2D);
     glTexEnvi(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE, GL_MODULATE);
     glColor3f(1,1,1);
 
     //  Front
-    //glColor3f(1,0,0);
     glBindTexture(GL_TEXTURE_2D, textures[2]);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);//unblur the texture  
     glBegin(GL_QUADS);
@@ -35,7 +27,6 @@ void SimpleObject::DrawShape(){
     glEnd();
 
     //  Back
-    //glColor3f(0,0,1);
     glBindTexture(GL_TEXTURE_2D, textures[3]);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);    
     glBegin(GL_QUADS);
@@ -47,7 +38,6 @@ void SimpleObject::DrawShape(){
     glEnd();
 
     //  Right
-    //glColor3f(1,1,0);
     glBindTexture(GL_TEXTURE_2D, textures[0]);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);    
     glBegin(GL_QUADS);
@@ -59,7 +49,6 @@ void SimpleObject::DrawShape(){
     glEnd();
 
     //  Left
-    //glColor3f(0,1,0);
     glBindTexture(GL_TEXTURE_2D, textures[1]);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);    
     glBegin(GL_QUADS);
@@ -71,7 +60,6 @@ void SimpleObject::DrawShape(){
     glEnd();
 
     //  Top
-    //glColor3f(0,1,1);
     glBindTexture(GL_TEXTURE_2D, textures[4]);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);    
     glBegin(GL_QUADS);
@@ -83,7 +71,6 @@ void SimpleObject::DrawShape(){
     glEnd();
     
     //  Bottom
-    //glColor3f(1,0,1);
     glBindTexture(GL_TEXTURE_2D, textures[5]);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);    
     glBegin(GL_QUADS);

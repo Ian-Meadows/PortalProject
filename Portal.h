@@ -27,6 +27,4 @@ private:
     Object* surface;
     Camera* cam;
     Portal* otherPortal;
-    unsigned int fbo, rbo, finalTex;
-    unsigned long int* temptex;
 };

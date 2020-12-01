@@ -12,13 +12,8 @@ MovingLight::~MovingLight()
 
 void MovingLight::DrawShape(){
 
-    //float emission = 0;
-    //float shiny = 0;
-
     //taken from ex13
     int th,ph;
-    //float yellow[] = {1.0,1.0,0.0,1.0};
-    //float Emission[]  = {0.0,0.0,0.01f*emission,1.0};
     //  Save transformation
     glPushMatrix();
     //  Offset, scale and rotate
@@ -27,9 +22,6 @@ void MovingLight::DrawShape(){
     glScaled(0.1, 0.1, 0.1);
     //  White ball
     glColor3f(1,1,1);
-    //glMaterialf(GL_FRONT, GL_SHININESS, shiny);
-    //glMaterialfv(GL_FRONT, GL_SPECULAR, yellow);
-    //glMaterialfv(GL_FRONT, GL_EMISSION, Emission);
    
 
     
@@ -64,10 +56,6 @@ void MovingLight::Vertex(double th, double ph){
 
 
 void MovingLight::ChangePosition(int zh){
-    //li.position.x = distance*Cos(zh);
-    //li.position.y = li.position.y;
-    //li.position.z = distance*Sin(zh);
-    // = {distance*Cos(zh), position.y, distance*Sin(zh), 1.0};
 
     Vector3D newPos(distance*Cos(zh), GetPosition().y, distance*Sin(zh));
     SetPosition(newPos);
