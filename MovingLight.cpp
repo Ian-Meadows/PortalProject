@@ -24,7 +24,7 @@ void MovingLight::DrawShape(){
     //  Offset, scale and rotate
     Vector3D position = GetPosition();
     glTranslated(position.x, position.y, position.z);
-    glScaled(1, 1, 1);
+    glScaled(0.1, 0.1, 0.1);
     //  White ball
     glColor3f(1,1,1);
     //glMaterialf(GL_FRONT, GL_SHININESS, shiny);

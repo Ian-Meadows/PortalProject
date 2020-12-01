@@ -98,7 +98,6 @@ private:
     LightInfo li;
 
     int inc       =  10;  // Ball increment
-    int distance = 3;
 
 };
 

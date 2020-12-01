@@ -39,14 +39,29 @@ namespace LightHandler{
         LightHandler::shader = shader;
 
         Vector3D pos = Vector3D(7, 5, 0);
-        //AddLight(LightInfo(GL_LIGHT0, pos));
+
+        //moving white light
         AddMovingLight(LightInfo(GL_LIGHT0, pos));
+
+
+        //red light
+        AddLight(LightInfo(GL_LIGHT1, Vector3D(14, 21, -6), 
+            Vector3D(0.01, 0, 0), Vector3D(0.1, 0, 0), Vector3D(1, 0, 0)));
+
+        //green light
+        AddLight(LightInfo(GL_LIGHT2, Vector3D(14, -9, -6), 
+            Vector3D(0, 0.00, 0), Vector3D(0, 0.07, 0), Vector3D(0, 1, 0)));
+
+
+        //blue light
+        AddLight(LightInfo(GL_LIGHT3, Vector3D(-7, 10, 4.5), 
+            Vector3D(0.05, 0.05, 0.06), Vector3D(0.1, 0.1, 0.25), Vector3D(0.5, 0.5, 1)));
+        
 
 
         LightHandler::ambientLight = ambientLight;
 
-        //AddLight(LightInfo(GL_LIGHT1, Vector3D(-5, 1, 5)));
-        //AddLight(LightInfo(GL_LIGHT2, Vector3D(5, 1, 5)));
+
     }
 
 
@@ -57,8 +72,6 @@ namespace LightHandler{
             
             glEnable(GL_NORMALIZE);
 
-            //glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 0);
-            //  glColor sets ambient and diffuse color materials
             glColorMaterial(GL_FRONT_AND_BACK,GL_AMBIENT_AND_DIFFUSE);
             glEnable(GL_COLOR_MATERIAL);
             glDisable(GL_LIGHTING);

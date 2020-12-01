@@ -96,7 +96,6 @@ private:
     bool smoothShading = true;
 
     int width, height;
-    
 
 };
 

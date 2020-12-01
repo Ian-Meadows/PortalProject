@@ -27,6 +27,11 @@ Window::Window(int argc, char *argv[], WindowInfo &info)
     glutInitWindowPosition(info.xPos, info.yPos);
     glutInitWindowSize(info.xSize, info.ySize);
 
+
+    
+
+
+
     win = glutCreateWindow(info.name.c_str());
 
     Time::Init(false);
@@ -70,6 +75,7 @@ void Window::Draw()
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+     
 
     glLoadIdentity();
 
@@ -78,20 +84,9 @@ void Window::Draw()
     Reshape(width, height);
     Scene::Draw(camera);
 
-    {
-        Scene::renderPortals(camera, 6);
-    }
+    Scene::renderPortals(camera, 6);
 
-    //draw text to screen
-    glDisable(GL_LIGHTING);
-    glDisable(GL_DEPTH_TEST);
-    glDisable(GL_STENCIL_TEST);
-    glColor3f(1, 1, 1);
-    glWindowPos2i(5, 5);
-    Print("Projection: %s", camera->GetProjectionType().c_str());
-
-    std::string str = "display";
-    ErrCheck(str.c_str());
+    ErrCheck("display");
     glFlush();
     glutSwapBuffers();
 }

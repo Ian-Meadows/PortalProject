@@ -24,23 +24,16 @@ void Light::Draw(Vector3D ambientLight, Shader* shader){
 
 void Light::DrawShape(){
     
-    float emission = 0;
-    float shiny = 0;
 
     //taken from ex13
     int th,ph;
-    //float yellow[] = {1.0,1.0,0.0,1.0};
-    //float Emission[]  = {0.0,0.0,0.01f*emission,1.0};
     //  Save transformation
     glPushMatrix();
     //  Offset, scale and rotate
     glTranslated(li.position.x, li.position.y, li.position.z);
-    glScaled(1, 1, 1);
+    glScaled(0.1, 0.1, 0.1);
     //  White ball
     glColor3f((float)li.lightObjectColor.x, (float)li.lightObjectColor.y, (float)li.lightObjectColor.z);
-    glMaterialf(GL_FRONT, GL_SHININESS, shiny);
-    //glMaterialfv(GL_FRONT, GL_SPECULAR, yellow);
-    //glMaterialfv(GL_FRONT, GL_EMISSION, Emission);
 
 
    
@@ -80,7 +73,7 @@ void Light::Vertex(double th, double ph){
    //  For a sphere at the origin, the position
    //  and normal vectors are the same
    glNormal3d(x,y,z);
-   glVertex3d(x,y,z);
+   glVertex3d(x, y, z);
 }
 
 void Light::UpdatePosition(){
