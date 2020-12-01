@@ -9,6 +9,11 @@
 
 #include "TextureHandler.h"
 #include "Def.h"
+#include "Shader.h"
+
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 
 //taken from CSCIx229.h
 
@@ -160,7 +165,7 @@ class Object
 public:
     Object(Vector3D pos, Vector3D scale, Vector3D rotation);
     virtual ~Object();
-    virtual void Draw() final;
+    virtual void Draw(Shader* shader) final;
 
 protected:
     Vector3D position;
@@ -175,12 +180,15 @@ protected:
 
     virtual void DrawShape();
 
-    virtual void LoadTextures(std::vector<std::string> textureFiles, std::vector<bool> hasAlpha) final;
+    virtual void LoadTextures(std::vector<std::string> textureFiles, std::vector<bool> hasAlpha, std::string normalMap) final;
 
     //fixes rotation to be between 0 and 360
     virtual void FixRotation() final;
 
     unsigned int *textures = nullptr;
+
+    unsigned int normalMap = 0;
+    bool hasNormalMap = false;
 };
 
 #endif

@@ -4,7 +4,7 @@ SimpleObject::SimpleObject(Vector3D pos,  Vector3D scale, Vector3D rotation) :
  Object(pos, scale, rotation){
      std::vector<std::string> texture = {"Images/steve_front.bmp", "Images/steve_back.bmp", "Images/steve_right.bmp", "Images/steve_left.bmp", "Images/steve_top.bmp", "Images/steve_bottom.bmp", };
      std::vector<bool> hasAlpha = {false, false, false, false, false, false};
-        LoadTextures(texture, hasAlpha);
+        LoadTextures(texture, hasAlpha, "");
 }
 SimpleObject::~SimpleObject(){
 

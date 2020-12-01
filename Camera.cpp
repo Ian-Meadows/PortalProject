@@ -139,7 +139,7 @@ void Camera::drawSelf()
 {
     //sphere(position.x,position.y,position.z,1);
     SimpleObject f = SimpleObject(position, Vector3D(0.3), Vector3D(0, -rotation.y, 0));
-    f.Draw();
+    f.Draw(nullptr);
 }
 
 //used code from ex9.c

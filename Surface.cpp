@@ -1,13 +1,13 @@
 #include "Surface.h"
 
-Surface::Surface(Vector3D pos, Vector3D scale, Vector3D rotation, std::vector<std::string> textures, std::vector<bool> hasAlphas) : Object(pos, scale, rotation)
+Surface::Surface(Vector3D pos, Vector3D scale, Vector3D rotation, std::vector<std::string> textures, std::vector<bool> hasAlphas, std::string normalMap) : Object(pos, scale, rotation)
 {
     if (textures.size() == 0)
     {
         textures.push_back("Images/crate.bmp");
         hasAlphas.push_back(false);
     }
-    LoadTextures(textures, hasAlphas);
+    LoadTextures(textures, hasAlphas, normalMap);
 }
 
 bool Surface::portalable()

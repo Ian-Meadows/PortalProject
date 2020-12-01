@@ -1,7 +1,7 @@
 # This is a comment
 
 #floor
-Floor 0,0,0 90,0,0 10,10,1 Images/concrete_modular_floor001a.bmp true
+Floor 0,0,0 90,0,0 10,10,1 Images/concrete_modular_floor001a.bmp true Images/concrete_modular_floor001a_normal.bmp
 #ceiling
 Floor 0,12,0 -90,0,0 10,10,1 Images/metal_modular_floor1.bmp true
 
