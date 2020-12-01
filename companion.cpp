@@ -356,7 +356,7 @@ void Companion::cylinder(GLint angleChange, GLdouble radius, GLdouble height)
     glTexCoord2f(0.5, 0.5);
     glVertex3f(0, 1, 0); //set center point for top circle
 
-    for (int ang = 0; ang <= 360; ang += angleChange) //draw circle in chunks
+    for (int ang = 360; ang > 0; ang -= angleChange) //draw circle in chunks
     {
         glTexCoord2f(Sin(ang) / 2 + 0.5, Cos(ang) / 2 + 0.5);
         circleVertex(ang, 1);
@@ -365,24 +365,9 @@ void Companion::cylinder(GLint angleChange, GLdouble radius, GLdouble height)
     }
     glEnd();
 
-    glBegin(GL_TRIANGLE_FAN);
-
-    glNormal3f(0, -1, 0);
-    glTexCoord2f(0.5, 0.5);
-    glVertex3f(0, -1, 0); //set center point for top circle
-
-    for (int ang = 0; ang <= 360; ang += angleChange) //draw circle in chunks
-    {
-        glTexCoord2f(Sin(ang) / 2 + 0.5, Cos(ang) / 2 + 0.5);
-        circleVertex(ang, -1);
-        glTexCoord2f(Sin(ang + angleChange) / 2 + 0.5, Cos(ang + angleChange) / 2 + 0.5);
-        circleVertex(ang + angleChange, -1);
-    }
-    glEnd();
-
     //connect top circle to bottom circle
     glBegin(GL_QUADS);
-    for (int ang = 0; ang <= 360; ang += angleChange)
+    for (int ang = 0; ang < 360; ang += angleChange)
     {
         glTexCoord2f(Sin(ang) / 2 + 0.5, Cos(ang) / 2 + 0.5);
         cyliVertex(ang, 1);
@@ -479,7 +464,7 @@ void Companion::DrawShape()
 
     glTranslated(0, 1.025, 0);
     glColor3f(1, 1, 1);
-    cylinder(5, 0.5, 0.025);
+    cylinder(10, 0.5, 0.025);
 
     glPopMatrix();
     glPushMatrix();
@@ -487,7 +472,7 @@ void Companion::DrawShape()
     glRotated(90, 1, 0, 0);
     glTranslated(0, 1.025, 0);
     glColor3f(0.72549, 0, 0);
-    cylinder(5, 0.5, 0.025);
+    cylinder(10, 0.5, 0.025);
 
     glPopMatrix();
     glPushMatrix();
@@ -495,7 +480,7 @@ void Companion::DrawShape()
     glRotated(180, 1, 0, 0);
     glTranslated(0, 1.025, 0);
     glColor3f(1, 0.83529, 0);
-    cylinder(5, 0.5, 0.025);
+    cylinder(10, 0.5, 0.025);
 
     glPopMatrix();
     glPushMatrix();
@@ -503,7 +488,7 @@ void Companion::DrawShape()
     glRotated(270, 1, 0, 0);
     glTranslated(0, 1.025, 0);
     glColor3f(1, 0.349, 0);
-    cylinder(5, 0.5, 0.025);
+    cylinder(10, 0.5, 0.025);
 
     glPopMatrix();
     glPushMatrix();
@@ -511,7 +496,7 @@ void Companion::DrawShape()
     glRotated(90, 0, 0, 1);
     glTranslated(0, 1.025, 0);
     glColor3f(0, 0.2705, 0.6784);
-    cylinder(5, 0.5, 0.025);
+    cylinder(10, 0.5, 0.025);
 
     glPopMatrix();
     glPushMatrix();
@@ -519,7 +504,7 @@ void Companion::DrawShape()
     glRotated(270, 0, 0, 1);
     glTranslated(0, 1.025, 0);
     glColor3f(0, 0.6078, 0.2823);
-    cylinder(5, 0.5, 0.025);
+    cylinder(10, 0.5, 0.025);
 
     glPopMatrix();
     glDisable(GL_TEXTURE_2D);
