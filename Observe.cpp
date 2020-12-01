@@ -1,5 +1,7 @@
 #include "Observe.h"
 
+
+
 Observe::Observe(Vector3D pos, Vector3D scale, Vector3D rotation) : Object(pos, scale, rotation)
 {
     std::vector<std::string> texture = {"Images/white_wall_tile001a.bmp", "Images/metalwall1_lrg.bmp"};

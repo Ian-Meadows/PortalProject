@@ -90,6 +90,7 @@ Floor 14,11.35,-6.5 -245,0,0 4,4,1 Images/metalgrate_bts_001a.bmp true
 Companion -3,0.7,-3, 0,57,0 0.6,
 
 Observe 14,9.05,-3 0, 1,
+Observe -5,9,8 0,-90,0 1,
 
 #dropper
 Dropper -6,10,-6 0,0,0 2,
