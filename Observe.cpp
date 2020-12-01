@@ -1,7 +1,5 @@
 #include "Observe.h"
 
-
-
 Observe::Observe(Vector3D pos, Vector3D scale, Vector3D rotation) : Object(pos, scale, rotation)
 {
     std::vector<std::string> texture = {"Images/white_wall_tile001a.bmp", "Images/metalwall1_lrg.bmp"};
@@ -171,16 +169,19 @@ void Observe::DrawShape()
             glBegin(GL_TRIANGLE_FAN);
             int angleChange = 5;
 
-            glNormal3f(0, 1, 0);
+            glNormal3f(0, -1, 0);
             glTexCoord2f(0.5, 0.5);
             glVertex3f(0, 1, 0); //set center point for top circle
 
             for (int ang = 0; ang <= 360; ang += angleChange) //draw circle in chunks
             {
                 glTexCoord2f(Sin(ang - angleChange) / 3 + 0.5, Cos(ang - angleChange) / 3 + 0.5);
-                circleVertex(ang - angleChange, 1);
+                glNormal3f(0, -1, 0);
+                glVertex3d(Cos(ang - angleChange), 1, Sin(ang - angleChange));
+
                 glTexCoord2f(Sin(ang) / 3 + 0.5, Cos(ang) / 3 + 0.5);
-                circleVertex(ang, 1);
+                glNormal3f(0, -1, 0);
+                glVertex3d(Cos(ang), 1, Sin(ang));
             }
             glEnd();
             glPolygonOffset(0, 0);
