@@ -17,8 +17,6 @@ bool Surface::portalable()
 
 void Surface::DrawShape()
 {
-
-    int rep = 5;
     Vector3D scale = getScale();
     int s = 2;
 
