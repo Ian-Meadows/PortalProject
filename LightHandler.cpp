@@ -48,14 +48,11 @@ namespace LightHandler{
         AddLight(LightInfo(GL_LIGHT1, Vector3D(14, 21, -6), 
             Vector3D(0.01, 0, 0), Vector3D(0.1, 0, 0), Vector3D(1, 0, 0)));
 
-        //green light
-        AddLight(LightInfo(GL_LIGHT2, Vector3D(14, -9, -6), 
-            Vector3D(0, 0.00, 0), Vector3D(0, 0.07, 0), Vector3D(0, 1, 0)));
 
 
         //blue light
         AddLight(LightInfo(GL_LIGHT3, Vector3D(-7, 10, 4.5), 
-            Vector3D(0.05, 0.05, 0.06), Vector3D(0.1, 0.1, 0.25), Vector3D(0.5, 0.5, 1)));
+            Vector3D(0.05, 0.05, 0.06), Vector3D(0.05, 0.05, 0.15), Vector3D(0.5, 0.5, 1)));
         
 
 
