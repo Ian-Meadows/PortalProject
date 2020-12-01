@@ -2,7 +2,6 @@
 
 Portal::Portal(Vector3D pos, Vector3D scale, Vector3D rotation) : Object(pos, scale, rotation)
 {
-    std::cout << "portal ^" << std::endl;
     //implement framebuffer and texture for portal
     glGenFramebuffers(1, &fbo);
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);

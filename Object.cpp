@@ -85,10 +85,7 @@ void Object::LoadTextures(std::vector<std::string> textureFiles, std::vector<boo
     textures = new unsigned int[textureFiles.size()];
 
     for(unsigned int i = 0; i < textureFiles.size(); ++i){
-        textures[i] = TextureHandler::LoadTexture(textureFiles[i], hasAlpha[i]);
-        /*
-        
-        */
+        textures[i] = TextureHandler::LoadTexture(textureFiles[i], hasAlpha[i]);\
     }
 
     if(normalMap != ""){
