@@ -78,7 +78,8 @@ Floor 14,25,-3 -90,0,0 4,1,1 Images/underground_woodwall003b.bmp true
 Floor 14,25,-9 -90,0,0 4,1,1 Images/underground_woodwall003b.bmp true
 
 #ceiling
-Floor 14,11,-6.5 -60.5,0,0 4,4,1 Images/metalgrate_bts_001a.bmp true
+Floor 14,11.35,-6.5 -65,0,0 4,4,1 Images/metalgrate_bts_001a.bmp true
+Floor 14,11.35,-6.5 -245,0,0 4,4,1 Images/metalgrate_bts_001a.bmp true
 
 
 #portal testing
@@ -87,6 +88,8 @@ Floor 14,11,-6.5 -60.5,0,0 4,4,1 Images/metalgrate_bts_001a.bmp true
 
 #companion cube
 Companion -3,0.7,-3, 0,57,0 0.6,
+
+Observe 14,9.05,-3 0, 1,
 
 #dropper
 Dropper -6,10,-6 0,0,0 2,
