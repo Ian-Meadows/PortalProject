@@ -5,7 +5,7 @@ Companion::Companion(Vector3D pos,  Vector3D scale, Vector3D rotation) :
  Object(pos, scale, rotation){
      std::vector<std::string> texture = {"Images/metalwall1_med.bmp", "Images/underground_wall_metal004d.bmp", "Images/woodpanel_002.bmp", "Images/metal_detail_01.bmp"};
      std::vector<bool> hasAlpha = {true,true,true,true};
-        LoadTextures(texture, hasAlpha);
+        LoadTextures(texture, hasAlpha, "");
 }
 
 void Companion::cube()

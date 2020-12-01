@@ -39,7 +39,8 @@ namespace LightHandler{
         LightHandler::shader = shader;
 
         Vector3D pos = Vector3D(7, 5, 0);
-        AddLight(LightInfo(GL_LIGHT0, pos));
+        //AddLight(LightInfo(GL_LIGHT0, pos));
+        AddMovingLight(LightInfo(GL_LIGHT0, pos));
 
 
         LightHandler::ambientLight = ambientLight;
@@ -75,6 +76,11 @@ namespace LightHandler{
 
     void AddLight(LightInfo lightInfo){
         Light* light = new Light(lightInfo);
+        lights.push_back(light);
+    }
+
+    void AddMovingLight(LightInfo lightInfo){
+        MovingLight* light = new MovingLight(lightInfo);
         lights.push_back(light);
     }
 

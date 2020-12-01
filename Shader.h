@@ -10,6 +10,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include "glm/glm.hpp"
 
 #ifdef USEGLEW
 #include <GL/glew.h>
@@ -48,6 +49,8 @@ public:
 
 
 	void setVec3(const std::string &name, Vector3D value);
+	
+	void setMat4(const std::string &name, const glm::mat4 &mat);
 
 
     /*
@@ -89,10 +92,7 @@ public:
 		glUniformMatrix3fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
 	}
 	// ------------------------------------------------------------------------
-	void setMat4(const std::string &name, const glm::mat4 &mat) const
-	{
-		glUniformMatrix4fv(glGetUniformLocation(ID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
-	}
+	
 
 
 

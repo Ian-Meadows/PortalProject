@@ -29,8 +29,8 @@ void Light::DrawShape(){
 
     //taken from ex13
     int th,ph;
-    float yellow[] = {1.0,1.0,0.0,1.0};
-    float Emission[]  = {0.0,0.0,0.01f*emission,1.0};
+    //float yellow[] = {1.0,1.0,0.0,1.0};
+    //float Emission[]  = {0.0,0.0,0.01f*emission,1.0};
     //  Save transformation
     glPushMatrix();
     //  Offset, scale and rotate
@@ -39,8 +39,8 @@ void Light::DrawShape(){
     //  White ball
     glColor3f((float)li.lightObjectColor.x, (float)li.lightObjectColor.y, (float)li.lightObjectColor.z);
     glMaterialf(GL_FRONT, GL_SHININESS, shiny);
-    glMaterialfv(GL_FRONT, GL_SPECULAR, yellow);
-    glMaterialfv(GL_FRONT, GL_EMISSION, Emission);
+    //glMaterialfv(GL_FRONT, GL_SPECULAR, yellow);
+    //glMaterialfv(GL_FRONT, GL_EMISSION, Emission);
 
 
    

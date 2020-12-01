@@ -4,7 +4,7 @@ Dropper::Dropper(Vector3D pos, Vector3D scale, Vector3D rotation) : Object(pos, 
 {
     std::vector<std::string> texture = {"Images/box_dropper_tube.bmp", "Images/plasticwall001b.bmp", "Images/underground_wall_metal001a.bmp", "Images/metalwall1_lrg.bmp"};
     std::vector<bool> hasAlpha = {true, true, true, true};
-    LoadTextures(texture, hasAlpha);
+    LoadTextures(texture, hasAlpha, "");
 }
 
 void Dropper::cylinder(GLint angleChange, GLdouble radius, GLdouble height)

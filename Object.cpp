@@ -12,7 +12,21 @@ Object::~Object(){
     }
 }
 
-void Object::Draw(){
+void Object::Draw(Shader* shader){
+    
+
+    if(shader != nullptr){
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, textures[0]);
+        
+        shader->setInt("hasNormalMap", hasNormalMap);
+        if(hasNormalMap){
+            glActiveTexture(GL_TEXTURE1);
+            glBindTexture(GL_TEXTURE_2D, normalMap);
+        }
+        
+    }
+
     //  Save transformation
     glPushMatrix();
     //  Offset and scale
@@ -22,8 +36,24 @@ void Object::Draw(){
     glRotated(rotation.y,0,1,0);
     glRotated(rotation.z,0,0,1);
     glScaled(scale.x, scale.y, scale.z);
+    
 
+    glActiveTexture(GL_TEXTURE0);
     DrawShape();
+    if(shader != nullptr){
+        shader->setInt("tex", 0);
+        shader->setInt("normalMap", 1);
+        
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(position.x, position.y, position.z));
+        model = glm::rotate(model, glm::radians((float)rotation.x), glm::vec3(1.0, 0.0, 0.0));
+        model = glm::rotate(model, glm::radians((float)rotation.y), glm::vec3(0.0, 1.0, 0.0));
+        model = glm::rotate(model, glm::radians((float)rotation.z), glm::vec3(0.0, 0.0, 1.0));
+        model = glm::scale(model, glm::vec3(scale.x, scale.y, scale.z));
+        
+        shader->setMat4("model", model);
+    }
+    
 
     //  Undo transformations
     glPopMatrix();
@@ -48,7 +78,7 @@ void Object::DrawShape(){
     }
 
 
-void Object::LoadTextures(std::vector<std::string> textureFiles, std::vector<bool> hasAlpha){
+void Object::LoadTextures(std::vector<std::string> textureFiles, std::vector<bool> hasAlpha, std::string normalMap){
     if(textureFiles.size() != hasAlpha.size()){
         std::cout << "ERROR: texture files does not equal hasAlpha list" << std::endl;
     }
@@ -60,6 +90,18 @@ void Object::LoadTextures(std::vector<std::string> textureFiles, std::vector<boo
         
         */
     }
+
+    if(normalMap != ""){
+        this->normalMap = TextureHandler::LoadTexture(normalMap, true);
+        hasNormalMap = true;
+    }
+    else{
+        hasNormalMap = false;
+    }
+    
+
+
+
 }
 
 void Object::UpdateRotation(Vector3D rotation){

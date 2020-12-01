@@ -95,24 +95,24 @@ namespace Scene
                 return;
             }
 
-            std::string settings[6] = {"", "", "", "", "", ""};
+            std::string settings[7] = {"", "", "", "", "", "", ""};
             std::string delim = " ";
             auto start = 0U;
             auto end = objLine.find(delim);
 
             int index = 0;
 
-            while (end != std::string::npos && index < 5)
+            while (end != std::string::npos && index < 6)
             {
                 settings[index] = objLine.substr(start, end - start);
-                std::cout << settings[index] << std::endl;
+                //std::cout << settings[index] << std::endl;
 
                 start = end + delim.length();
                 end = objLine.find(delim, start);
                 index++;
             }
             settings[index] = objLine.substr(start, end);
-            std::cout << settings[index] << std::endl;
+            //std::cout << settings[index] << std::endl;
 
             std::string objName = settings[0];
             if (objName == "")
@@ -125,6 +125,7 @@ namespace Scene
             Vector3D scale(1, 1, 1);
             std::string texturePath = settings[4];
             bool hasAlpha;
+            std::string normalMapPath = settings[6];
 
             //position
             if (index >= 1)
@@ -182,11 +183,11 @@ namespace Scene
             }
             else if (objName == "Floor")
             {
-                objects.push_back(new Floor(pos, scale, rot, {texturePath}, {hasAlpha}));
+                objects.push_back(new Floor(pos, scale, rot, {texturePath}, {hasAlpha}, normalMapPath));
             }
             else if (objName == "Wall")
             {
-                objects.push_back(new Wall(pos, scale, rot, {texturePath}, {hasAlpha}));
+                objects.push_back(new Wall(pos, scale, rot, {texturePath}, {hasAlpha}, normalMapPath));
             }
             else
             {
@@ -223,7 +224,7 @@ namespace Scene
 
             //light
             //objects.push_back(new Light(Vector3D(0, 3, 0), 0.65));
-            LightHandler::Init(shader, Vector3D(0.1), camera);
+            
 
             //portals
             Portal *p1 = new Portal(Vector3D(0, 2, 10),
@@ -246,6 +247,8 @@ namespace Scene
 
             portals.push_back(p1);
             portals.push_back(p2);
+
+            LightHandler::Init(shader, Vector3D(0.1), camera); 
         }
 
     } // namespace
@@ -359,7 +362,7 @@ namespace Scene
         for (unsigned int j = 0; j < objects.size(); ++j)
         {
             glColor3f(1, 1, 1);
-            objects[j]->Draw();
+            objects[j]->Draw(shader);
         }
 
         portalShader->use();
@@ -368,7 +371,7 @@ namespace Scene
         glStencilFunc(GL_EQUAL, i * 50 + 1 + rec, 0xFF);
         portalShader->setInt("portalNumber", i);
         glColor3f(1, 1, 1);
-        portals[i]->Draw();
+        portals[i]->Draw(nullptr);
     }
 
     void renderPortalsRec(int rec, int maxrec)
@@ -413,6 +416,7 @@ namespace Scene
 
     void Draw(Camera *camera)
     {
+        
         maincam = camera;
         glStencilFunc(GL_ALWAYS, 0, 0xFF);
         glStencilMask(0xFF);
@@ -428,12 +432,14 @@ namespace Scene
             }
 
             LightHandler::Update(true);
-
+            
+            shader->setVec3("viewPos", camera->GetPosition());
             for (unsigned int i = 0; i < objects.size(); ++i)
             {
                 glColor3f(1, 1, 1);
-                objects[i]->Draw();
+                objects[i]->Draw(shader);
             }
+            
 
             portalShader->use();
             for (unsigned int i = 0; i < portals.size(); ++i)
@@ -443,25 +449,12 @@ namespace Scene
                 glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
                 portalShader->setInt("portalNumber", i);
                 glColor3f(1, 1, 1);
-                portals[i]->Draw();
+                portals[i]->Draw(nullptr);
             }
             glStencilFunc(GL_ALWAYS, 0, 0xFF);
             glStencilMask(0xFF);
 
             //LightHandler::DrawShadows();
-        }
-        glPopMatrix();
-    }
-
-    void DrawShadowableObjects()
-    {
-        glPushMatrix();
-        shader->use();
-        glScaled(size.x, size.y, size.z);
-        for (unsigned int i = 0; i < objects.size(); ++i)
-        {
-            glColor3f(1, 1, 1);
-            objects[i]->Draw();
         }
         glPopMatrix();
     }

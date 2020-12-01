@@ -8,6 +8,7 @@
 #include "vector"
 #include "Shader.h"
 #include "Window.h"
+#include "MovingLight.h"
 
 
 
@@ -22,7 +23,8 @@ namespace LightHandler{
 
     void Update(bool isLighting);
 
-    void AddLight(LightInfo info);
+    void AddLight(LightInfo lightInfo);
+    void AddMovingLight(LightInfo lightInfo);
 
 
     void CleanUp();
