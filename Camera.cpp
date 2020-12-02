@@ -83,7 +83,7 @@ void Camera::KeyPressed(unsigned char key, int x, int y)
 
     if(key == '1')
     {
-        position = Vector3D(0.5, 2.5, 0.5);
+        position = Vector3D(0.5, 2.5, 4.5);
         rotation = Vector3D(0, 270, 0);
     }
     else if(key == '2')
