@@ -81,6 +81,32 @@ void Camera::KeyPressed(unsigned char key, int x, int y)
         return;
     }
 
+    if(key == '1')
+    {
+        position = Vector3D(0.5, 2.5, 0.5);
+        rotation = Vector3D(0, 270, 0);
+    }
+    else if(key == '2')
+    {
+        position = Vector3D(-1.5, 2.9, -4);
+        rotation = Vector3D(0, 60, 0);
+    }
+    else if(key == '3')
+    {
+        position = Vector3D(-0.605, 1.978, -7.592);
+        rotation = Vector3D(-5, 280, 0);
+    }
+    else if(key == '4')
+    {
+        position = Vector3D(-8.131, 2.077, 8.553);
+        rotation = Vector3D(0, 145, 0);
+    }
+    else if(key == '5')
+    {
+        position = Vector3D(15.8377, 3.07098, -5.37929);
+        rotation = Vector3D(-15, -10, 0);
+    }
+
     if (key == 'w' || key == 'W')
     {
         position = position.Add(GetForward());
