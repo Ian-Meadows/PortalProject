@@ -5,7 +5,7 @@
 varying vec3 normal, eyeVec;
 varying vec4 Ambient;
 #define MAX_LIGHTS 8
-#define NUM_LIGHTS 4
+#define NUM_LIGHTS 3
 varying vec3 lightDir[MAX_LIGHTS];
 uniform sampler2D tex;
 uniform sampler2D normalMap;
