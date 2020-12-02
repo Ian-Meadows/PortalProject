@@ -87,6 +87,8 @@ vec4 PhoneLighting()
 
 void main (void)
 {
-    gl_FragColor = PhoneLighting() * texture2D(tex,gl_TexCoord[0].st);
+    vec3 lighting = PhoneLighting().rgb;
+    vec4 texture = texture2D(tex,gl_TexCoord[0].st);
+    gl_FragColor = vec4(lighting * texture.rgb, texture.a);
   
 }
