@@ -403,9 +403,9 @@ namespace Scene
             shader->use();
             camera->Draw();
             glScaled(size.x, size.y, size.z);
-            glDisable(GL_LIGHTING);
             if (false)
             {
+                glDisable(GL_LIGHTING);
                 Draw3DGraph(10);
             }
 

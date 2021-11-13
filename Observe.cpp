@@ -9,7 +9,6 @@ Observe::Observe(Vector3D pos, Vector3D scale, Vector3D rotation) : Object(pos, 
 
 void Observe::cylinder(GLint angleChange, GLdouble radius, GLdouble height)
 {
-    glMateriali(GL_FRONT_AND_BACK, GL_SHININESS, 128);
     glPushMatrix();
     glScaled(radius, height, radius);
 
@@ -58,13 +57,11 @@ void Observe::cylinder(GLint angleChange, GLdouble radius, GLdouble height)
     glEnd();
 
     glPopMatrix();
-    glMateriali(GL_FRONT_AND_BACK, GL_SHININESS, 0);
 }
 
 void Observe::cam(GLint angleChange, GLdouble radius, GLdouble height)
 {
     glBindTexture(GL_TEXTURE_2D, textures[0]);
-    glMateriali(GL_FRONT_AND_BACK, GL_SHININESS, 128);
     glPushMatrix();
     glScaled(radius, height, radius);
 
@@ -148,11 +145,16 @@ void Observe::cam(GLint angleChange, GLdouble radius, GLdouble height)
     glPopMatrix();
 
     glPopMatrix();
-    glMateriali(GL_FRONT_AND_BACK, GL_SHININESS, 0);
 }
 
 void Observe::DrawShape()
 {
+    float white[] = {1, 1, 1, 1};
+    float black[] = {0, 0, 0, 1};
+    float shiny = 1; // Shininess (value)
+    glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shiny);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, white);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, black);
 
     glEnable(GL_TEXTURE_2D);
     //  Save transformation

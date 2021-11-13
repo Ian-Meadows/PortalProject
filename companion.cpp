@@ -342,7 +342,6 @@ void Companion::cornerPanel()
 
 void Companion::cylinder(GLint angleChange, GLdouble radius, GLdouble height)
 {
-    glMateriali(GL_FRONT_AND_BACK, GL_SHININESS, 128);
     glBindTexture(GL_TEXTURE_2D, textures[3]);
     glPushMatrix();
     glScaled(radius, height, radius);
@@ -377,12 +376,17 @@ void Companion::cylinder(GLint angleChange, GLdouble radius, GLdouble height)
     glEnd();
 
     glPopMatrix();
-    glMateriali(GL_FRONT_AND_BACK, GL_SHININESS, 0);
 }
 
 void Companion::DrawShape()
 {
-
+    float white[] = {1, 1, 1, 1};
+    float black[] = {0, 0, 0, 1};
+    float shiny = 1; // Shininess (value)
+    glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shiny);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, white);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, black);
+    
     //  Save transformation
     glPushMatrix();
     {

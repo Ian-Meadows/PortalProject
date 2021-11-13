@@ -28,7 +28,6 @@ void Surface::DrawShape()
     glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, black);
 
     glEnable(GL_TEXTURE_2D);
-    glEnable(GL_CULL_FACE);
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
     glBindTexture(GL_TEXTURE_2D, textures[0]);
 
