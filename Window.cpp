@@ -91,31 +91,30 @@ void Window::Reshape(int w, int h)
     }
 }
 
-//TODO: update key codes
 void Window::KeyInput(int key, int scancode, int action, int  mods)
 {
-    if (key == '0')
+    if (key == GLFW_KEY_0)
     {
         ResetView();
     }
     //portal move keys
-    else if (key == '1')
+    else if (key == GLFW_KEY_1)
     {
         Scene::setPortalsLocation(1);
     }
-    else if (key == '2')
+    else if (key == GLFW_KEY_2)
     {
         Scene::setPortalsLocation(2);
     }
-    else if (key == '3')
+    else if (key == GLFW_KEY_3)
     {
         Scene::setPortalsLocation(3);
     }
-    else if (key == '4')
+    else if (key == GLFW_KEY_4)
     {
         Scene::setPortalsLocation(4);
     }
-    else if (key == '5')
+    else if (key == GLFW_KEY_5)
     {
         Scene::setPortalsLocation(5);
     }
@@ -126,7 +125,7 @@ void Window::KeyInput(int key, int scancode, int action, int  mods)
 
         camera->UpdateProjection(worldDimension, aspectRatio, width, height);
     }
-    if(key == 'r')
+    if(key == GLFW_KEY_R)
     {
         std::cout << "Refreshing the scene according to the file" << std::endl;
         Scene::refreshScene();
