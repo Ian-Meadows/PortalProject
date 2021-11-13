@@ -77,7 +77,7 @@ void Light::Vertex(double th, double ph){
 }
 
 void Light::UpdatePosition(){
-    double t = glutGet(GLUT_ELAPSED_TIME)/1000.0;
+    double t = glfwGetTime();
     int zh = fmod(90*t,360.0);
 
     ChangePosition(zh);

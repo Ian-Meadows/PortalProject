@@ -1,6 +1,7 @@
 #ifndef TEXTURE_HANDLER_H
 #define TEXTURE_HANDLER_H
 
+#include "includes.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -8,10 +9,6 @@
 #include <math.h>
 #include <map>
 #include <string>
-
-
-#define GL_GLEXT_PROTOTYPES
-#include <GL/glut.h>
 
 
 namespace TextureHandler{

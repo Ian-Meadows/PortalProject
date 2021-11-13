@@ -26,14 +26,14 @@ namespace Time{
     void Init(bool debug){
         deltaTime = 0;
         FPS = 0;
-        currentFrame = glutGet(GLUT_ELAPSED_TIME) / 1000;
-        lastFrame = glutGet(GLUT_ELAPSED_TIME) / 1000;
+        currentFrame = glfwGetTime();
+        lastFrame = glfwGetTime();
         Time::debug = debug;
     }
 
     void Update(){
         lastFrame = currentFrame;
-        currentFrame = glutGet(GLUT_ELAPSED_TIME) / 1000;
+        currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
 
         currentTime += deltaTime;

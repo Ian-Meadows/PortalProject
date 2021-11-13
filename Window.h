@@ -1,10 +1,11 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#define GL_GLEXT_PROTOTYPES
-#include <string>
-#include <GL/glut.h>
 
+#include <string>
+
+#include "includes.h"
+#include "Print.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -61,23 +62,21 @@ class Window{
 
 public:
 
-    Window(int argc, char *argv[], WindowInfo& info);
+    Window(int argc, char *argv[], WindowInfo& info, void (*reshape)(GLFWwindow*,int,int), void (*key)(GLFWwindow*,int,int,int,int));
     ~Window();
 
     void Start();
 
     void Draw();
     void Reshape(int width, int height);
-    void KeyInput(unsigned char k, int x, int y);
-    void SpecialKeyInput(int k, int x, int y);
+    void KeyInput(int key, int scancode, int action, int mods);
 
     static void ErrCheck(const char* where);
 
 private:
 
-    GLint win;
-
     WindowInfo info;
+    GLFWwindow *window;
 
     int pitch = 0;
     int yaw = 300;
@@ -86,9 +85,7 @@ private:
 
     void ResetView();
 
-    
-
-    void Print(const char* format, ...);
+    GLFWwindow* InitWindow(const std::string title,int sync,int width,int height , void (*reshape)(GLFWwindow*,int,int) , void (*key)(GLFWwindow*,int,int,int,int));
 
     double aspectRatio = 1;
     double worldDimension = 20.0;

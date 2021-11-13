@@ -12,15 +12,7 @@
 #include <iostream>
 #include "glm/glm.hpp"
 
-#ifdef USEGLEW
-#include <GL/glew.h>
-#endif
-#define GL_GLEXT_PROTOTYPES
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#else
-#include <GL/glut.h>
-#endif
+#include "includes.h"
 
 
 struct Vector3D;

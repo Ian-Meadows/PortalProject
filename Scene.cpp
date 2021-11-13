@@ -2,19 +2,7 @@
 
 //taken from ex7.c
 #define LEN 8192 //  Maximum length of text string
-void Print(const char *format, ...)
-{
-    char buf[LEN];
-    char *ch = buf;
-    va_list args;
-    //  Turn the parameters into a character string
-    va_start(args, format);
-    vsnprintf(buf, LEN, format, args);
-    va_end(args);
-    //  Display the characters one at a time at the current raster position
-    while (*ch)
-        glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *ch++);
-}
+
 
 namespace Scene
 {
@@ -415,9 +403,9 @@ namespace Scene
             shader->use();
             camera->Draw();
             glScaled(size.x, size.y, size.z);
-            glDisable(GL_LIGHTING);
             if (false)
             {
+                glDisable(GL_LIGHTING);
                 Draw3DGraph(10);
             }
 

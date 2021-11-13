@@ -1,11 +1,10 @@
 #include "companion.h"
 
-
-Companion::Companion(Vector3D pos,  Vector3D scale, Vector3D rotation) :
- Object(pos, scale, rotation){
-     std::vector<std::string> texture = {"Images/metalwall1_med.bmp", "Images/underground_wall_metal004d.bmp", "Images/woodpanel_002.bmp", "Images/metal_detail_01.bmp"};
-     std::vector<bool> hasAlpha = {true,true,true,true};
-        LoadTextures(texture, hasAlpha, "");
+Companion::Companion(Vector3D pos, Vector3D scale, Vector3D rotation) : Object(pos, scale, rotation)
+{
+    std::vector<std::string> texture = {"Images/metalwall1_med.bmp", "Images/underground_wall_metal004d.bmp", "Images/woodpanel_002.bmp", "Images/metal_detail_01.bmp"};
+    std::vector<bool> hasAlpha = {true, true, true, true};
+    LoadTextures(texture, hasAlpha, "");
 }
 
 void Companion::cube()
@@ -216,7 +215,7 @@ void Companion::cornerPanel()
 
     glBegin(GL_QUADS);
     //strips
-    
+
     glNormal3f(0, 1, 1);
     glTexCoord2f(0.1, 0.1);
     glVertex3f(+0.3, +1.01, +1.06);
@@ -237,7 +236,6 @@ void Companion::cornerPanel()
     glTexCoord2f(0.1, 0.9);
     glVertex3f(+1.06, +0.3, +1.01);
 
-
     glNormal3f(1, 1, 0);
     glTexCoord2f(0.9, 0.9);
     glVertex3f(+1.01, +1.06, +1.01);
@@ -247,9 +245,8 @@ void Companion::cornerPanel()
     glVertex3f(+1.06, +1.01, +0.3);
     glTexCoord2f(0.1, 0.9);
     glVertex3f(+1.01, +1.06, +0.3);
-    glEnd(); 
+    glEnd();
 
-    
     //strip end-caps
     glBegin(GL_TRIANGLES);
     glNormal3f(-0.3, 0, 0);
@@ -345,7 +342,6 @@ void Companion::cornerPanel()
 
 void Companion::cylinder(GLint angleChange, GLdouble radius, GLdouble height)
 {
-    glMateriali(GL_FRONT_AND_BACK, GL_SHININESS, 128);
     glBindTexture(GL_TEXTURE_2D, textures[3]);
     glPushMatrix();
     glScaled(radius, height, radius);
@@ -380,134 +376,151 @@ void Companion::cylinder(GLint angleChange, GLdouble radius, GLdouble height)
     glEnd();
 
     glPopMatrix();
-    glMateriali(GL_FRONT_AND_BACK, GL_SHININESS, 0);
 }
 
 void Companion::DrawShape()
 {
-
+    float white[] = {1, 1, 1, 1};
+    float black[] = {0, 0, 0, 1};
+    float shiny = 1; // Shininess (value)
+    glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shiny);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, white);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, black);
+    
     //  Save transformation
     glPushMatrix();
+    {
+        glEnable(GL_TEXTURE_2D);
 
-    glEnable(GL_TEXTURE_2D);
+        glColor3f(0.427, 0.522, 0.569);
+        glPushMatrix();
+        {
+            cube();
+        }
+        glPopMatrix();
+        //side panels (need 12)
 
-    glColor3f(0.427, 0.522, 0.569);
+        //top
+        glPushMatrix();
+        {
+            sidePanel();
+            glRotated(90, 0, 1, 0);
+            sidePanel();
+            glRotated(90, 0, 1, 0);
+            sidePanel();
+            glRotated(90, 0, 1, 0);
+            sidePanel();
+        }
+        glPopMatrix();
 
-    cube();
+        //bottom
+        glPushMatrix();
+        {
+            glRotated(90, 1, 0, 0);
+            sidePanel();
+            glRotated(90, 0, 0, 1);
+            sidePanel();
+            glRotated(90, 0, 0, 1);
+            sidePanel();
+            glRotated(90, 0, 0, 1);
+            sidePanel();
+        }
+        glPopMatrix();
 
-    //side panels (need 12)
+        //middle
+        glPushMatrix();
+        {
+            glRotated(90, 0, 0, 1);
+            sidePanel();
+            glRotated(90, 1, 0, 0);
+            sidePanel();
+            glRotated(90, 1, 0, 0);
+            sidePanel();
+            glRotated(90, 1, 0, 0);
+            sidePanel();
+        }
+        glPopMatrix();
 
-    //top
-    glPushMatrix();
-    sidePanel();
-    glRotated(90, 0, 1, 0);
-    sidePanel();
-    glRotated(90, 0, 1, 0);
-    sidePanel();
-    glRotated(90, 0, 1, 0);
-    sidePanel();
-    glPopMatrix();
+        //corners (8)
 
-    //bottom
-    glPushMatrix();
-    glRotated(90, 1, 0, 0);
-    sidePanel();
-    glRotated(90, 0, 0, 1);
-    sidePanel();
-    glRotated(90, 0, 0, 1);
-    sidePanel();
-    glRotated(90, 0, 0, 1);
-    sidePanel();
-    glPopMatrix();
+        //top
+        glPushMatrix();
+        {
+            cornerPanel();
+            glRotated(90, 0, 1, 0);
+            cornerPanel();
+            glRotated(90, 0, 1, 0);
+            cornerPanel();
+            glRotated(90, 0, 1, 0);
+            cornerPanel();
+        }
+        glPopMatrix();
 
-    //middle
-    glPushMatrix();
-    glRotated(90, 0, 0, 1);
-    sidePanel();
-    glRotated(90, 1, 0, 0);
-    sidePanel();
-    glRotated(90, 1, 0, 0);
-    sidePanel();
-    glRotated(90, 1, 0, 0);
-    sidePanel();
-    glPopMatrix();
+        //bottom
+        glPushMatrix();
+        {
+            glRotated(180, 1, 0, 0);
+            cornerPanel();
+            glRotated(90, 0, 1, 0);
+            cornerPanel();
+            glRotated(90, 0, 1, 0);
+            cornerPanel();
+            glRotated(90, 0, 1, 0);
+            cornerPanel();
+        }
+        glPopMatrix();
 
-    //corners (8)
+        //fun with cylinders (the ones in the center of each side)
+        glColor3f(1, 1, 1);
 
-    //top
-    glPushMatrix();
-    cornerPanel();
-    glRotated(90, 0, 1, 0);
-    cornerPanel();
-    glRotated(90, 0, 1, 0);
-    cornerPanel();
-    glRotated(90, 0, 1, 0);
-    cornerPanel();
-    glPopMatrix();
-
-    //bottom
-    glPushMatrix();
-    glRotated(180, 1, 0, 0);
-    cornerPanel();
-    glRotated(90, 0, 1, 0);
-    cornerPanel();
-    glRotated(90, 0, 1, 0);
-    cornerPanel();
-    glRotated(90, 0, 1, 0);
-    cornerPanel();
-    glPopMatrix();
-
-    //fun with cylinders (the ones in the center of each side)
-    glColor3f(1, 1, 1);
-
-    glPushMatrix();
-
-    glTranslated(0, 1.025, 0);
-    glColor3f(1, 1, 1);
-    cylinder(10, 0.5, 0.025);
-
-    glPopMatrix();
-    glPushMatrix();
-
-    glRotated(90, 1, 0, 0);
-    glTranslated(0, 1.025, 0);
-    glColor3f(0.72549, 0, 0);
-    cylinder(10, 0.5, 0.025);
-
-    glPopMatrix();
-    glPushMatrix();
-
-    glRotated(180, 1, 0, 0);
-    glTranslated(0, 1.025, 0);
-    glColor3f(1, 0.83529, 0);
-    cylinder(10, 0.5, 0.025);
-
-    glPopMatrix();
-    glPushMatrix();
-
-    glRotated(270, 1, 0, 0);
-    glTranslated(0, 1.025, 0);
-    glColor3f(1, 0.349, 0);
-    cylinder(10, 0.5, 0.025);
-
-    glPopMatrix();
-    glPushMatrix();
-
-    glRotated(90, 0, 0, 1);
-    glTranslated(0, 1.025, 0);
-    glColor3f(0, 0.2705, 0.6784);
-    cylinder(10, 0.5, 0.025);
-
-    glPopMatrix();
-    glPushMatrix();
-
-    glRotated(270, 0, 0, 1);
-    glTranslated(0, 1.025, 0);
-    glColor3f(0, 0.6078, 0.2823);
-    cylinder(10, 0.5, 0.025);
-
-    glPopMatrix();
-    glDisable(GL_TEXTURE_2D);
-    //  Undo transformations
+        glPushMatrix();
+        {
+            glTranslated(0, 1.025, 0);
+            glColor3f(1, 1, 1);
+            cylinder(10, 0.5, 0.025);
+        }
+        glPopMatrix();
+        glPushMatrix();
+        {
+            glRotated(90, 1, 0, 0);
+            glTranslated(0, 1.025, 0);
+            glColor3f(0.72549, 0, 0);
+            cylinder(10, 0.5, 0.025);
+        }
+        glPopMatrix();
+        glPushMatrix();
+        {
+            glRotated(180, 1, 0, 0);
+            glTranslated(0, 1.025, 0);
+            glColor3f(1, 0.83529, 0);
+            cylinder(10, 0.5, 0.025);
+        }
+        glPopMatrix();
+        glPushMatrix();
+        {
+            glRotated(270, 1, 0, 0);
+            glTranslated(0, 1.025, 0);
+            glColor3f(1, 0.349, 0);
+            cylinder(10, 0.5, 0.025);
+        }
+        glPopMatrix();
+        glPushMatrix();
+        {
+            glRotated(90, 0, 0, 1);
+            glTranslated(0, 1.025, 0);
+            glColor3f(0, 0.2705, 0.6784);
+            cylinder(10, 0.5, 0.025);
+        }
+        glPopMatrix();
+        glPushMatrix();
+        {
+            glRotated(270, 0, 0, 1);
+            glTranslated(0, 1.025, 0);
+            glColor3f(0, 0.6078, 0.2823);
+            cylinder(10, 0.5, 0.025);
+        }
+        glPopMatrix();
+        glDisable(GL_TEXTURE_2D);
+    } //  Undo transformations
     glPopMatrix();
 }

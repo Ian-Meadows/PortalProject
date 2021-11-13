@@ -9,7 +9,6 @@ Dropper::Dropper(Vector3D pos, Vector3D scale, Vector3D rotation) : Object(pos, 
 
 void Dropper::cylinder(GLint angleChange, GLdouble radius, GLdouble height)
 {
-    glMateriali(GL_FRONT_AND_BACK, GL_SHININESS, 128);
     glBindTexture(GL_TEXTURE_2D, textures[0]);
     glPushMatrix();
     glScaled(radius, height, radius);
@@ -28,14 +27,12 @@ void Dropper::cylinder(GLint angleChange, GLdouble radius, GLdouble height)
     glEnd();
 
     glPopMatrix();
-    glMateriali(GL_FRONT_AND_BACK, GL_SHININESS, 0);
 }
 
 void Dropper::bottomring(GLint angleChange, GLdouble innerradius, GLdouble outerradius)
 {
     GLdouble top = -0.7;
     GLdouble bott = -1;
-    glMateriali(GL_FRONT_AND_BACK, GL_SHININESS, 128);
     glBindTexture(GL_TEXTURE_2D, textures[1]);
     glPushMatrix();
 
@@ -95,14 +92,12 @@ void Dropper::bottomring(GLint angleChange, GLdouble innerradius, GLdouble outer
     glEnd();
 
     glPopMatrix();
-    glMateriali(GL_FRONT_AND_BACK, GL_SHININESS, 0);
 }
 
 void Dropper::topring(GLint angleChange, GLdouble innerradius, GLdouble outerradius)
 {
     GLdouble top = 0.35;
     GLdouble bott = -0.54;
-    glMateriali(GL_FRONT_AND_BACK, GL_SHININESS, 128);
     glBindTexture(GL_TEXTURE_2D, textures[1]);
     glPushMatrix();
     glTranslatef(0, 0.65, 0);
@@ -190,13 +185,11 @@ void Dropper::topring(GLint angleChange, GLdouble innerradius, GLdouble outerrad
     glPopMatrix();
 
     glPopMatrix();
-    glMateriali(GL_FRONT_AND_BACK, GL_SHININESS, 0);
 }
 
 void Dropper::gate(GLint angleChange, GLdouble radius)
 {
     GLdouble lev = -0.85;
-    glMateriali(GL_FRONT_AND_BACK, GL_SHININESS, 128);
     glBindTexture(GL_TEXTURE_2D, textures[2]);
     glPushMatrix();
 
@@ -233,7 +226,6 @@ void Dropper::gate(GLint angleChange, GLdouble radius)
     glEnd();
 
     glPopMatrix();
-    glMateriali(GL_FRONT_AND_BACK, GL_SHININESS, 0);
 }
 
 void Dropper::rods(GLint count)
@@ -265,7 +257,13 @@ void Dropper::rods(GLint count)
 
 void Dropper::DrawShape()
 {
-
+    float white[] = {1, 1, 1, 1};
+    float black[] = {0, 0, 0, 1};
+    float shiny = 1; // Shininess (value)
+    glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shiny);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, white);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, black);
+    
     //  Save transformation
     glPushMatrix();
 
