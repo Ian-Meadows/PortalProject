@@ -1,7 +1,8 @@
 #ifndef LIGHT_HANDLER_H
 #define LIGHT_HANDLER_H
 #define GL_GLEXT_PROTOTYPES
-#include <GL/glut.h>
+
+#include "includes.h"
 
 
 #include "Light.h"

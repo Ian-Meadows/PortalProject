@@ -1,7 +1,4 @@
-#ifndef TIME_H
-#define TIME_H
-
-#include <iostream>
+#pragma once
 #ifdef USEGLEW
 #include <GL/glew.h>
 #endif
@@ -13,15 +10,4 @@
 #else
 #include <GL/glu.h>
 #include <GL/gl.h>
-#endif
-
-namespace Time{
-    double GetFPS();
-    double GetDeltaTime();
-
-    void Init(bool);
-
-    void Update();
-}
-
 #endif

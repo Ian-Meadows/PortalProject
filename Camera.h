@@ -1,7 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include <GL/glut.h>
+#include "includes.h"
 #include "Object.h"
 #include <string>
 #include <math.h>
@@ -22,7 +22,7 @@ public:
     void drawSelf();
 
 
-    void KeyPressed(unsigned char k, int x, int y);
+    void KeyPressed(int key, int scancode, int action, int  mods);
     void SpecialKeyPressed(int k, int x, int y);
 
     void Update(Vector3D position, Vector3D rotation);

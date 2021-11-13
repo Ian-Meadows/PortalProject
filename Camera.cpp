@@ -66,13 +66,13 @@ void Camera::Draw()
     }
 }
 
-void Camera::KeyPressed(unsigned char key, int x, int y)
+void Camera::KeyPressed(int key, int scancode, int action, int  mods)
 {
-    if (key == 'p')
+    if (key == GLFW_KEY_P && mods == GLFW_MOD_SHIFT)
     {
         IncreaseProjectionType();
     }
-    else if (key == 'P')
+    else if (key == GLFW_KEY_P)
     {
         DecreaseProjectionType();
     }
@@ -81,69 +81,60 @@ void Camera::KeyPressed(unsigned char key, int x, int y)
         return;
     }
 
-    if(key == '1')
+    if(key == GLFW_KEY_1)
     {
         position = Vector3D(0.5, 2.5, 4.5);
         rotation = Vector3D(0, 270, 0);
     }
-    else if(key == '2')
+    else if(key == GLFW_KEY_2)
     {
         position = Vector3D(-1.5, 2.9, -4);
         rotation = Vector3D(0, 60, 0);
     }
-    else if(key == '3')
+    else if(key == GLFW_KEY_3)
     {
         position = Vector3D(-0.605, 1.978, -7.592);
         rotation = Vector3D(-5, 280, 0);
     }
-    else if(key == '4')
+    else if(key == GLFW_KEY_4)
     {
         position = Vector3D(-8.131, 2.077, 8.553);
         rotation = Vector3D(0, 145, 0);
     }
-    else if(key == '5')
+    else if(key == GLFW_KEY_5)
     {
         position = Vector3D(15.8377, 3.07098, -5.37929);
         rotation = Vector3D(-15, -10, 0);
     }
 
-    if (key == 'w' || key == 'W')
+    if (key == GLFW_KEY_W)
     {
         position = position.Add(GetForward());
     }
-    else if (key == 'a' || key == 'A')
+    else if (key == GLFW_KEY_A)
     {
         position = position.Add(GetRight());
     }
-    else if (key == 's' || key == 'S')
+    else if (key == GLFW_KEY_S)
     {
         position = position.Subtract(GetForward());
     }
-    else if (key == 'd' || key == 'D')
+    else if (key == GLFW_KEY_D)
     {
         position = position.Subtract(GetRight());
     }
-}
-
-void Camera::SpecialKeyPressed(int key, int x, int y)
-{
-
-    if (projectionType > 2 || projectionType < 0)
-    {
-        return;
-    }
 
     //  Right arrow key - increase angle by 5 degrees
-    if (key == GLUT_KEY_RIGHT)
+    if (key == GLFW_KEY_RIGHT)
         rotation.y += 5;
     //  Left arrow key - decrease angle by 5 degrees
-    else if (key == GLUT_KEY_LEFT)
+    else if (key == GLFW_KEY_LEFT)
         rotation.y -= 5;
     //  Up arrow key - increase elevation by 5 degrees
-    else if (key == GLUT_KEY_UP)
+    else if (key == GLFW_KEY_UP)
         rotation.x += 5;
     //  Down arrow key - decrease elevation by 5 degrees
-    else if (key == GLUT_KEY_DOWN)
+    else if (key == GLFW_KEY_DOWN)
         rotation.x -= 5;
     //  Keep angles to +/-360 degrees
     rotation.x = (int)rotation.x % 360;

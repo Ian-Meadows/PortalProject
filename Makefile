@@ -1,5 +1,5 @@
 CXX 		:= g++
-CXXFLAGS	:= -std=c++17 -Wall
+CXXFLAGS	:= -std=c++17 -Wall -DUSEGLEW
 LDFLAGS		:= -L/usr/lib -lm
 INCLUDES	:= -I./include -I /usr/local/include
 SRC_DIR		:= ./
@@ -11,7 +11,7 @@ TARGET		:= final
 SOURCES		:= $(wildcard $(SRC_DIR)/*.$(SRC_EXT)) $(wildcard $(SRC_DIR)/**/*.$(SRC_EXT))
 OBJECTS		:= $(SOURCES:%.$(SRC_EXT)=$(OBJ_DIR)/%.o)
 DEPS		:= $(OBJECTS:.o=.d)
-LIBS=-lglut -lGLU -lGL -lm
+LIBS=-lglfw3 -lglew32 -lglu32 -lopengl32 -lm
 
 
 

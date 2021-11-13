@@ -2,8 +2,8 @@
 #define OBJECT_H
 
 #include <iostream>
-#define GL_GLEXT_PROTOTYPES
-#include <GL/glut.h>
+
+#include "includes.h"
 #include <math.h>
 #include <vector>
 

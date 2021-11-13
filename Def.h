@@ -1,8 +1,8 @@
 #pragma once
 
+#include "includes.h"
+
 #include <iostream>
-#define GL_GLEXT_PROTOTYPES
-#include <GL/glut.h>
 #include <math.h>
 #include <vector>
 
