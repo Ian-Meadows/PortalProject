@@ -26,14 +26,14 @@ namespace Time{
     void Init(bool debug){
         deltaTime = 0;
         FPS = 0;
-        currentFrame = glfwGetTime() / 1000;
-        lastFrame = glfwGetTime() / 1000;
+        currentFrame = glfwGetTime();
+        lastFrame = glfwGetTime();
         Time::debug = debug;
     }
 
     void Update(){
         lastFrame = currentFrame;
-        currentFrame = glfwGetTime() / 1000;
+        currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
 
         currentTime += deltaTime;
