@@ -62,13 +62,13 @@ class Window{
 
 public:
 
-    Window(int argc, char *argv[], WindowInfo& info, void (*key)(GLFWwindow*,int,int,int,int));
+    Window(int argc, char *argv[], WindowInfo& info, void (*reshape)(GLFWwindow*,int,int), void (*key)(GLFWwindow*,int,int,int,int));
     ~Window();
 
     void Start();
 
     void Draw();
-    void Reshape(GLFWwindow* window, int width, int height);
+    void Reshape(int width, int height);
     void KeyInput(int key, int scancode, int action, int mods);
 
     static void ErrCheck(const char* where);
@@ -85,7 +85,7 @@ private:
 
     void ResetView();
 
-    GLFWwindow* InitWindow(const std::string title,int sync,int width,int height , void (Window::*reshape)(GLFWwindow*,int,int) , void (*key)(GLFWwindow*,int,int,int,int));
+    GLFWwindow* InitWindow(const std::string title,int sync,int width,int height , void (*reshape)(GLFWwindow*,int,int) , void (*key)(GLFWwindow*,int,int,int,int));
 
     double aspectRatio = 1;
     double worldDimension = 20.0;

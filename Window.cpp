@@ -1,8 +1,8 @@
 #include "Window.h"
 
-Window::Window(int argc, char *argv[], WindowInfo &info, void (*key)(GLFWwindow*,int,int,int,int))
+Window::Window(int argc, char *argv[], WindowInfo &info, void (*reshape)(GLFWwindow*,int,int), void (*key)(GLFWwindow*,int,int,int,int))
 {
-    window = InitWindow(info.name, 1,info.xSize, info.ySize, &Reshape, key); //1 enables vsync
+    window = InitWindow(info.name, 1,info.xSize, info.ySize, reshape, key); //1 enables vsync
     camera = new Camera();
 
     Time::Init(false);
@@ -60,7 +60,7 @@ void Window::Draw()
 
     glShadeModel(smoothShading ? GL_SMOOTH : GL_FLAT);
 
-    Reshape(window, width, height);
+    Reshape(width, height);
     Scene::Draw(camera);
 
     Scene::renderPortals(camera, 5);
@@ -70,9 +70,9 @@ void Window::Draw()
     glfwSwapBuffers(window);
 }
 
-void Window::Reshape(GLFWwindow* window, int w, int h)
+void Window::Reshape(int w, int h)
 {
-
+    glfwGetFramebufferSize(window, &w, &h);
     width = w;
     height = h;
     if (height > 0)
@@ -151,7 +151,7 @@ static void error(int error,const char* text)
     fprintf(stderr,"GLFW error %d: %s\n",error,text);
 }
 
-GLFWwindow* Window::InitWindow(const std::string title,int sync,int width,int height , void (Window::*reshape)(GLFWwindow*,int,int) , void (*key)(GLFWwindow*,int,int,int,int))
+GLFWwindow* Window::InitWindow(const std::string title,int sync,int width,int height , void (*reshape)(GLFWwindow*,int,int) , void (*key)(GLFWwindow*,int,int,int,int))
 {
    //  Initialize GLFW
    if (!glfwInit())

@@ -16,9 +16,16 @@ static void draw()
 
 void key(GLFWwindow* w, int key, int scancode, int action, int mods)
 {
-
+    //  Discard key releases (keeps PRESS and REPEAT)
+    if (action == GLFW_RELEASE)
+        return;
     window->KeyInput(key, scancode, action, mods);
     
+}
+
+void reshape(GLFWwindow* w, int width, int height)
+{
+    window->Reshape(width, height);
 }
 
 
@@ -30,7 +37,7 @@ int main(int argc, char *argv[])
 
     WindowInfo windowInfo(0, 0, 1280, 720, "Portal: Andrew Hack, Ian Meadows");
 
-    window = new Window(argc, argv, windowInfo, &key);
+    window = new Window(argc, argv, windowInfo, &reshape, &key);
 
     window->Start();
 
