@@ -9,11 +9,6 @@
 
 static Window *window;
 
-static void draw()
-{
-    window->Draw();
-}
-
 void key(GLFWwindow* w, int key, int scancode, int action, int mods)
 {
     //  Discard key releases (keeps PRESS and REPEAT)
