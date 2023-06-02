@@ -200,8 +200,8 @@ namespace Scene
         void InitScene(Camera *camera)
         {
 
-            shader = new Shader("Shaders/SceneShader.vert", "Shaders/SceneShader.frag");
-            portalShader = new Shader("Shaders/PortalShader.vert", "Shaders/PortalShader.frag");
+            shader = new Shader("resources/Shaders/SceneShader.vert", "resources/Shaders/SceneShader.frag");
+            portalShader = new Shader("resources/Shaders/PortalShader.vert", "resources/Shaders/PortalShader.frag");
 
             portalShader->use();
             portalShader->setFloat("sizeY", 0.85);
@@ -219,7 +219,7 @@ namespace Scene
             p2->setOtherPortal(p1);
 
             //read in the rest of the scene from file
-            SceneFileReader("SceneInfo.txt");
+            SceneFileReader("resources/Scenes/SceneInfo.txt");
 
             p1->setSurface(objects[2]);
             p2->setSurface(objects[3]);
@@ -267,7 +267,7 @@ namespace Scene
 
     void refreshScene()
     {
-        SceneFileReader("SceneInfo.txt");
+        SceneFileReader("resources/Scenes/SceneInfo.txt");
     }
 
     void Init(Camera *camera)

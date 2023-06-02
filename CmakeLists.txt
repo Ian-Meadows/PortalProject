@@ -1,0 +1,77 @@
+cmake_minimum_required(VERSION 3.25)
+project(portal)
+set( COMP_FLAGS -Wall -Wextra -DUSEGLEW)
+add_compile_options(${COMP_FLAGS})
+
+set(CXX_STANDARD c++20)
+
+#opengl
+find_package(OpenGL REQUIRED)
+
+#glew
+find_package(GLEW REQUIRED)
+
+find_package(GLU REQUIRED)
+
+find_package(glfw3 REQUIRED)
+
+set( HEADERS
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Graphics/Camera.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Graphics/Def.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Graphics/Print.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Graphics/Shader.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Graphics/TextureHandler.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Graphics/FrameTime.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Graphics/Window.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Graphics/includes.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Scene/Scene.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Scene/Lights/Light.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Scene/Lights/LightHandler.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Scene/Lights/MovingLight.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Scene/Objects/companion.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Scene/Objects/ComplexObject.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Scene/Objects/Dropper.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Scene/Objects/Floor.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Scene/Objects/Object.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Scene/Objects/Observe.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Scene/Objects/Portal.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Scene/Objects/SimpleObject.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Scene/Objects/Surface.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Scene/Objects/Wall.h
+)
+
+set( SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Graphics/Camera.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Graphics/Def.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Graphics/Print.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Graphics/Shader.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Graphics/TextureHandler.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Graphics/FrameTime.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Graphics/Window.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Scene/Scene.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Scene/Lights/Light.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Scene/Lights/LightHandler.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Scene/Lights/MovingLight.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Scene/Objects/companion.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Scene/Objects/ComplexObject.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Scene/Objects/Dropper.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Scene/Objects/Floor.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Scene/Objects/Object.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Scene/Objects/Observe.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Scene/Objects/Portal.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Scene/Objects/SimpleObject.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Scene/Objects/Surface.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Scene/Objects/Wall.cpp
+)
+
+add_executable( portal  ${HEADERS} ${SOURCES} )
+
+target_include_directories( portal PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Graphics
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Scene/Lights
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Scene
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/Scene/Objects
+)
+
+target_link_libraries( portal ${GLEW_LIBRARIES} ${GLU_LIBRARY} glfw ${OpenGL_LIBRARY})

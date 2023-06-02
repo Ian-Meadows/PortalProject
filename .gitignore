@@ -34,3 +34,6 @@
 #specifially block executable
 portal
 final
+
+# Build folder
+build/*

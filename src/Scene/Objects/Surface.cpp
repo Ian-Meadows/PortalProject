@@ -4,7 +4,7 @@ Surface::Surface(Vector3D pos, Vector3D scale, Vector3D rotation, std::vector<st
 {
     if (textures.size() == 0)
     {
-        textures.push_back("Images/crate.bmp");
+        textures.push_back("resources/Images/crate.bmp");
         hasAlphas.push_back(false);
     }
     LoadTextures(textures, hasAlphas, normalMap);

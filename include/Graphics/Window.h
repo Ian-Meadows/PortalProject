@@ -12,7 +12,7 @@
 #include <stdarg.h>
 #include <math.h>
 
-#include "Time.h"
+#include "FrameTime.h"
 #include "Scene.h"
 #include "Camera.h"
 

@@ -2,7 +2,7 @@
 
 ComplexObject::ComplexObject(Vector3D pos, Vector3D scale, Vector3D rotation) :
  Object(pos, scale, rotation){
-     std::vector<std::string> texture = {"Images/CrystalImage.bmp"};
+     std::vector<std::string> texture = {"resources/Images/CrystalImage.bmp"};
      std::vector<bool> hasAlpha = {true};
         LoadTextures(texture, hasAlpha, "");
 }
