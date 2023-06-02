@@ -4,7 +4,7 @@
 #include "includes.h"
 
 #include "Window.h"
-#include "Time.h"
+#include "FrameTime.h"
 #include "LightHandler.h"
 
 static Window *window;
