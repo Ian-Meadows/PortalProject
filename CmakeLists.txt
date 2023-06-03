@@ -5,15 +5,12 @@ add_compile_options(${COMP_FLAGS})
 
 set(CXX_STANDARD c++20)
 
-#opengl
+# Required OpenGL Packages
 find_package(OpenGL REQUIRED)
-
-#glew
 find_package(GLEW REQUIRED)
-
 find_package(GLU REQUIRED)
-
 find_package(glfw3 REQUIRED)
+find_package(glm REQUIRED)
 
 set( HEADERS
     ${CMAKE_CURRENT_SOURCE_DIR}/include/Graphics/Camera.h
@@ -74,4 +71,4 @@ target_include_directories( portal PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/include/Scene/Objects
 )
 
-target_link_libraries( portal ${GLEW_LIBRARIES} ${GLU_LIBRARY} glfw ${OpenGL_LIBRARY})
+target_link_libraries( portal ${GLEW_LIBRARIES} ${GLU_LIBRARY} glfw ${OpenGL_LIBRARY} glm)
