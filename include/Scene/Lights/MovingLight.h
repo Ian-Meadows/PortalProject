@@ -10,8 +10,8 @@ public:
     ~MovingLight();
 
 protected:
-    void DrawShape();
-    void ChangePosition(int zh);
+    void DrawShape() override;
+    void ChangePosition(int zh) override;
 
 
 private:

@@ -87,7 +87,6 @@ protected:
     void SetPosition(Vector3D position);
 
 private:
-    //void DrawShape();
 
     void Vertex(double th, double ph);
 

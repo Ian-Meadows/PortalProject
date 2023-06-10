@@ -22,7 +22,7 @@ public:
     ~Portal();
 
 private:
-    void DrawShape();
+    void DrawShape() override;
 
     Object* surface;
     Camera* cam;

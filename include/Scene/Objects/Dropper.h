@@ -21,7 +21,7 @@ public:
     void gate(GLint angleChange, GLdouble radius);
     void rods(GLint count);
 
-    void DrawShape();
+    void DrawShape() override;
     
 };
 #endif

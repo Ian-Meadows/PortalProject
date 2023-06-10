@@ -9,7 +9,7 @@ public:
     ~ComplexObject();
     
 private:
-    void DrawShape();
+    void DrawShape() override;
 
     void GenerateNormals(float* array, int size, const unsigned char index[]);
     void GenerateAAndB(int i, const unsigned char index[], Vector3D& A, Vector3D& B);

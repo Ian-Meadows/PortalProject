@@ -11,5 +11,5 @@ public:
     void cylinder(GLint angleChange, GLdouble radius, GLdouble height);
     void cam(GLint angleChange, GLdouble radius, GLdouble height);
 
-    void DrawShape();
+    void DrawShape() override;
 };
