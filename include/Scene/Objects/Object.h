@@ -163,7 +163,7 @@ class Object
 public:
     Object(Vector3D pos, Vector3D scale, Vector3D rotation);
     virtual ~Object();
-    virtual void Draw(Shader* shader) final;
+    void Draw(Shader* shader);
 
 protected:
     Vector3D position;
@@ -174,14 +174,14 @@ protected:
     Vector3D getScale();
     Vector3D getRotation();
 
-    virtual void UpdateRotation(Vector3D rotation) final;
+    void UpdateRotation(Vector3D rotation);
 
     virtual void DrawShape();
 
-    virtual void LoadTextures(std::vector<std::string> textureFiles, std::vector<bool> hasAlpha, std::string normalMap) final;
+    void LoadTextures(std::vector<std::string> textureFiles, std::vector<bool> hasAlpha, std::string normalMap);
 
     //fixes rotation to be between 0 and 360
-    virtual void FixRotation() final;
+    void FixRotation();
 
     unsigned int *textures = nullptr;
 
