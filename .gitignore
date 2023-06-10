@@ -37,3 +37,6 @@ final
 
 # Build folder
 build/*
+
+# vscode metadata folder
+.vscode/*
