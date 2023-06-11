@@ -3,7 +3,6 @@
 Window::Window( [[maybe_unused]] int argc, [[maybe_unused]] char *argv[], WindowInfo &info, void (*reshape)(GLFWwindow*,int,int), void (*key)(GLFWwindow*,int,int,int,int))
 {
     window = InitWindow(info.name, 1,info.xSize, info.ySize, reshape, key); //1 enables vsync
-    camera = new Camera();
 
     Time::Init(false);
 
@@ -61,7 +60,6 @@ void Window::Draw()
 
     glShadeModel(smoothShading ? GL_SMOOTH : GL_FLAT);
 
-    Reshape(width, height);
     Scene::Draw(camera);
 
     Scene::renderPortals(camera, 5);
@@ -73,7 +71,6 @@ void Window::Draw()
 
 void Window::Reshape(int w, int h)
 {
-    glfwGetFramebufferSize(window, &w, &h);
     width = w;
     height = h;
     if (height > 0)
@@ -153,6 +150,8 @@ static void error(int error,const char* text)
 
 GLFWwindow* Window::InitWindow(const std::string title,int sync,int width,int height , void (*reshape)(GLFWwindow*,int,int) , void (*key)(GLFWwindow*,int,int,int,int))
 {
+   // Initialized the camera first
+   camera = new Camera();
    //  Initialize GLFW
    if (!glfwInit())
    {
@@ -200,15 +199,13 @@ GLFWwindow* Window::InitWindow(const std::string title,int sync,int width,int he
 
    //TODO: figure out the resize shenanigans
    //  Set callback for window resize and make initial call
-   /*
    if (reshape)
    {
       glfwSetWindowSizeCallback(window,reshape);
       //  Set initial window size and call reshape
       glfwGetWindowSize(window,&width,&height);
-      reshape(window,width,height);
+      Reshape(width,height);
    }
-   */
 
    //  Set callback for keyboard input
    if (key) glfwSetKeyCallback(window,key);
