@@ -176,7 +176,7 @@ protected:
 
     void UpdateRotation(Vector3D rotation);
 
-    virtual void DrawShape();
+    virtual void DrawShape() = 0;
 
     void LoadTextures(std::vector<std::string> textureFiles, std::vector<bool> hasAlpha, std::string normalMap);
 
