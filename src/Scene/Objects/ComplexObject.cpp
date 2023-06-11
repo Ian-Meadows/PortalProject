@@ -18,7 +18,7 @@ Vector3D GenerateNormal(Vector3D p1, Vector3D p2, Vector3D p3){
     return normal;
 }
 
-void ComplexObject::DrawTriangle(int i, Vector3D color){
+void ComplexObject::DrawTriangle(int i){
     
 
     Vector3D p1 = Vector3D(xyz[index[(i * 3)]*3], xyz[index[(i * 3)]*3 + 1], xyz[index[(i * 3)]*3 + 2]);
@@ -43,7 +43,7 @@ void ComplexObject::DrawShape(){
     glColor4f(1, 1, 1, 0.7);
     for(int i = 0; i < 16; ++i){
         
-        DrawTriangle(i, Vector3D(0.75, 0, 1));
+        DrawTriangle(i);
         
     }
     glEnd();

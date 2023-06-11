@@ -10,7 +10,7 @@ public:
     ~SimpleObject();
     
 private:
-    void DrawShape();
+    void DrawShape() override;
 
 };
 

@@ -59,11 +59,6 @@ void Object::Draw(Shader* shader){
     glPopMatrix();
 }
 
-void Object::DrawShape(){
-
-}
-
-
     Vector3D Object::getPosition()
     {
         return position;

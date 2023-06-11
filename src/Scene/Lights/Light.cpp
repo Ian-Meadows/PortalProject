@@ -60,7 +60,7 @@ void Light::DrawShape(){
     
 }
 
-void Light::ChangePosition(int zh)
+void Light::ChangePosition(int)
 {
 
 }

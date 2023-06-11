@@ -75,7 +75,7 @@ public:
 
     
 
-    virtual void Draw(Vector3D ambientLight, Shader* shader) final;
+    void Draw(Vector3D ambientLight, Shader* shader);
 
 
     Vector3D GetPosition()const {return li.position; }
@@ -84,10 +84,9 @@ protected:
     virtual void DrawShape();
     virtual void ChangePosition(int zh);
 
-    virtual void SetPosition(Vector3D position) final;
+    void SetPosition(Vector3D position);
 
 private:
-    //void DrawShape();
 
     void Vertex(double th, double ph);
 

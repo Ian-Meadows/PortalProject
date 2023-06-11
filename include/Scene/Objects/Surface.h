@@ -10,6 +10,6 @@ public:
     
 
 private:
-    void DrawShape();
+    void DrawShape() override;
     bool FileExists(std::string path);
 };

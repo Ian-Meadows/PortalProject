@@ -18,10 +18,10 @@ public:
     void cylinder(GLint angleChange, GLdouble radius, GLdouble height);
     void bottomring(GLint angleChange, GLdouble innerradius, GLdouble outerradius);
     void topring(GLint angleChange, GLdouble innerradius, GLdouble outerradius);
-    void gate(GLint angleChange, GLdouble radius);
+    void gate(GLint angleChange);
     void rods(GLint count);
 
-    void DrawShape();
+    void DrawShape() override;
     
 };
 #endif
