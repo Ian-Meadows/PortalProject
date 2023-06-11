@@ -15,7 +15,7 @@ private:
     void GenerateAAndB(int i, const unsigned char index[], Vector3D& A, Vector3D& B);
 
 
-    void DrawTriangle(int i, Vector3D color);
+    void DrawTriangle(int i);
 
     const int N=48;
 

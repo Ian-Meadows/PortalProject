@@ -9,7 +9,7 @@
 
 static Window *window;
 
-void key(GLFWwindow* w, int key, int scancode, int action, int mods)
+void key(GLFWwindow* , int key, int scancode, int action, int mods)
 {
     //  Discard key releases (keeps PRESS and REPEAT)
     if (action == GLFW_RELEASE)
@@ -18,7 +18,7 @@ void key(GLFWwindow* w, int key, int scancode, int action, int mods)
     
 }
 
-void reshape(GLFWwindow* w, int width, int height)
+void reshape(GLFWwindow* , int width, int height)
 {
     window->Reshape(width, height);
 }

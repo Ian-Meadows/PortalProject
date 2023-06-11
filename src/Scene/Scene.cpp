@@ -110,7 +110,7 @@ namespace Scene
             Vector3D rot;
             Vector3D scale(1, 1, 1);
             std::string texturePath = settings[4];
-            bool hasAlpha;
+            bool hasAlpha{false};
             std::string normalMapPath = settings[6];
 
             //position

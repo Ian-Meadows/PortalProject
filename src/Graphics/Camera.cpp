@@ -66,7 +66,7 @@ void Camera::Draw()
     }
 }
 
-void Camera::KeyPressed(int key, int scancode, int action, int  mods)
+void Camera::KeyPressed(int key, [[maybe_unused]] int scancode, [[maybe_unused]] int action, int  mods)
 {
     if (key == GLFW_KEY_P && mods == GLFW_MOD_SHIFT)
     {

@@ -187,7 +187,7 @@ void Dropper::topring(GLint angleChange, GLdouble innerradius, GLdouble outerrad
     glPopMatrix();
 }
 
-void Dropper::gate(GLint angleChange, GLdouble radius)
+void Dropper::gate(GLint angleChange)
 {
     GLdouble lev = -0.85;
     glBindTexture(GL_TEXTURE_2D, textures[2]);
@@ -271,7 +271,7 @@ void Dropper::DrawShape()
 
     bottomring(5, 0.7, 1);
     topring(5, 0.7, 1);
-    gate(20, 0.8);
+    gate(20);
     rods(6);
     cylinder(5, 0.7, 1);
 

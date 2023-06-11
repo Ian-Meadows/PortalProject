@@ -1,6 +1,6 @@
 #include "Window.h"
 
-Window::Window(int argc, char *argv[], WindowInfo &info, void (*reshape)(GLFWwindow*,int,int), void (*key)(GLFWwindow*,int,int,int,int))
+Window::Window( [[maybe_unused]] int argc, [[maybe_unused]] char *argv[], WindowInfo &info, void (*reshape)(GLFWwindow*,int,int), void (*key)(GLFWwindow*,int,int,int,int))
 {
     window = InitWindow(info.name, 1,info.xSize, info.ySize, reshape, key); //1 enables vsync
     camera = new Camera();
@@ -92,7 +92,7 @@ void Window::Reshape(int w, int h)
     }
 }
 
-void Window::KeyInput(int key, int scancode, int action, int  mods)
+void Window::KeyInput(int key, [[maybe_unused]] int scancode, [[maybe_unused]] int action, int  mods)
 {
     if (key == GLFW_KEY_0)
     {
